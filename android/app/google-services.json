@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "53454204778",
+    "project_id": "consorcio-d9a72",
+    "storage_bucket": "consorcio-d9a72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53454204778:android:d4d0160e7e6992009f3f13",
+        "android_client_info": {
+          "package_name": "br.unitins.pub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53454204778-4qdru3fvi5s1sfgvl87h1udienk99nd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx5DslY3sSt2fQpMKzLwcT_ekz9r_R8xM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53454204778-4qdru3fvi5s1sfgvl87h1udienk99nd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

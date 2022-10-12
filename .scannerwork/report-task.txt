@@ -1,0 +1,6 @@
+projectKey=app_front_flutter
+serverUrl=http://localhost:9000
+serverVersion=9.3.0.51899
+dashboardUrl=http://localhost:9000/dashboard?id=app_front_flutter
+ceTaskId=AYD-KYYFnCf1x5ASG2ji
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYD-KYYFnCf1x5ASG2ji
