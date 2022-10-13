@@ -1,4 +1,4 @@
-import 'package:pub/app/room/models/bloc_events.dart';
+import 'package:pub/app/room/blocs/bloc_events.dart';
 
 class Data {
   late BlocEventType type;

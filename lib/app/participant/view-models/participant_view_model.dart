@@ -4,7 +4,7 @@ import 'package:pub/app/participant/models/participant.dart';
 import 'package:pub/app/user/models/user.dart';
 
 import '../../room/blocs/room_bloc.dart';
-import '../../room/models/bloc_events.dart';
+import '../../room/blocs/bloc_events.dart';
 import '../../room/models/data/message_data.dart';
 
 abstract class IParticipantViewModel {

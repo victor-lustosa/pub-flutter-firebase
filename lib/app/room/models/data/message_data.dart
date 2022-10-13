@@ -1,7 +1,7 @@
 import '../../../user/models/user.dart';
 import '../data/data.dart';
 
-import '../bloc_events.dart';
+import '../../blocs/bloc_events.dart';
 
 class MessageData extends Data{
   late String _idMessage;

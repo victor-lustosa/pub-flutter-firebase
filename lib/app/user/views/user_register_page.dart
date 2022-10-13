@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pub/app/core/configs/app_colors.dart';
 
-import 'package:pub/app/user/view_models/user_view_model.dart';
+import 'package:pub/app/user/view-models/user_view_model.dart';
 import 'package:pub/app/core/components/form_field_widget.dart';
 
 import 'package:google_fonts/google_fonts.dart';

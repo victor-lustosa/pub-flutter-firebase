@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../user/models/user.dart';
-import '../../user/view_models/user_view_model.dart';
+import '../../user/view-models/user_view_model.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/configs/app_colors.dart';
 // import '../../repositories/establishment_repository_dto.dart';
-// import '../../view_models/establishment_view_model.dart';
+// import '../../view-models/establishment_view_model.dart';
 
 class EstablishmentPageTwoWidget extends StatelessWidget {
   EstablishmentPageTwoWidget();
@@ -35,12 +35,12 @@ class EstablishmentPageTwoWidget extends StatelessWidget {
 // import '../../../../core/configs/app_colors.dart';
 // import '../../../../core/configs/app_images.dart';
 // import '../../../../core/configs/app_routes.dart';
-// import '../../../../core/room_bloc/room_bloc.dart';
+// import '../../../../core/room_bloc/stablishment_bloc.dart';
 // import '../../../participant/models/dto/participant_dto.dart';
-// import '../../../participant/view_models/participant_view_model.dart';
-// import '../../../room/view_models/room_view_model.dart';
+// import '../../../participant/view-models/participant_view_model.dart';
+// import '../../../room/view-models/room_view_model.dart';
 // // import '../../repositories/establishment_repository_dto.dart';
-// // import '../../view_models/establishment_view_model.dart';
+// // import '../../view-models/establishment_view_model.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:google_fonts/google_fonts.dart';
 //

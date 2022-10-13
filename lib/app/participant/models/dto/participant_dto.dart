@@ -1,6 +1,6 @@
 import 'package:pub/app/room/blocs/room_bloc.dart';
 
-import '../../view_models/participant_view_model.dart';
+import '../../view-models/participant_view_model.dart';
 
 class ParticipantDTO {
   RoomBloc _bloc;

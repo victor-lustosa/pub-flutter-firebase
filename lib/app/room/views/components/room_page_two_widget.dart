@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/configs/app_colors.dart';
 import '../../../core/configs/app_images.dart';
 import '../../../room/blocs/room_bloc.dart';
-import '../../../participant/view_models/participant_view_model.dart';
-import '../../view_models/room_view_model.dart';
+import '../../../participant/view-models/participant_view_model.dart';
+import '../../view-models/room_view_model.dart';
 
 class RoomPageTwoWidget extends StatefulWidget {
   final RoomViewModel roomViewModel;

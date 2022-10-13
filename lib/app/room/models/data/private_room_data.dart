@@ -1,4 +1,4 @@
-import '../bloc_events.dart';
+import '../../blocs/bloc_events.dart';
 import '../data/data.dart';
 
 class PrivateRoomData extends Data{

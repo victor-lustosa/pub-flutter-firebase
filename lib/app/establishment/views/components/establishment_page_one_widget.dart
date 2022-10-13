@@ -2,23 +2,27 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pub/app/participant/view_models/participant_view_model.dart';
+import 'package:pub/app/establishment/blocs/establishment_bloc.dart';
+import 'package:pub/app/establishment/view-models/establishment_view_model.dart';
+import 'package:pub/app/participant/view-models/participant_view_model.dart';
 
 import '../../../core/configs/app_colors.dart';
 import '../../../core/configs/app_images.dart';
 import '../../../core/configs/app_routes.dart';
-import '../../../room/blocs/room_bloc.dart';
+
 import '../../../room/models/dto/room_dto.dart';
-import '../../../room/view_models/room_view_model.dart';
+import '../../../room/view-models/room_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EstablishmentPageOneWidget extends StatefulWidget {
-  EstablishmentPageOneWidget(
-      this.roomViewModel, this.participantViewModel, this.bloc);
-  final RoomBloc bloc;
-  final RoomViewModel roomViewModel;
-  final ParticipantViewModel participantViewModel;
+import '../../domain/use-cases/get_establishments.dart';
 
+class EstablishmentPageOneWidget extends StatefulWidget {
+ /* EstablishmentPageOneWidget(
+      this._establishmentViewModel, this.participantViewModel, this.bloc);
+  final EstablishmentBloc bloc;
+  final EstablishmentViewModel _establishmentViewModel;
+  final ParticipantViewModel participantViewModel;*/
+  EstablishmentPageOneWidget();
   @override
   State<EstablishmentPageOneWidget> createState() =>
       _EstablishmentPageOneWidgetState();
@@ -26,20 +30,28 @@ class EstablishmentPageOneWidget extends StatefulWidget {
 
 class _EstablishmentPageOneWidgetState
     extends State<EstablishmentPageOneWidget> {
+
+  late final EstablishmentBloc bloc;
+  late final RoomViewModel _roomViewModel;
+  late final EstablishmentViewModel _establishmentViewModel;
+  late final ParticipantViewModel participantViewModel;
   late StreamSubscription mSub;
   @override
   initState() {
-    mSub = widget.bloc.stream.listen((state) {
+
+   // final IGetEstablishments _getEstablishments = GetEstablishments();
+    //bloc = EstablishmentBloc(getEstablishmentsUseCase: null);
+    /*mSub = bloc.stream.listen((state) {
       if (state is LeavePublicRoomMessageState) this.mSub.cancel();
-    });
+    });*/
     super.initState();
   }
 
   @override
   didChangeDependencies() {
-    mSub = widget.bloc.stream.listen((state) {
+    /* mSub = bloc.stream.listen((state) {
       if (state is LeavePublicRoomMessageState) this.mSub.cancel();
-    });
+    });*/
     super.didChangeDependencies();
   }
 
@@ -59,15 +71,13 @@ class _EstablishmentPageOneWidgetState
               borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(10.0),
                   topRight: const Radius.circular(10.0))),
-          child: BlocBuilder<RoomBloc, RoomState>(
-              bloc: widget.bloc,
+          child: BlocBuilder<EstablishmentBloc, EstablishmentState>(
+              bloc: bloc,
               buildWhen: (context, current) =>
                   context.runtimeType != current.runtimeType &&
-                  (current is InitialState ||
+                  (
                       current is SuccessRoomsState ||
-                      current is DisconnectState ||
-                      current is EnterPublicRoomMessageState ||
-                      current is LeavePublicRoomMessageState),
+                      current is LoadingRoomsState ),
               builder: (context, state) {
                 if (state is InitialState) {
                   return Stack(
@@ -83,24 +93,24 @@ class _EstablishmentPageOneWidgetState
                                           AppColors.darkBrown))))
                         ])
                       ]);
-                } else if (state is SuccessRoomsState ||
-                    state is EnterPublicRoomMessageState ||
-                    state is DisconnectState ||
-                    state is LeavePublicRoomMessageState) {
+                } else if (state is LoadingRoomsState ) {
+                  return Container(child:Center(child:CircularProgressIndicator()));
+                }
+                else if (state is SuccessRoomsState ) {
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
                       onRefresh: () async {
-                        widget.bloc.add(LoadingRoomsEvent());
+                        bloc.add(GetEstablishmentsEvent());
                       },
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: this.widget.roomViewModel.getRooms.length,
+                          itemCount: this._establishmentViewModel.getRooms.length,
                           itemBuilder: (context, index) {
                             return Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
                                 child: AnimatedBuilder(
-                                    animation: this.widget.roomViewModel,
+                                    animation: this._roomViewModel,
                                     builder: (context, child) {
                                       return ListTile(
                                           leading: Padding(
@@ -111,27 +121,16 @@ class _EstablishmentPageOneWidgetState
                                                   height: 40,
                                                   decoration: BoxDecoration(
                                                       color: AppColors.white,
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              const Radius.circular(
-                                                                  5.0)),
+                                                      borderRadius: BorderRadius.all(const Radius.circular(5.0)),
                                                       boxShadow: [
                                                         BoxShadow(
-                                                            color: Colors.grey
-                                                                .withOpacity(
-                                                                    0.15),
+                                                            color: Colors.grey.withOpacity(0.15),
                                                             spreadRadius: 1,
                                                             blurRadius: 3,
-                                                            offset:
-                                                                Offset(1, 3)),
+                                                            offset: Offset(1, 3)),
                                                       ]),
-                                                  child: this
-                                                          .widget
-                                                          .roomViewModel
-                                                          .isAcceptedLocation(this
-                                                              .widget
-                                                              .roomViewModel
-                                                              .getRooms[index])
+                                                  child: this._establishmentViewModel.isAcceptedLocation(
+                                                      this._establishmentViewModel.getRooms[index])
                                                       ? Image.asset(
                                                           AppImages.lightLogo,
                                                           width: 20,
@@ -142,86 +141,52 @@ class _EstablishmentPageOneWidgetState
                                                           height: 20))),
                                           title: Padding(
                                               padding: EdgeInsets.only(bottom: 10),
-                                              child: this.widget.roomViewModel.isAcceptedLocation(this.widget.roomViewModel.getRooms[index])
-                                                  ? Text(this.widget.roomViewModel.getRooms[index].getRoomName,
+                                              child: this._establishmentViewModel.isAcceptedLocation(
+                                                  this._establishmentViewModel.getRooms[index])
+                                                  ? Text(this._establishmentViewModel.getRooms[index].getRoomName,
                                                       style: GoogleFonts.inter(
                                                         color: AppColors.brown,
                                                         fontSize: 18,
                                                       ))
-                                                  : Text(this.widget.roomViewModel.getRooms[index].getRoomName,
+                                                  : Text(this._establishmentViewModel.getRooms[index].getRoomName,
                                                       style: GoogleFonts.inter(
                                                         color: Colors.grey,
                                                         fontSize: 18,
                                                       ))),
                                           subtitle: Row(
                                             children: [
-                                              this
-                                                          .widget
-                                                          .roomViewModel
-                                                          .getRooms[index]
-                                                          .getParticipants
-                                                          .length ==
-                                                      1
-                                                  ? Text(
-                                                      '${this.widget.roomViewModel.getRooms[index].getParticipants.length} pessoa',
+                                              this._establishmentViewModel.getRooms[index].getParticipants.length == 1
+                                                  ? Text('${this._establishmentViewModel.getRooms[index].getParticipants.length} pessoa',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
-                                                          color:
-                                                              Colors.black45))
-                                                  : Text(
-                                                      '${this.widget.roomViewModel.getRooms[index].getParticipants.length} pessoas',
+                                                          color: Colors.black45))
+                                                  : Text('${this._establishmentViewModel.getRooms[index].getParticipants.length} pessoas',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
-                                                          color:
-                                                              Colors.black45)),
+                                                          color: Colors.black45)),
                                               Padding(
                                                   padding:
                                                       EdgeInsets.only(left: 40),
-                                                  child: Text(
-                                                      '${(this.widget.roomViewModel.getRooms[index].getDistance).toStringAsFixed(2)} km de distância',
+                                                  child: Text('${(this._establishmentViewModel.getRooms[index].getDistance).toStringAsFixed(2)} km de distância',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
-                                                          color:
-                                                              Colors.black45)))
+                                                          color: Colors.black45)))
                                             ],
                                           ),
                                           onTap: () {
-                                            if (this
-                                                .widget
-                                                .roomViewModel
-                                                .isAcceptedLocation(this
-                                                    .widget
-                                                    .roomViewModel
-                                                    .getRooms[index])) {
-                                              bool isUserExist = widget
-                                                  .roomViewModel
-                                                  .verifyNameUser(this
-                                                      .widget
-                                                      .roomViewModel
-                                                      .getRooms[index]);
+                                            if (this._establishmentViewModel.isAcceptedLocation(this._establishmentViewModel.getRooms[index])) {
+                                              bool isUserExist = _establishmentViewModel.verifyNameUser(this._establishmentViewModel.getRooms[index]);
                                               if (!isUserExist) {
-                                                this
-                                                    .widget
-                                                    .roomViewModel
-                                                    .setRoom(this
-                                                        .widget
-                                                        .roomViewModel
-                                                        .getRooms[index]);
-                                                Navigator.pushNamed(context,
+                                               // this._establishmentViewModel.setRoom(this._establishmentViewModel.getRooms[index]);
+                                                /*Navigator.pushNamed(context,
                                                     AppRoutes.publicRoomRoute,
                                                     arguments: RoomDTO(
-                                                        bloc: widget.bloc,
-                                                        roomViewModel: this
-                                                            .widget
-                                                            .roomViewModel,
-                                                        participantViewModel: this
-                                                            .widget
-                                                            .participantViewModel));
+                                                        bloc: bloc,
+                                                        roomViewModel: this._establishmentViewModel,
+                                                        participantViewModel: this.participantViewModel));*/
                                               } else {
                                                 ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                        content: Text(
-                                                            'Seu nickname já existe na sala, altere-o para entrar')));
+                                                    .showSnackBar(const SnackBar(content: Text('Seu nickname já existe na sala, altere-o para entrar')));
                                               }
                                             }
                                           });

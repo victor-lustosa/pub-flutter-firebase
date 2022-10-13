@@ -1,4 +1,4 @@
-part of 'room_bloc.dart';
+part of '../blocs/room_bloc.dart';
 
 @immutable
 abstract class RoomEvent {}
@@ -9,10 +9,6 @@ class InitialEvent extends RoomEvent{
 class InitialRoomEvent extends RoomEvent{
   InitialRoomEvent();
 }
-class LoadingRoomsEvent extends RoomEvent{
-  LoadingRoomsEvent();
-}
-
 class DisconnectEvent extends RoomEvent{
   DisconnectEvent();
 }

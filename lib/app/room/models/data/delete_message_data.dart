@@ -1,7 +1,7 @@
 
 
 import '../data/data.dart';
-import '../bloc_events.dart';
+import '../../blocs/bloc_events.dart';
 
 class DeleteMessageData extends Data{
 

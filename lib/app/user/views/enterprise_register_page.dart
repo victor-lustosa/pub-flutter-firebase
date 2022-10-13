@@ -3,7 +3,7 @@
 // import 'package:pub/app/pages/user/models/user.dart';
 // import 'package:pub/app/pages/establishment/views/establishment_page.dart';
 // import 'components/enterprise_register_bar_widget.dart';
-// import 'package:pub/app/pages/user/view_models/user_view_model.dart';
+// import 'package:pub/app/pages/user/view-models/user_view_model.dart';
 // import 'package:pub/app/core/components/form_field_widget.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:pub/app/core/components/dropdown_widget.dart';

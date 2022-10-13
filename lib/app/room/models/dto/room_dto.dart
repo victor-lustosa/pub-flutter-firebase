@@ -1,7 +1,7 @@
 import 'package:pub/app/room/blocs/room_bloc.dart';
-import 'package:pub/app/room/view_models/room_view_model.dart';
+import 'package:pub/app/room/view-models/room_view_model.dart';
 
-import '../../../participant/view_models/participant_view_model.dart';
+import '../../../participant/view-models/participant_view_model.dart';
 
 class RoomDTO {
   RoomBloc _bloc;

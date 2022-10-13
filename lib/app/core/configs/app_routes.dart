@@ -16,14 +16,15 @@ const urlServer = 'https://powerful-bayou-46345.herokuapp.com';
 class AppRoutes {
   static const String initialRoute = "/";
   static const String homeRoute = "/home";
-  static const String userRegisterRoute = "/user_register";
-  static const String editUserRoute = "/edit_user";
-  static const String enterpriseRegisterRoute = "/enterprise_register";
+  static const String userRegisterRoute = "/user-register";
+  static const String editUserRoute = "/edit-user";
+  static const String enterpriseRegisterRoute = "/enterprise-register";
   static const String establishmentRoute = "/establishments";
-  static const String publicRoomRoute = "/public_room";
-  static const String privateRoomRoute = "/private_room";
+  static const String publicRoomRoute = "/public-room";
+  static const String privateRoomRoute = "/private-room";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
+
     final arguments = routeSettings.arguments;
 
     switch (routeSettings.name) {
@@ -63,9 +64,8 @@ class AppRoutes {
                 participantDTO.getParticipantViewModel));
 
       default:
-        _unknownRoute();
+        return  _unknownRoute();
     }
-    return null;
   }
 
   static Route<dynamic> _unknownRoute() {

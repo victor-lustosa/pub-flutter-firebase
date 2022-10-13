@@ -1,4 +1,4 @@
-part of 'room_bloc.dart';
+part of '../blocs/room_bloc.dart';
 
 abstract class RoomState <T> {
   RoomState(this.message, this.roomViewModel);
@@ -11,14 +11,7 @@ class InitialState extends RoomState{
 class InitialRoomState extends RoomState{
   InitialRoomState() : super(null, null);
 }
-class LoadingRoomsState extends RoomState{
-  LoadingRoomsState() : super(null, null);
-}
-class SuccessRoomsState extends RoomState{
-  SuccessRoomsState({required RoomsData message,required RoomViewModel roomViewModel}) : super(message, roomViewModel){
-    roomViewModel.fetchedRooms(message);
-  }
-}
+
 class DontBuildState extends RoomState{
   DontBuildState() : super(null, null);
 }

@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pub/app/room/blocs/room_bloc.dart';
-import 'package:pub/app/participant/view_models/participant_view_model.dart';
+import 'package:pub/app/participant/view-models/participant_view_model.dart';
 import 'package:pub/app/room/views/components/room_page_one_widget.dart';
 import '../../core/configs/app_colors.dart';
-import '../view_models/room_view_model.dart';
+import '../view-models/room_view_model.dart';
 import 'components/room_bar_widget.dart';
 import 'components/room_page_two_widget.dart';
 import 'components/room_tab_bar_sliver_widget.dart';
