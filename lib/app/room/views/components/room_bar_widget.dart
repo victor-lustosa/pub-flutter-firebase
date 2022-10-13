@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pub/app/core/configs/app_colors.dart';
+import '../../../shared/configs/app_colors.dart';
 
 import '../../../room/blocs/room_bloc.dart';
 import '../../view-models/room_view_model.dart';

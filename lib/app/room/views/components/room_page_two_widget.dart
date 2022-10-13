@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/configs/app_colors.dart';
-import '../../../core/configs/app_images.dart';
+import '../../../shared/configs/app_colors.dart';
+import '../../../shared/configs/app_images.dart';
 import '../../../room/blocs/room_bloc.dart';
 import '../../../participant/view-models/participant_view_model.dart';
 import '../../view-models/room_view_model.dart';

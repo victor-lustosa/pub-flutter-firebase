@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/configs/app_colors.dart';
+import '../../../shared/configs/app_colors.dart';
 
 class RoomTabBarSliverWidget extends PreferredSize {
   final TabController tabController;

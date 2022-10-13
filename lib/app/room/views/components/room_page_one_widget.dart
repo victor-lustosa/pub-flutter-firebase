@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pub/app/room/view-models/room_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/configs/app_colors.dart';
+import '../../../shared/configs/app_colors.dart';
 import '../../../room/blocs/room_bloc.dart';
 import '../../blocs/bloc_events.dart';
 

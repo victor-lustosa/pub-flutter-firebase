@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pub/app/establishment/domain/dtos/establishment_entity.dart';
 import 'package:pub/app/user/models/user.dart';
-import '../../core/configs/app_routes.dart';
+import '../../shared/configs/app_routes.dart';
 import '../../room/blocs/room_bloc.dart';
 import '../../establishment/models/dto/establishment_dto.dart';
 import 'package:url_launcher/url_launcher.dart';

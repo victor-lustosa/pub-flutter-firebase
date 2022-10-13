@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:pub/app/user/models/user.dart';
+import '../../user/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../core/configs/app_routes.dart';
+import '../../shared/configs/app_routes.dart';
 import '../../establishment/models/dto/establishment_dto.dart';
 
 abstract class IUserViewModel {

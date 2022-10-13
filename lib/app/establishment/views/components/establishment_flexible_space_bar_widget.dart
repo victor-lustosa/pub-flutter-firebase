@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/configs/app_colors.dart';
-import '../../../core/configs/app_images.dart';
-import '../../../core/configs/app_routes.dart';
+import '../../../shared/configs/app_colors.dart';
+import '../../../shared/configs/app_images.dart';
+import '../../../shared/configs/app_routes.dart';
 import '../../../user/models/user.dart';
 
 class EstablishmentFlexibleSpaceBarWidget extends StatelessWidget {

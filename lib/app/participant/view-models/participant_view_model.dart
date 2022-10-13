@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pub/app/core/configs/app_colors.dart';
-import 'package:pub/app/participant/models/participant.dart';
-import 'package:pub/app/user/models/user.dart';
+import '../../shared/configs/app_colors.dart';
+import '../../participant/models/participant.dart';
+import '../../user/models/user.dart';
 
 import '../../room/blocs/room_bloc.dart';
 import '../../room/blocs/bloc_events.dart';

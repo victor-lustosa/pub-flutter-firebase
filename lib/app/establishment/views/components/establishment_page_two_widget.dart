@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/configs/app_colors.dart';
+import '../../../shared/configs/app_colors.dart';
 // import '../../repositories/establishment_repository_dto.dart';
 // import '../../view-models/establishment_view_model.dart';
 
@@ -32,10 +32,10 @@ class EstablishmentPageTwoWidget extends StatelessWidget {
 }
 // import 'package:flutter/material.dart';
 //
-// import '../../../../core/configs/app_colors.dart';
-// import '../../../../core/configs/app_images.dart';
-// import '../../../../core/configs/app_routes.dart';
-// import '../../../../core/room_bloc/stablishment_bloc.dart';
+// import '../../../../shared/configs/app_colors.dart';
+// import '../../../../shared/configs/app_images.dart';
+// import '../../../../shared/configs/app_routes.dart';
+// import '../../../../shared/room_bloc/stablishment_bloc.dart';
 // import '../../../participant/models/dto/participant_dto.dart';
 // import '../../../participant/view-models/participant_view_model.dart';
 // import '../../../room/view-models/room_view_model.dart';

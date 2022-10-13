@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pub/app/core/configs/app_colors.dart';
+import '../../../shared/configs/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../models/participant.dart';
 

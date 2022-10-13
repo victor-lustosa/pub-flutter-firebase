@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:pub/app/core/configs/app_colors.dart';
+import '../../shared/configs/app_colors.dart';
 
 import 'package:pub/app/user/view-models/user_view_model.dart';
-import 'package:pub/app/core/components/form_field_widget.dart';
+import '../../shared/components/form_field_widget.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pub/app/core/components/dropdown_widget.dart';
+import '../../shared/components/dropdown_widget.dart';
 
 import '../models/user.dart';
 import 'components/user_register_bar_widget.dart';
 import '../../establishment/models/dto/establishment_dto.dart';
-import '../../core/configs/app_routes.dart';
+import '../../shared/configs/app_routes.dart';
 
 class UserRegisterPage extends StatefulWidget {
   final User user;

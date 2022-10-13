@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pub/app/room/blocs/room_bloc.dart';
+import '../../room/blocs/room_bloc.dart';
 
-import '../../core/configs/app_colors.dart';
+import '../../shared/configs/app_colors.dart';
 import '../view-models/participant_view_model.dart';
 import 'components/participant_bar_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

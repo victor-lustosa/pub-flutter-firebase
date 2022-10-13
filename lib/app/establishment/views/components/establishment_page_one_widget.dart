@@ -6,9 +6,9 @@ import 'package:pub/app/establishment/blocs/establishment_bloc.dart';
 import 'package:pub/app/establishment/view-models/establishment_view_model.dart';
 import 'package:pub/app/participant/view-models/participant_view_model.dart';
 
-import '../../../core/configs/app_colors.dart';
-import '../../../core/configs/app_images.dart';
-import '../../../core/configs/app_routes.dart';
+import '../../../shared/configs/app_colors.dart';
+import '../../../shared/configs/app_images.dart';
+import '../../../shared/configs/app_routes.dart';
 
 import '../../../room/models/dto/room_dto.dart';
 import '../../../room/view-models/room_view_model.dart';
