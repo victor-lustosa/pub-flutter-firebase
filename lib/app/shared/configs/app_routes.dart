@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pub/app/participant/models/dto/participant_dto.dart';
 
-import '../../establishment/models/dto/establishment_dto.dart';
+import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../establishment/views/establishment_page.dart';
 import '../../home/views/home_page.dart';
 import '../../participant/views/participant_page.dart';
 import '../../room/models/dto/room_dto.dart';
 import '../../room/views/room_page.dart';
-import '../../user/models/user.dart';
+import '../../user/infra/models/user_model.dart';
 import '../../user/views/user_register_page.dart';
 
 const urlServer = 'https://powerful-bayou-46345.herokuapp.com';
@@ -35,33 +35,30 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => HomePage());
 
       case establishmentRoute:
-        EstablishmentDTO establishmentDTO = arguments as EstablishmentDTO;
         return MaterialPageRoute(
             // builder: (_) => EstablishmentPage(establishmentDTO.getUser, establishmentDTO.getEstablishment));
-            builder: (_) => EstablishmentPage(establishmentDTO.getUser));
+            builder: (_) => EstablishmentPage((arguments as EstablishmentDTO).getUser));
 
       case userRegisterRoute:
         return MaterialPageRoute(
-            builder: (_) => UserRegisterPage(User.withoutParameters()));
+            builder: (_) => UserRegisterPage());
 
       // case ENTERPRISE_REGISTER_ROUTE:
       //   return MaterialPageRoute(
       //       builder: (_) =>  EnterpriseRegisterPage());
       case editUserRoute:
-        User user = arguments as User;
-        return MaterialPageRoute(builder: (_) => UserRegisterPage(user));
+        return MaterialPageRoute(builder: (_) => UserRegisterPage());
 
       case publicRoomRoute:
-        RoomDTO roomDTO = arguments as RoomDTO;
         return MaterialPageRoute(
-            builder: (_) => RoomPage(roomDTO.getBloc, roomDTO.getRoomViewModel,
-                roomDTO.getParticipantViewModel));
+            builder: (_) => RoomPage((arguments as RoomDTO).getBloc, arguments.getRoomViewModel,
+                arguments.getParticipantViewModel));
 
       case privateRoomRoute:
-        ParticipantDTO participantDTO = arguments as ParticipantDTO;
+
         return MaterialPageRoute(
-            builder: (_) => ParticipantPage(participantDTO.getBloc,
-                participantDTO.getParticipantViewModel));
+            builder: (_) => ParticipantPage((arguments as ParticipantDTO).getBloc,
+                arguments.getParticipantViewModel));
 
       default:
         return  _unknownRoute();

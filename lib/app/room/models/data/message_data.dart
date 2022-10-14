@@ -1,4 +1,4 @@
-import '../../../user/models/user.dart';
+import '../../../user/infra/models/user_model.dart';
 import '../data/data.dart';
 
 import '../../blocs/bloc_events.dart';
@@ -9,7 +9,7 @@ class MessageData extends Data{
   String _idRoom = '';
   late String _roomName;
   late String _textMessage;
-  late User _user;
+  late UserModel _user;
   late int _code;
   int _namePosition = 0;
 
@@ -34,7 +34,7 @@ class MessageData extends Data{
       'textMessage': this._textMessage,
       'type': super.type.name.toString(),
       'code': this._code,
-      'user': this._user.toMap()
+      'user': UserModel.toMap(this._user)
     };
   }
 
@@ -45,7 +45,7 @@ class MessageData extends Data{
         roomName: map['roomName'],
         createdAt: map['createAt'],
         textMessage: map['textMessage'],
-        user: User.fromMap(map['user']),
+        user: UserModel.fromMap(map['user']),
         code: map['code'],
         type: BlocEventType.values.firstWhere((element) => element.name.toString() == map['type']));
   }

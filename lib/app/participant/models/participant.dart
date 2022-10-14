@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../user/models/user.dart';
+import '../../user/infra/models/user_model.dart';
 
 class Participant {
 
@@ -51,14 +51,14 @@ class Participant {
     List listParticipants = json as List;
     return listParticipants.map((data) => Participant.fromMap(data)).toList();
   }
-  static convertUserToParticipant(User user) {
+  static convertUserToParticipant(UserModel user) {
     return Participant(
-        idUser: user.getIdUser,
-        nickname:  user.getNickname,
-        age: user.getAge,
-        genre: user.getGenre,
-        latitude: user.getLatitude,
-        longitude: user.getLongitude
+        idUser: user.idUser,
+        nickname:  user.nickname,
+        age: user.age,
+        genre: user.genre,
+        latitude: user.latitude,
+        longitude: user.longitude
     );
   }
   factory Participant.fromMap(map) {

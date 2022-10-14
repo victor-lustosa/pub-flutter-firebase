@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:pub/app/establishment/domain/dtos/establishment_entity.dart';
-import 'package:pub/app/user/models/user.dart';
+import 'package:pub/app/establishment/domain/entities/establishment_entity.dart';
+import 'package:pub/app/user/infra/models/user_model.dart';
 import '../../shared/configs/app_routes.dart';
 import '../../room/blocs/room_bloc.dart';
-import '../../establishment/models/dto/establishment_dto.dart';
+import '../../establishment/infra/models/dto/establishment_dto.dart';
 import 'package:url_launcher/url_launcher.dart';
 class EstablishmentViewModel {
-  EstablishmentViewModel({required User user})
+  EstablishmentViewModel({required UserModel user})
       : _user = user
          {
     getPosition();
@@ -22,7 +22,7 @@ class EstablishmentViewModel {
   String error = '';
   List<dynamic> _rooms = [];
 
-  User _user;
+  UserModel _user;
   bool isParticipantExist = false;
   bool isUserExist = false;
   int lineNumbers = 1;
@@ -31,7 +31,7 @@ class EstablishmentViewModel {
 
   get getRooms => _rooms;
 
-  setUser(User user) => _user = user;
+  setUser(UserModel user) => _user = user;
 
   // bool isVisibled = false;
   void delayForForms(BuildContext context) async {
@@ -66,9 +66,9 @@ class EstablishmentViewModel {
   }
 
   double distanceBetweenUserAndEstablishments(
-      User user, double latitude, double longitude) {
+      UserModel user, double latitude, double longitude) {
     return (Geolocator.distanceBetween(
-            user.getLatitude, user.getLongitude, latitude, longitude) /
+            user.latitude, user.longitude, latitude, longitude) /
         1000);
   }
 

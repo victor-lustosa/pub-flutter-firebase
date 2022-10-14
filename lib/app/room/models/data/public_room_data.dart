@@ -1,4 +1,4 @@
-import '../../../user/models/user.dart';
+import '../../../user/infra/models/user_model.dart';
 import '../data/data.dart';
 import '../../blocs/bloc_events.dart';
 
@@ -6,7 +6,7 @@ class PublicRoomData extends Data{
   String _idRoom = '';
   late String _roomName;
   late int _code;
-  late User _user;
+  late UserModel _user;
   late String _textMessage;
 
   get getRoomName => _roomName;
@@ -21,7 +21,7 @@ class PublicRoomData extends Data{
       'idRoom': this._idRoom,
       'roomName': this._roomName,
       'textMessage': this._textMessage,
-      'user': this._user.toMap(),
+      'user': UserModel.toMap(this._user),
       'code': this._code,
       'type': super.type.name.toString()
     };
@@ -32,7 +32,7 @@ class PublicRoomData extends Data{
         idRoom: map['idRoom'],
         roomName: map['roomName'],
         textMessage: map['textMessage'],
-        user: User.fromMap(map['user']),
+        user: UserModel.fromMap(map['user']),
         code: map['code'],
         type: BlocEventType.values.firstWhere((element) => element.name.toString() == map['type']));
   }

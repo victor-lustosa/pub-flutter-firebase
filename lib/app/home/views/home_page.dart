@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../user/views/user_register_page.dart';
 
-import '../../user/models/user.dart';
+import '../../user/infra/models/user_model.dart';
 import 'components/home_bar_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  UserRegisterPage(User.withoutParameters())));
+                                  UserRegisterPage()));
                     },
                     label: Text("Cadastrar",
                         style: GoogleFonts.inter(

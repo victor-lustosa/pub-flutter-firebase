@@ -1,6 +1,6 @@
 import 'package:pub/app/establishment/domain/repositories/establishment_repository.dart';
 
-import '../dtos/establishment_entity.dart';
+import '../entities/establishment_entity.dart';
 
 abstract class IGetEstablishments {
   Stream<List<EstablishmentEntity>> call();

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import '../../user/models/user.dart';
+import '../../user/infra/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../shared/configs/app_routes.dart';
-import '../../establishment/models/dto/establishment_dto.dart';
+import '../../establishment/infra/models/dto/establishment_dto.dart';
 
 abstract class IUserViewModel {
   // currentPosition();
@@ -18,15 +18,15 @@ abstract class IUserViewModel {
 }
 
 class UserViewModel implements IUserViewModel {
-  late final User _user;
+  late final UserModel _user;
   int _age = 0;
-  UserViewModel(this._user);
+
 
   Future<void> checkUser(BuildContext context) async {
     final shared = await SharedPreferences.getInstance();
     final data = shared.getString('user');
     if (data != null) {
-      User user = User.fromMap(jsonDecode(data));
+      UserModel user = UserModel.fromMap(jsonDecode(data));
       Navigator.pushReplacementNamed(context, AppRoutes.establishmentRoute,
           arguments: EstablishmentDTO(user));
     } else {
@@ -51,10 +51,10 @@ class UserViewModel implements IUserViewModel {
     saveUser(this.getUser);
   }
 
-  saveUser(User user) async {
+  saveUser(UserModel user) async {
     try {
       SharedPreferences shared = await SharedPreferences.getInstance();
-      shared.setString('user', user.toJson());
+      shared.setString('user', UserModel.toJson(user));
     } catch (e) {
       throw Exception("Erro ao salvar usuario: $e");
     }
@@ -82,7 +82,7 @@ class UserViewModel implements IUserViewModel {
   get getUser => _user;
 
   setAge(int value) => _age = value;
-  setUser(User value) => _user = value;
+  setUser(UserModel value) => _user = value;
 }
 
   /* modelo pra fazer o modal de icones*/

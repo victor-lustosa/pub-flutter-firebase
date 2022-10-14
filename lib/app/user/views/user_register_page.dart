@@ -7,14 +7,14 @@ import '../../shared/components/form_field_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../shared/components/dropdown_widget.dart';
 
-import '../models/user.dart';
+import '../infra/models/user_model.dart';
 import 'components/user_register_bar_widget.dart';
-import '../../establishment/models/dto/establishment_dto.dart';
+import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../shared/configs/app_routes.dart';
 
 class UserRegisterPage extends StatefulWidget {
-  final User user;
-  UserRegisterPage(this.user);
+  late final UserModel user;
+
 
   _UserRegisterPageState createState() => _UserRegisterPageState();
 }
@@ -31,12 +31,12 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
   int age = 0;
   @override
   void initState() {
-    _userViewModel = UserViewModel(User.withoutParameters());
+    _userViewModel = UserViewModel();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _userViewModel.checkAccessToLocation(context);
-      if (widget.user.getNickname != '') {
-        _nickNameController.text = widget.user.getNickname;
-        _ageController.text = widget.user.getAge.toString();
+      if (widget.user.nickname != '') {
+        _nickNameController.text = widget.user.nickname;
+        _ageController.text = widget.user.age.toString();
       }
     });
     super.initState();

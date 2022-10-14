@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pub/app/participant/models/participant.dart';
-import 'package:pub/app/user/models/user.dart';
+import 'package:pub/app/user/infra/models/user_model.dart';
 
 import '../../room/blocs/room_bloc.dart';
 import '../blocs/bloc_events.dart';
@@ -16,7 +16,7 @@ abstract class IRoomViewModel {
 }
 
 class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
-  RoomViewModel({required User user, required Room room})
+  RoomViewModel({required UserModel user, required Room room})
       : _user = user,
         _room = room {
   }
@@ -30,7 +30,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   String error = '';
   List<dynamic> _rooms = [];
   Room _room;
-  User _user;
+  UserModel _user;
   bool isParticipantExist = false;
   bool isUserExist = false;
   int lineNumbers = 1;
@@ -125,7 +125,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   get getRooms => _rooms;
 
   setRoom(Room room) => _room = room;
-  setUser(User user) => _user = user;
+  setUser(UserModel user) => _user = user;
 
   void dispose() {
     subscription.cancel();

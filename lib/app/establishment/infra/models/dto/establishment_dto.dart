@@ -1,7 +1,7 @@
 
-import '../../../user/models/user.dart';
+import '../../../../user/infra/models/user_model.dart';
 class EstablishmentDTO {
-  late User _user;
+  late UserModel _user;
 
   EstablishmentDTO(this._user);
 

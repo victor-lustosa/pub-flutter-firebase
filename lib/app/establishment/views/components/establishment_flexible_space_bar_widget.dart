@@ -3,12 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
 import '../../../shared/configs/app_routes.dart';
-import '../../../user/models/user.dart';
+import '../../../user/infra/models/user_model.dart';
 
 class EstablishmentFlexibleSpaceBarWidget extends StatelessWidget {
   EstablishmentFlexibleSpaceBarWidget(this.user);
 
-  final User user;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class EstablishmentFlexibleSpaceBarWidget extends StatelessWidget {
           children: [
             Padding(
                 padding: EdgeInsets.only(left: 115, top: 23, bottom: 0),
-                child: Text(user.getNickname,
+                child: Text(user.nickname,
                     style: GoogleFonts.inter(
                       color: AppColors.white,
                       fontSize: 15, /* fontWeight: FontWeight.w600,*/

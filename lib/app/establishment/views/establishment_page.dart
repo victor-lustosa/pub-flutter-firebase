@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../room/view-models/room_view_model.dart';
-import '../../user/models/user.dart';
+import '../../user/infra/models/user_model.dart';
 
 import '../../room/blocs/room_bloc.dart';
 import '../../participant/models/participant.dart';
@@ -19,7 +19,7 @@ import 'components/establishment_tab_bar_sliver_widget.dart';
 class EstablishmentPage extends StatefulWidget {
   EstablishmentPage(this.user);
 
-  final User user;
+  final UserModel user;
 
   @override
   _EstablishmentPageState createState() => _EstablishmentPageState();
