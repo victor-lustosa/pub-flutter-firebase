@@ -5,7 +5,7 @@ import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../establishment/views/establishment_page.dart';
 import '../../home/views/home_page.dart';
 import '../../participant/views/participant_page.dart';
-import '../../room/models/dto/room_dto.dart';
+import '../../room/infra/models/dto/room_dto.dart';
 import '../../room/views/room_page.dart';
 import '../../user/infra/models/user_model.dart';
 import '../../user/views/user_register_page.dart';

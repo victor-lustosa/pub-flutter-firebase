@@ -5,7 +5,7 @@ import '../../user/infra/models/user_model.dart';
 
 import '../../room/blocs/room_bloc.dart';
 import '../../room/blocs/bloc_events.dart';
-import '../../room/models/data/message_data.dart';
+import '../../room/infra/models/data/message_data.dart';
 
 abstract class IParticipantViewModel {
   sendMessage(RoomBloc bloc);

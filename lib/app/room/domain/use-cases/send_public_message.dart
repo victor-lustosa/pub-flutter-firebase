@@ -1,4 +1,4 @@
-import '../dtos/room_entity.dart';
+import '../entities/room_entity.dart';
 import '../repositories/room_repository.dart';
 
 abstract class ISendPublicMessage {

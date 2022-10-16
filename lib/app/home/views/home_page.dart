@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../user/views/user_register_page.dart';
 
-import '../../user/infra/models/user_model.dart';
 import 'components/home_bar_widget.dart';
-
+//todo: arrumar o renderflex quando entra no forms, aparece o teclado
+//todo: e clica em voltar
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(top: 250),
+                  padding: EdgeInsets.only(top: 350),
                   child: ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
                     label: Text("Cadastrar",
                         style: GoogleFonts.inter(
                           color: AppColors.white,
-                          fontSize: 14, /* fontWeight: FontWeight.w600,*/
+                          fontSize: 14.5, /* fontWeight: FontWeight.w600,*/
                         )),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
                       backgroundColor:
                           MaterialStateProperty.all(AppColors.lightBrown),
                       padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 100, vertical: 16)),
+                          EdgeInsets.symmetric(horizontal: 100, vertical: 13)),
                     ),
                     icon: Icon(
                       Icons.account_circle,

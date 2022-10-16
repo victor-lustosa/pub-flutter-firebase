@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FormFieldWidget extends StatelessWidget {
-  FormFieldWidget(this.formFieldController, this.name);
+class AgeFormFieldWidget extends StatelessWidget {
+
+  AgeFormFieldWidget(this.formFieldController);
 
   final TextEditingController formFieldController;
-  final String name;
 
-  String? validateAgeFormField(value) {
+  String? validateFormField(value){
     int valor = 0;
     if(value != '')
       valor = int.tryParse(value)!;
@@ -21,13 +21,6 @@ class FormFieldWidget extends StatelessWidget {
     return null;
   }
 
-  String? valideNickNameFormField(value) {
-    if (value == "") {
-      return "digite seu nickname";
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,20 +28,19 @@ class FormFieldWidget extends StatelessWidget {
         height: 100,
         child: TextFormField(
             onEditingComplete: () {},
+            onChanged: validateFormField,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             autofocus: false,
-            maxLength: name == "nickname" ? 40 : 2,
-            validator: name == "idade" ? validateAgeFormField : valideNickNameFormField ,
+            maxLength: 2,
+            validator: validateFormField ,
             controller: formFieldController,
-            keyboardType: name == "idade" ? TextInputType.number : TextInputType.text,
-            inputFormatters: name == "idade"
-                ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
-                : <TextInputFormatter>[],
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
             decoration: InputDecoration(
                 contentPadding:
                 EdgeInsets.symmetric(vertical: 16, horizontal: 30),
                 focusColor: Colors.black12,
-                hintText: '$name',
+                hintText: 'idade',
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     borderSide: BorderSide(color: Colors.black12)

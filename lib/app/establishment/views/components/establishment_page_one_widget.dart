@@ -10,7 +10,7 @@ import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
 import '../../../shared/configs/app_routes.dart';
 
-import '../../../room/models/dto/room_dto.dart';
+import '../../../room/infra/models/dto/room_dto.dart';
 import '../../../room/view-models/room_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 

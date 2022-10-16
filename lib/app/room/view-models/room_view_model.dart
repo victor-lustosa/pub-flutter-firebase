@@ -7,9 +7,9 @@ import 'package:pub/app/user/infra/models/user_model.dart';
 
 import '../../room/blocs/room_bloc.dart';
 import '../blocs/bloc_events.dart';
-import '../models/data/message_data.dart';
-import '../models/data/public_room_data.dart';
-import '../models/room.dart';
+import '../infra/models/data/message_data.dart';
+import '../infra/models/data/public_room_data.dart';
+import '../infra/models/room.dart';
 
 abstract class IRoomViewModel {
 
@@ -18,8 +18,7 @@ abstract class IRoomViewModel {
 class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   RoomViewModel({required UserModel user, required Room room})
       : _user = user,
-        _room = room {
-  }
+        _room = room;
 
   late StreamSubscription subscription;
 

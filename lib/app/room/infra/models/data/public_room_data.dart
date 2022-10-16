@@ -1,6 +1,6 @@
-import '../../../user/infra/models/user_model.dart';
+import '../../../../user/infra/models/user_model.dart';
 import '../data/data.dart';
-import '../../blocs/bloc_events.dart';
+import '../../../blocs/bloc_events.dart';
 
 class PublicRoomData extends Data{
   String _idRoom = '';

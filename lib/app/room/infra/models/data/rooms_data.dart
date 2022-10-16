@@ -1,6 +1,6 @@
 
 import '../data/data.dart';
-import '../../blocs/bloc_events.dart';
+import '../../../blocs/bloc_events.dart';
 
 class RoomsData extends Data{
 

@@ -1,14 +1,13 @@
-
-
 import '../data/data.dart';
-import '../../blocs/bloc_events.dart';
 
-class EditMessageData extends Data{
+import '../../../blocs/bloc_events.dart';
+
+class TypingData extends Data{
 
   late String roomName;
   late String userNickName;
 
-  EditMessageData({required this.roomName, required this.userNickName,required BlocEventType type}) : super(type: type);
+  TypingData({required this.roomName, required this.userNickName,required BlocEventType type}) : super(type: type);
 
   Map<String, dynamic> toMap() {
     return {
@@ -18,8 +17,8 @@ class EditMessageData extends Data{
     };
   }
 
-  factory EditMessageData.fromMap(Map<String, dynamic> map) {
-    return EditMessageData(
+  factory TypingData.fromMap(Map<String, dynamic> map) {
+    return TypingData(
         roomName: map['roomName'],
         userNickName: map['userNickName'],
         type: BlocEventType.values.firstWhere((element) => element.name.toString() == map['type']));

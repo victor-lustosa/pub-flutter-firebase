@@ -1,43 +1,26 @@
 import 'package:flutter/material.dart';
 import '../../shared/configs/app_colors.dart';
-
 import 'package:pub/app/user/view-models/user_view_model.dart';
-import '../../shared/components/form_field_widget.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import '../../shared/components/dropdown_widget.dart';
-
-import '../infra/models/user_model.dart';
+import 'components/age_form_field_widget.dart';
+import 'components/dropdown_widget.dart';
+import 'components/nickname_form_field_widget.dart';
 import 'components/user_register_bar_widget.dart';
 import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../shared/configs/app_routes.dart';
 
 class UserRegisterPage extends StatefulWidget {
-  late final UserModel user;
-
-
   _UserRegisterPageState createState() => _UserRegisterPageState();
 }
 
 class _UserRegisterPageState extends State<UserRegisterPage> {
   late final UserViewModel _userViewModel;
 
-  final TextEditingController _nickNameController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
-
-  final List<String> _genres = ['não informado', 'masculino', 'feminino'];
-  String _selectedGenre = '';
-  bool isEnabled = true;
-  int age = 0;
   @override
   void initState() {
     _userViewModel = UserViewModel();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _userViewModel.checkAccessToLocation(context);
-      if (widget.user.nickname != '') {
-        _nickNameController.text = widget.user.nickname;
-        _ageController.text = widget.user.age.toString();
-      }
     });
     super.initState();
   }
@@ -68,17 +51,28 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                     height: MediaQuery.of(context).size.height,
                     child: Column(children: <Widget>[
                       Padding(
-                          padding: EdgeInsets.only(top: 60),
-                          child: FormFieldWidget(
-                            _nickNameController,
-                            'nickname',
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(top: 0),
-                          child: FormFieldWidget(_ageController, 'idade')),
+                          padding: EdgeInsets.only(top: 50),
+                          child: Container(
+                              width: 350.0,
+                              height: 100,
+                              child: Form(
+                                  key: _userViewModel.formNicknameKey,
+                                  child: NicknameFormFieldWidget(
+                                      _userViewModel.nickNameController)))),
                       Padding(
                           padding: EdgeInsets.only(top: 0),
                           child: Container(
+                              width: 350.0,
+                              height: 100,
+                              child: Form(
+                                  key: _userViewModel.formAgeKey,
+                                  child: AgeFormFieldWidget(
+                                      _userViewModel.ageController)))),
+                      Padding(
+                          padding: EdgeInsets.only(top: 0),
+                          child: Container(
+                              width: 350,
+                              height: 55,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.only(
@@ -91,42 +85,34 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                                     width: 1.0,
                                     style: BorderStyle.solid),
                               ),
-                              width: 350,
-                              height: 55,
                               child: Form(
                                   autovalidateMode: AutovalidateMode.always,
                                   child: DropdownWidget(
-                                    _genres,
-                                    (String retorno) {
+                                    _userViewModel.getGenres,
+                                    (String value) {
                                       setState(() {
-                                        _selectedGenre = retorno;
+                                        _userViewModel.selectedGenre = value;
                                       });
                                     },
                                     "gênero",
                                   )))),
                       Padding(
-                        padding: EdgeInsets.only(top: 95),
+                        padding: EdgeInsets.only(top: 80),
                         child: ElevatedButton.icon(
                             onPressed: () {
-                              age = int.tryParse(_ageController.text) == null
-                                  ? 0
-                                  : int.tryParse(_ageController.text)!;
-                              if (_ageController.text.isNotEmpty &&
-                                  _nickNameController.text.isNotEmpty) {
-                                if (age >= 18) {
-                                  _userViewModel.validateUser(
-                                      _nickNameController,
-                                      _ageController,
-                                      _selectedGenre,
-                                      _genres);
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      AppRoutes.establishmentRoute,
-                                      ModalRoute.withName(
-                                          AppRoutes.userRegisterRoute),
-                                      arguments: EstablishmentDTO(
-                                          _userViewModel.getUser));
-                                }
+                              if (_userViewModel.formNicknameKey.currentState!
+                                      .validate() &&
+                                  _userViewModel.formAgeKey.currentState!
+                                      .validate()) {
+
+                                _userViewModel.validateUser();
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    AppRoutes.establishmentRoute,
+                                    ModalRoute.withName(
+                                        AppRoutes.userRegisterRoute),
+                                    arguments: EstablishmentDTO(
+                                        _userViewModel.getUser));
                               }
                             },
                             icon: Icon(
@@ -149,7 +135,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                                   AppColors.lightBrown),
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.symmetric(
-                                      horizontal: 130, vertical: 14)),
+                                      horizontal: 110, vertical: 11)),
                             )),
                       )
                     ])))));

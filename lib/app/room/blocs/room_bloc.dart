@@ -10,10 +10,10 @@ import '../domain/use-cases/receive_message.dart';
 import '../domain/use-cases/send_private_message.dart';
 import '../domain/use-cases/send_public_message.dart';
 import 'bloc_events.dart';
-import '../../room/models/data/data.dart';
-import '../../room/models/data/message_data.dart';
-import '../../room/models/data/public_room_data.dart';
-import '../../room/models/data/rooms_data.dart';
+import '../../room/infra/models/data/data.dart';
+import '../../room/infra/models/data/message_data.dart';
+import '../../room/infra/models/data/public_room_data.dart';
+import '../../room/infra/models/data/rooms_data.dart';
 import '../../room/view-models/room_view_model.dart';
 import '../../shared/configs/app_routes.dart';
 
