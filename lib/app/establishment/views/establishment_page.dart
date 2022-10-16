@@ -4,11 +4,15 @@ import '../../shared/configs/app_colors.dart';
 import '../../user/infra/models/user_model.dart';
 
 import '../blocs/establishment_bloc.dart';
+import '../domain/use-cases/get_establishments.dart';
+import '../external/establishment_firestore_datasource.dart';
+import '../infra/repositories/establishment_repository.dart';
 import '../view-models/establishment_view_model.dart';
 import 'components/establishment_flexible_space_bar_widget.dart';
 import 'components/establishment_page_one_widget.dart';
 import 'components/establishment_page_two_widget.dart';
 import 'components/establishment_tab_bar_sliver_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EstablishmentPage extends StatefulWidget {
   EstablishmentPage(this.user);
@@ -30,7 +34,11 @@ class _EstablishmentPageState extends State<EstablishmentPage>
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
-    //_bloc = EstablishmentBloc(getEstablishmentsUseCase: _getEstablishments);
+
+    _bloc = EstablishmentBloc(
+        getEstablishments: GetEstablishments(EstablishmentRepository(
+            EstablishmentFirestoreDatasource(FirebaseFirestore.instance))));
+
     _tabController = TabController(vsync: this, length: 2);
     _establishmentViewModel = EstablishmentViewModel(user: widget.user);
     _establishmentViewModel.delayForForms(context);
@@ -69,7 +77,8 @@ class _EstablishmentPageState extends State<EstablishmentPage>
             ];
           },
           body: TabBarView(controller: _tabController, children: <Widget>[
-            EstablishmentPageOneWidget(),
+            EstablishmentPageOneWidget(
+                bloc: _bloc, establishmentViewModel: _establishmentViewModel),
             EstablishmentPageTwoWidget()
           ])),
       // EstablishmentPageTwoWidget(this._roomViewModel, this._participantViewModel, this._bloc)])),

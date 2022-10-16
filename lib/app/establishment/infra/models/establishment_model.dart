@@ -1,31 +1,39 @@
 import '../../domain/entities/establishment_entity.dart';
 
-class EstablishmentModel extends EstablishmentEntity{
-  EstablishmentModel({
-    required String id,
-    required String title,
-    required String abbr,
-    required int priority
-  }) : super(
-          id: id,
-          title: title,
-          abbr: abbr,
-          priority: priority
-      );
+class EstablishmentModel extends EstablishmentEntity {
+  EstablishmentModel(
+      {required String id,
+      required String name,
+      required double latitude,
+      required double longitude})
+      : super(id: id, name: name, latitude: latitude, longitude: longitude);
 
-  factory EstablishmentModel.empty() => EstablishmentModel(abbr: '', id: '', priority: 0, title: '');
+  factory EstablishmentModel.empty() =>
+      EstablishmentModel(id: '', name: '', latitude: 0.0, longitude: 0.0);
 
-  EstablishmentModel copyWith({
-    String? id,
-    String? title,
-    String? abbr,
-    int? priority,
-  }) {
+  EstablishmentModel copyWith(
+      {String? id, String? name, double? latitude, double? longitude}) {
     return EstablishmentModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      abbr: abbr ?? this.abbr,
-      priority: priority ?? this.priority,
-    );
+        id: id ?? this.id,
+        name: name ?? this.name,
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude);
+  }
+
+  static EstablishmentEntity fromMap(dynamic json) {
+    return EstablishmentEntity(
+        id: json['id'],
+        name: json['name'],
+        latitude: double.parse(json['latitude']),
+        longitude: double.parse(json['longitude']));
+  }
+
+  static Map<String, dynamic> toMap(EstablishmentEntity establishment) {
+    return {
+      'id': establishment.id,
+      'name': establishment.name,
+      'latitude': establishment.latitude.toString(),
+      'longitude': establishment.longitude.toString()
+    };
   }
 }

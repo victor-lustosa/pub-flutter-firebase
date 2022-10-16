@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pub/app/establishment/domain/entities/establishment_entity.dart';
 import 'package:pub/app/user/infra/models/user_model.dart';
-import '../../shared/configs/app_routes.dart';
-import '../../room/blocs/room_bloc.dart';
-import '../../establishment/infra/models/dto/establishment_dto.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class EstablishmentViewModel {
-  EstablishmentViewModel({required UserModel user})
-      : _user = user
-         {
-    getPosition();
+  EstablishmentViewModel({required UserModel user}) : _user = user {
+    //getPosition();
   }
 
   late StreamSubscription subscription;
@@ -20,16 +16,19 @@ class EstablishmentViewModel {
   final textController = TextEditingController(text: '');
   // late bool boolAdd;
   String error = '';
-  List<dynamic> _rooms = [];
-
+  List<dynamic> _establishments = [];
+  List<dynamic> participants = [];
   UserModel _user;
   bool isParticipantExist = false;
   bool isUserExist = false;
   int lineNumbers = 1;
 
   get getUser => _user;
+  setEstablishments(value) {
+    _establishments = value;
+  }
 
-  get getRooms => _rooms;
+  get getEstablishments => _establishments;
 
   setUser(UserModel user) => _user = user;
 
@@ -38,6 +37,7 @@ class EstablishmentViewModel {
     await Future.delayed(const Duration(minutes: 30));
     openURL(context);
   }
+
   openURL(BuildContext context) async {
     if (await canLaunchUrl(_url))
       await launchUrl(_url);
@@ -73,7 +73,7 @@ class EstablishmentViewModel {
   }
 
   fetchedRooms(message) {
-  /*  _rooms = [];
+    /*  _rooms = [];
     for (dynamic roomData in message.getRooms) {
       Room room = Room.fromMinimalMap(roomData);
       room.setDistance(distanceBetweenUserAndEstablishments(
@@ -82,7 +82,7 @@ class EstablishmentViewModel {
     }*/
   }
   bool verifyNameUser(EstablishmentEntity room) {
-   /* for (dynamic participant in room.getParticipants) {
+    /* for (dynamic participant in room.getParticipants) {
       if (getUser.getNickname == participant.getNickname) {
         isUserExist = true;
       }
@@ -92,7 +92,7 @@ class EstablishmentViewModel {
 
   bool isAcceptedLocation(room) {
     double result = distanceBetweenUserAndEstablishments(
-        getUser, room.getLatitude, room.getLongitude);
+        getUser, room.latitude, room.longitude);
     if (result <= 0.5)
       return true;
     else

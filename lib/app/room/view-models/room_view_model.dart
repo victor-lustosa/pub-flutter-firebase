@@ -11,25 +11,18 @@ import '../infra/models/data/message_data.dart';
 import '../infra/models/data/public_room_data.dart';
 import '../infra/models/room.dart';
 
-abstract class IRoomViewModel {
-
-}
+abstract class IRoomViewModel {}
 
 class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
-  RoomViewModel({required UserModel user, required Room room})
-      : _user = user,
-        _room = room;
-
   late StreamSubscription subscription;
-
 
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
   // late bool boolAdd;
   String error = '';
   List<dynamic> _rooms = [];
-  Room _room;
-  UserModel _user;
+  late Room _room;
+  late UserModel _user;
   bool isParticipantExist = false;
   bool isUserExist = false;
   int lineNumbers = 1;
@@ -67,7 +60,6 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     }
   }
 
-
   void addParticipants(PublicRoomData data) {
     if (data.getUser.getNickname == getUser.getNickname) {
       getUser.setIdUser(data.getUser.getIdUser);
@@ -86,11 +78,12 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     }
     notifyListeners();
   }
+
   verifyLocation(BuildContext context, RoomBloc bloc) {
     subscription = Geolocator.getPositionStream(
-        locationSettings: LocationSettings(
-            accuracy: LocationAccuracy.best,
-            timeLimit: Duration(minutes: 2)))
+            locationSettings: LocationSettings(
+                accuracy: LocationAccuracy.best,
+                timeLimit: Duration(minutes: 2)))
         .listen((position) {
       /*  double distance = (Geolocator.distanceBetween(position.latitude,
               position.longitude, getRoom.getLatitude, getRoom.getLongitude) /
@@ -103,6 +96,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
       }*/
     });
   }
+
   void removeParticipants(PublicRoomData data) {
     for (dynamic room in _rooms) {
       if (room.getIdRoom == data.getIdRoom) {

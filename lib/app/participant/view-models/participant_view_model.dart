@@ -13,18 +13,14 @@ abstract class IParticipantViewModel {
 
 class ParticipantViewModel extends ChangeNotifier
     implements IParticipantViewModel {
-  ParticipantViewModel({required UserModel user, required Participant participant})
-      : _user = user,
-        _participant = participant;
-
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
   // late bool boolAdd;
   String error = '';
-  UserModel _user;
+  late UserModel _user;
   int lineNumbers = 1;
   // bool isVisibled = false;
-  Participant _participant;
+  late Participant _participant;
 
   sendMessage(RoomBloc bloc) {
     String textMessage = textController.text;
@@ -57,8 +53,7 @@ class ParticipantViewModel extends ChangeNotifier
 
   Alignment alignment(state, index) {
     if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (_participant.getMessages[index].user.nickname !=
-          _user.nickname) {
+      if (_participant.getMessages[index].user.nickname != _user.nickname) {
         return Alignment.centerLeft;
       } else {
         return Alignment.centerRight;
@@ -70,8 +65,7 @@ class ParticipantViewModel extends ChangeNotifier
 
   Color color(state, index) {
     if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (_participant.getMessages[index].user.nickname !=
-          _user.nickname) {
+      if (_participant.getMessages[index].user.nickname != _user.nickname) {
         return Colors.white;
       } else {
         return Color(0xffdcd9d9);
