@@ -3,13 +3,14 @@ part of '../blocs/establishment_bloc.dart';
 @immutable
 abstract class EstablishmentEvent {}
 
-class InitialEvent extends EstablishmentEvent{
+class InitialEvent extends EstablishmentEvent {
   InitialEvent();
 }
-class GetEstablishmentsEvent extends EstablishmentEvent{
+
+class GetEstablishmentsEvent extends EstablishmentEvent {
   GetEstablishmentsEvent();
 }
 
-class ErrorMessageEvent extends EstablishmentEvent{
+class ErrorMessageEvent extends EstablishmentEvent {
   ErrorMessageEvent();
 }
