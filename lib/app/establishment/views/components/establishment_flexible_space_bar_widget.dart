@@ -31,7 +31,7 @@ class EstablishmentFlexibleSpaceBarWidget extends StatelessWidget {
         ),
         Row(
           children: [
-            Padding(
+            /* Padding(
                 padding: EdgeInsets.only(top: 25),
                 child: IconButton(
                     iconSize: 30,
@@ -41,8 +41,8 @@ class EstablishmentFlexibleSpaceBarWidget extends StatelessWidget {
                     ),
                     color: AppColors.darkBrown,
                     onPressed: () {
-                      Navigator.pop(context);
-                    })),
+                      SystemNavigator.pop();
+                    })),*/
           ],
         ),
         Row(

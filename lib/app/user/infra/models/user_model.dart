@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:pub/app/user/domain/entities/user_entity.dart';
+import '../../../user/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity{
 
@@ -11,24 +11,37 @@ class UserModel extends UserEntity{
     String? genre,
     double? latitude,
     double? longitude,
+    List<dynamic>? messages
  }) {
    return UserModel(
-     idUser: idUser ?? this.idUser,
-     nickname: nickname ?? this.nickname,
-     age: age ?? this.age,
-     genre: genre ?? this.genre,
-     latitude: latitude ?? this.latitude,
-     longitude: longitude ?? this.longitude
+     idUser: idUser ?? super.idUser,
+     nickname: nickname ?? super.nickname,
+     age: age ?? super.age,
+     genre: genre ?? super.genre,
+     latitude: latitude ?? super.latitude,
+     longitude: longitude ?? super.longitude,
+     messages: messages ?? super.messages
    );
  }
-  static UserModel fromMap(Map<String, dynamic> map) {
+
+ factory UserModel.empty() => UserModel(
+   age: 0,
+   genre: 'não informado',
+   nickname: '',
+   idUser: '',
+   messages: [],
+     latitude: 0.0,
+     longitude: 0.0
+ );
+  static UserModel fromMap(dynamic map) {
     return UserModel(
       idUser: map['idUser'],
       nickname: map['nickname'],
       age: map['age'],
       genre: map['genre'],
       latitude: map['latitude'],
-      longitude: map['longitude']
+      longitude: map['longitude'],
+      messages: []
     );
   }
  static Map<String, dynamic> toMap(UserEntity user) {
@@ -46,17 +59,20 @@ class UserModel extends UserEntity{
 
   static UserModel fromJson(String source) => fromMap(json.decode(source));
   UserModel({
-    required idUser,
-    required nickname,
-    required age,
-    required genre,
-    required latitude,
-    required longitude,
-  })  :super(idUser: idUser,
-        nickname : nickname,
-        age : age,
-        longitude :longitude,
-        latitude : latitude,
-        genre : genre);
+    required String idUser,
+    required String nickname,
+    required int age,
+    required String genre,
+    required double latitude,
+    required double longitude,
+    required List<dynamic> messages
+  })  :super(
+        messages: messages,
+        idUser: idUser,
+        nickname: nickname,
+        age: age,
+        longitude: longitude,
+        latitude: latitude,
+        genre: genre);
 }
 

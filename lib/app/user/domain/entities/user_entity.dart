@@ -5,6 +5,7 @@ class UserEntity {
   final String genre;
   final double latitude;
   final double longitude;
+  final List<dynamic> messages;
 
   UserEntity({
     required this.idUser,
@@ -12,6 +13,7 @@ class UserEntity {
     required this.age,
     required this.genre,
     required this.latitude,
-    required this.longitude
+    required this.longitude,
+    required this.messages
   });
 }

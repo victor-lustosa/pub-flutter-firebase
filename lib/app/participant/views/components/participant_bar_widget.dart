@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../user/infra/models/user_model.dart';
 import '../../../shared/configs/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../models/participant.dart';
 
 
 class ParticipantBarWidget  extends  StatefulWidget {
   ParticipantBarWidget(this.participant);
-  final Participant participant;
+  final UserModel participant;
   @override
   State<ParticipantBarWidget> createState() => _ParticipantBarWidgetState();
 }
@@ -39,7 +39,7 @@ class _ParticipantBarWidgetState extends State<ParticipantBarWidget> {
           Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(
-                widget.participant.getNickname,
+                widget.participant.nickname,
                 style:
                 GoogleFonts.inter(fontSize: 17, color: AppColors.darkBrown),
               )

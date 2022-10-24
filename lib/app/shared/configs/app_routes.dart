@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pub/app/participant/models/dto/participant_dto.dart';
 
 import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../establishment/views/establishment_page.dart';
 import '../../home/views/home_page.dart';
+import '../../participant/infra/models/dto/participant_dto.dart';
 import '../../participant/views/participant_page.dart';
 import '../../room/infra/models/dto/room_dto.dart';
 import '../../room/views/room_page.dart';
-import '../../user/infra/models/user_model.dart';
 import '../../user/views/user_register_page.dart';
 
 const urlServer = 'https://powerful-bayou-46345.herokuapp.com';
@@ -24,7 +23,6 @@ class AppRoutes {
   static const String privateRoomRoute = "/private-room";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
-
     final arguments = routeSettings.arguments;
 
     switch (routeSettings.name) {
@@ -37,11 +35,11 @@ class AppRoutes {
       case establishmentRoute:
         return MaterialPageRoute(
             // builder: (_) => EstablishmentPage(establishmentDTO.getUser, establishmentDTO.getEstablishment));
-            builder: (_) => EstablishmentPage((arguments as EstablishmentDTO).getUser));
+            builder: (_) =>
+                EstablishmentPage((arguments as EstablishmentDTO).getUser));
 
       case userRegisterRoute:
-        return MaterialPageRoute(
-            builder: (_) => UserRegisterPage());
+        return MaterialPageRoute(builder: (_) => UserRegisterPage());
 
       // case ENTERPRISE_REGISTER_ROUTE:
       //   return MaterialPageRoute(
@@ -51,17 +49,17 @@ class AppRoutes {
 
       case publicRoomRoute:
         return MaterialPageRoute(
-            builder: (_) => RoomPage((arguments as RoomDTO).getBloc, arguments.getRoomViewModel,
-                arguments.getParticipantViewModel));
+            builder: (_) => RoomPage((arguments as RoomDTO).getBloc,
+                arguments.getRoomViewModel, arguments.getParticipantViewModel));
 
       case privateRoomRoute:
-
         return MaterialPageRoute(
-            builder: (_) => ParticipantPage((arguments as ParticipantDTO).getBloc,
+            builder: (_) => ParticipantPage(
+                (arguments as ParticipantDTO).getBloc,
                 arguments.getParticipantViewModel));
 
       default:
-        return  _unknownRoute();
+        return _unknownRoute();
     }
   }
 
@@ -69,9 +67,9 @@ class AppRoutes {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: Text("Rota não encontrada"),
+          title: const Text("Rota não encontrada"),
         ),
-        body: Center(
+        body: const Center(
           child: Text("tela não encontrada"),
         ),
       );

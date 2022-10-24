@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../shared/configs/app_colors.dart';
-import 'package:pub/app/user/view-models/user_view_model.dart';
+import '../../user/view-models/user_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../infra/models/user_model.dart';
 import 'components/age_form_field_widget.dart';
 import 'components/dropdown_widget.dart';
 import 'components/nickname_form_field_widget.dart';

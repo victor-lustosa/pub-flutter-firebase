@@ -1,5 +1,5 @@
-import 'package:pub/app/room/blocs/room_bloc.dart';
-import 'package:pub/app/room/view-models/room_view_model.dart';
+import '../../../../room/blocs/room_bloc.dart';
+import '../../../../room/view-models/room_view_model.dart';
 
 import '../../../../participant/view-models/participant_view_model.dart';
 

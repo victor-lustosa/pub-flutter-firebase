@@ -4,42 +4,52 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import '../../participant/view-models/participant_view_model.dart';
+
+import '../domain/entities/room_entity.dart';
+import '../domain/use-cases/get_rooms.dart';
 import '../domain/use-cases/initial_room.dart';
 import '../domain/use-cases/leave_room.dart';
 import '../domain/use-cases/receive_message.dart';
 import '../domain/use-cases/send_private_message.dart';
 import '../domain/use-cases/send_public_message.dart';
-import 'bloc_events.dart';
-import '../../room/infra/models/data/data.dart';
 import '../../room/infra/models/data/message_data.dart';
 import '../../room/infra/models/data/public_room_data.dart';
-import '../../room/infra/models/data/rooms_data.dart';
 import '../../room/view-models/room_view_model.dart';
-import '../../shared/configs/app_routes.dart';
+import '../infra/models/room_model.dart';
+
 
 part '../events/room_event.dart';
 part '../states/room_state.dart';
 
 class RoomBloc extends Bloc<RoomEvent, RoomState> {
+  final IGetRooms getRooms;
+ // final IInitialRoom initialRoom;
+  //final ISendPublicMessage sendPublicMessage;
+  //final ISendPrivateMessage sendPrivateMessage;
+  //final IReceiveMessage receiveMessage;
+  //final ILeaveRoom leaveRoom;
 
-  final IInitialRoom initialRoomUseCase;
-  final ISendPublicMessage sendPublicMessageUseCase;
-  final ISendPrivateMessage sendPrivateMessageUseCase;
-  final IReceiveMessage receiveMessageUseCase;
-  final ILeaveRoom leaveRoomUseCase;
+  RoomBloc({required this.getRooms,
+            //required this.initialRoom,
+            //required this.sendPublicMessage,
+            //required this.leaveRoom,
+            //required this.sendPrivateMessage,
+            //required this.receiveMessage
+            }) : super(InitialState()) {
 
-  RoomBloc({required this.initialRoomUseCase,
-  required this.sendPublicMessageUseCase,
-  required this.leaveRoomUseCase,
-  required this.sendPrivateMessageUseCase,
-  required this.receiveMessageUseCase}) : super(InitialState()) {
+    on<GetRoomsEvent>(_getRooms);
     on<InitialRoomEvent>(_initialRoomEvent);
     on<SendMessageEvent>(_sendMessageEvent);
     on<LeaveRoomEvent>(_leaveRoomEvent);
     on<SendPrivateMessageEvent>(_sendPrivateMessageEvent);
     on<DisconnectEvent>(_disconnectEvent);
     on<ReceiveMessageEvent>(_receiveMessageEvent);
-    on<DontBuildEvent>(_dontBuildEvent);
+  }
+  Future<void> _getRooms(event, emit) async {
+    await emit.onEach<List<RoomEntity>>(getRooms.call(),
+        onData: (rooms) {
+          emit(SuccessRoomsState(rooms as List<RoomModel>));
+        });
   }
   Future<void> _initialRoomEvent(InitialRoomEvent event, emit) async{
     /*_socket.emit('enter_public_room', {
@@ -102,9 +112,6 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
       'userNickName': this.roomViewModel.getUser.getNickname
     });
     _socket.disconnect();*/
-  }
-  Future<void> _dontBuildEvent(DontBuildEvent event, emit) async{
-   /* emit(DontBuildState());*/
   }
 
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../room/blocs/room_bloc.dart';
+import '../../room/domain/use-cases/get_rooms.dart';
+import '../../room/external/room_firestore_datasource.dart';
+import '../../room/infra/repositories/room_repository.dart';
+import '../../room/view-models/room_view_model.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../user/infra/models/user_model.dart';
-
-import '../blocs/establishment_bloc.dart';
-import '../domain/use-cases/get_establishments.dart';
-import '../external/establishment_firestore_datasource.dart';
-import '../infra/repositories/establishment_repository.dart';
-import '../view-models/establishment_view_model.dart';
 import 'components/establishment_flexible_space_bar_widget.dart';
 import 'components/establishment_page_one_widget.dart';
 import 'components/establishment_page_two_widget.dart';
@@ -26,23 +26,23 @@ class EstablishmentPage extends StatefulWidget {
 class _EstablishmentPageState extends State<EstablishmentPage>
     with SingleTickerProviderStateMixin {
   late final ScrollController _scrollViewController;
-  late final EstablishmentBloc _bloc;
+  late final RoomBloc _bloc;
   late TabController _tabController;
-  late final EstablishmentViewModel _establishmentViewModel;
+  late final RoomViewModel _roomViewModel;
 
   @override
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
 
-    _bloc = EstablishmentBloc(
-        getEstablishments: GetEstablishments(EstablishmentRepository(
-            EstablishmentFirestoreDatasource(FirebaseFirestore.instance))));
+    _bloc = RoomBloc(
+        getRooms: GetRooms(RoomRepository(
+            RoomFirestoreDatasource(FirebaseFirestore.instance))));
 
     _tabController = TabController(vsync: this, length: 2);
-    _establishmentViewModel = EstablishmentViewModel(user: widget.user);
-    _establishmentViewModel.delayForForms(context);
-    _bloc.add(GetEstablishmentsEvent());
+    _roomViewModel = RoomViewModel(user: widget.user);
+    _roomViewModel.delayForForms(context);
+    _bloc.add(GetRoomsEvent());
   }
 
   @override
@@ -78,7 +78,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
           },
           body: TabBarView(controller: _tabController, children: <Widget>[
             EstablishmentPageOneWidget(
-                bloc: _bloc, establishmentViewModel: _establishmentViewModel),
+                bloc: _bloc, roomViewModel: _roomViewModel),
             EstablishmentPageTwoWidget()
           ])),
       // EstablishmentPageTwoWidget(this._roomViewModel, this._participantViewModel, this._bloc)])),
@@ -87,7 +87,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
           width: 160,
           child: FloatingActionButton.extended(
             onPressed: () {
-              _establishmentViewModel.openURL(context);
+              _roomViewModel.openURL(context);
             },
             label: Text("Ajude com sua opinião",
                 style: GoogleFonts.inter(fontSize: 10.5, color: Colors.white)),

@@ -13,7 +13,7 @@ abstract class IUserViewModel {
 }
 
 class UserViewModel implements IUserViewModel {
-  late final UserModel _user;
+  late UserModel _user;
   final TextEditingController nickNameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   final formAgeKey = GlobalKey<FormState>();
@@ -43,14 +43,12 @@ class UserViewModel implements IUserViewModel {
       if (getAge >= 18) {
         if (selectedGenre == '')
           selectedGenre = _genres[0];
-
-        _user = UserModel(
-            idUser: '',
+        _user = UserModel.empty();
+        _user = _user.copyWith(
             age: getAge,
             genre: selectedGenre,
-            latitude: 0.0,
-            longitude: 0.0,
-            nickname: nickNameController.text.trimLeft().trimRight());
+            nickname: nickNameController.text.trimLeft().trimRight()
+        );
 
         saveUser(_user);
       }

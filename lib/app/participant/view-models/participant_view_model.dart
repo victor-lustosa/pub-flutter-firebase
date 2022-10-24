@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../shared/configs/app_colors.dart';
-import '../../participant/models/participant.dart';
 import '../../user/infra/models/user_model.dart';
-
 import '../../room/blocs/room_bloc.dart';
 import '../../room/blocs/bloc_events.dart';
 import '../../room/infra/models/data/message_data.dart';
@@ -15,12 +13,9 @@ class ParticipantViewModel extends ChangeNotifier
     implements IParticipantViewModel {
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
-  // late bool boolAdd;
   String error = '';
-  late UserModel _user;
   int lineNumbers = 1;
-  // bool isVisibled = false;
-  late Participant _participant;
+  late UserModel _participant;
 
   sendMessage(RoomBloc bloc) {
     String textMessage = textController.text;
@@ -32,11 +27,11 @@ class ParticipantViewModel extends ChangeNotifier
           roomName: '',
           idMessage: '',
           textMessage: textMessage,
-          user: this.getUser,
+          user: this.getParticipant,
           code: 0,
           type: BlocEventType.send_private_message);
 
-      _participant.getMessages.add(mes);
+      _participant.messages.add(mes);
 
       bloc.add(SendPrivateMessageEvent(mes.toMap()));
       focusNode.requestFocus();
@@ -53,7 +48,7 @@ class ParticipantViewModel extends ChangeNotifier
 
   Alignment alignment(state, index) {
     if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (_participant.getMessages[index].user.nickname != _user.nickname) {
+      if (_participant.messages[index].user.nickname != _participant.nickname) {
         return Alignment.centerLeft;
       } else {
         return Alignment.centerRight;
@@ -65,7 +60,7 @@ class ParticipantViewModel extends ChangeNotifier
 
   Color color(state, index) {
     if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (_participant.getMessages[index].user.nickname != _user.nickname) {
+      if (_participant.messages[index].user.nickname != _participant.nickname) {
         return Colors.white;
       } else {
         return Color(0xffdcd9d9);
@@ -83,18 +78,16 @@ class ParticipantViewModel extends ChangeNotifier
     // });
     if (state is SendMessageState || state is ReceivePublicMessageState) {
       return Text(
-          '${_participant.getMessages[index].user.nickname} - ${_participant.getMessages[index].textMessage}');
+          '${_participant.messages[index].user.nickname} - ${_participant.messages[index].textMessage}');
     } else if (state is EnterPublicRoomMessageState) {
       return Center(
-          child: Text('${state.message.user.nickName} entrou na sala'));
+          child: Text('nome entrou na sala'));
     }
   }
 
-  get getUser => _user;
   get getParticipant => _participant;
 
-  setParticipant(Participant participant) => _participant = participant;
-  setUser(UserModel user) => _user = user;
+  setParticipant(UserModel participant) => _participant = participant;
 
   void addMessages(MessageData message) {
     getParticipant.addMessages(message);

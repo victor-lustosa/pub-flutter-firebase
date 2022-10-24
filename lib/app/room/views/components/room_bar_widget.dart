@@ -40,7 +40,7 @@ class _RoomBarWidgetState extends State<RoomBarWidget> {
                 onPressed: () {
                   widget.bloc.add(LeaveRoomEvent());
                   Navigator.pop(context);
-                  widget.roomViewModel.subscription.cancel();
+                  widget.roomViewModel.streamLocation.cancel();
                   widget.mSub.cancel();
                   // widget..subscription.cancel();
                 })),

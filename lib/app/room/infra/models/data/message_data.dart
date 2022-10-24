@@ -38,7 +38,7 @@ class MessageData extends Data{
     };
   }
 
-  factory MessageData.fromMap(Map<String,dynamic> map) {
+  factory MessageData.fromMap(dynamic map) {
     return MessageData(
         idRoom: map['idRoom'],
         idMessage: map['idMessage'],

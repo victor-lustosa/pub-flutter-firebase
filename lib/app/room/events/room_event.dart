@@ -18,7 +18,9 @@ class LeaveRoomEvent extends RoomEvent{
 class DontBuildEvent extends RoomEvent{
   DontBuildEvent();
 }
-
+class GetRoomsEvent extends RoomEvent {
+  GetRoomsEvent();
+}
 class SendMessageEvent extends RoomEvent{
   final Map<String,dynamic> message;
   SendMessageEvent(this.message);
