@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import '../../shared/configs/app_colors.dart';
-import '../../user/infra/models/user_model.dart';
-import '../../room/blocs/room_bloc.dart';
 import '../../room/blocs/bloc_events.dart';
+import '../../participant/blocs/participant_bloc.dart';
 import '../../room/infra/models/data/message_data.dart';
+import '../../user/infra/models/user_model.dart';
 
 abstract class IParticipantViewModel {
-  sendMessage(RoomBloc bloc);
+  sendMessage(ParticipantBloc bloc);
 }
 
 class ParticipantViewModel extends ChangeNotifier
     implements IParticipantViewModel {
+  ParticipantViewModel({required UserModel participant})
+      : _participant = participant;
+
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
   String error = '';
   int lineNumbers = 1;
-  late UserModel _participant;
+  UserModel _participant;
 
-  sendMessage(RoomBloc bloc) {
+  sendMessage(ParticipantBloc bloc) {
     String textMessage = textController.text;
 
     if (textMessage.isNotEmpty) {
@@ -46,43 +48,19 @@ class ParticipantViewModel extends ChangeNotifier
     focusNode.dispose();
   }
 
-  Alignment alignment(state, index) {
-    if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (_participant.messages[index].user.nickname != _participant.nickname) {
-        return Alignment.centerLeft;
-      } else {
-        return Alignment.centerRight;
-      }
-    } else {
-      return Alignment.center;
-    }
-  }
-
-  Color color(state, index) {
-    if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (_participant.messages[index].user.nickname != _participant.nickname) {
-        return Colors.white;
-      } else {
-        return Color(0xffdcd9d9);
-      }
-    } else {
-      return AppColors.lightBrown;
-    }
-  }
-
   typeMessage(state, index) {
     // Timer(Duration(microseconds: 50), (){
     //   this.scrollViewController.jumpTo(
     //       this.scrollViewController.position.maxScrollExtent
     //   );
     // });
-    if (state is SendMessageState || state is ReceivePublicMessageState) {
+   /* if (state is SendMessageState || state is ReceivePublicMessageState) {
       return Text(
-          '${_participant.messages[index].user.nickname} - ${_participant.messages[index].textMessage}');
+          '${_participant.messages[index].getUser.getNickname} - ${_participant.messages[index].getTextMessage}');
     } else if (state is EnterPublicRoomMessageState) {
       return Center(
-          child: Text('nome entrou na sala'));
-    }
+          child: Text('${state.message.getUser.getNickName} entrou na sala'));
+    }*/
   }
 
   get getParticipant => _participant;
@@ -93,7 +71,7 @@ class ParticipantViewModel extends ChangeNotifier
     getParticipant.addMessages(message);
   }
 
-  // reload(RoomBloc bloc) {
-  //   widget.bloc.add(LoadingRoomsEvent());
-  // }
+// reload(RoomBloc bloc) {
+//   widget.bloc.add(LoadingRoomsEvent());
+// }
 }

@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
-import '../../room/blocs/room_bloc.dart';
 
+import '../../shared/components/chat_mixin.dart';
 import '../../shared/configs/app_colors.dart';
+import '../../user/infra/models/user_model.dart';
+import '../blocs/participant_bloc.dart';
 import '../view-models/participant_view_model.dart';
 import 'components/participant_bar_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ParticipantPage extends StatefulWidget {
-  final RoomBloc bloc;
-  final ParticipantViewModel participantViewModel;
-
-  ParticipantPage(this.bloc, this.participantViewModel);
+  final UserModel user;
+  ParticipantPage({required this.user});
 
   @override
   _ParticipantPageState createState() => _ParticipantPageState();
 }
 
-class _ParticipantPageState extends State<ParticipantPage> {
+class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
+  late final ParticipantBloc _bloc;
   late final ScrollController _scrollViewController;
+  late final ParticipantViewModel _participantViewModel;
   @override
   void initState() {
     // widget.bloc.add(EnterPrivateRoomEvent(widget.participantViewModel));
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
+    //_bloc = ParticipantBloc(sendPrivateMessage: sendPrivateMessage);
+    _participantViewModel = ParticipantViewModel(participant: widget.user);
     super.initState();
   }
 
@@ -38,29 +42,26 @@ class _ParticipantPageState extends State<ParticipantPage> {
         appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
-            title: ParticipantBarWidget(
-                widget.participantViewModel.getParticipant)),
+            title: ParticipantBarWidget(_participantViewModel.getParticipant)),
         body: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(color: Colors.white),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Column(children: <Widget>[
-              BlocBuilder<RoomBloc, RoomState>(
-                  bloc: widget.bloc,
+              BlocBuilder<ParticipantBloc, ParticipantState>(
+                  bloc: _bloc,
                   builder: (context, state) {
-                    if (state is InitialRoomState) {
+                    if (state is InitialState) {
                       return Expanded(child: Container());
                     } else {
                       return Expanded(
                         child: ListView.builder(
                             controller: _scrollViewController,
-                            itemCount: widget.participantViewModel
-                                .getParticipant.getMessages.length,
+                            itemCount: _participantViewModel.getParticipant.getMessages.length,
                             itemBuilder: (context, index) {
                               return Align(
-                                alignment: widget.participantViewModel
-                                    .alignment(state, index),
+                                alignment: alignment(state, index, widget.user),
                                 child: Padding(
                                   padding: const EdgeInsets.all(6),
                                   child: Container(
@@ -68,12 +69,10 @@ class _ParticipantPageState extends State<ParticipantPage> {
                                           0.8,
                                       padding: const EdgeInsets.all(14),
                                       decoration: BoxDecoration(
-                                          color: widget.participantViewModel
-                                              .color(state, index),
+                                          color: color(state, index, widget.user),
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(8))),
-                                      child: widget.participantViewModel
-                                          .typeMessage(state, index)),
+                                      child: _participantViewModel.typeMessage(state, index)),
                                 ),
                               );
                             }),
@@ -99,19 +98,16 @@ class _ParticipantPageState extends State<ParticipantPage> {
                             //   instance.lineNumbers = 5;
                             // }
                           },
-                          focusNode: this.widget.participantViewModel.focusNode,
+                          focusNode: _participantViewModel.focusNode,
                           onSubmitted: (_) {
-                            this
-                                .widget
-                                .participantViewModel
-                                .sendMessage(widget.bloc);
+                            this._participantViewModel.sendMessage(_bloc);
                           },
                           controller:
-                              this.widget.participantViewModel.textController,
+                              this._participantViewModel.textController,
                           autofocus: true,
                           keyboardType: TextInputType.multiline,
                           maxLines:
-                              this.widget.participantViewModel.lineNumbers,
+                              this._participantViewModel.lineNumbers,
                           style: GoogleFonts.inter(fontSize: 15),
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.fromLTRB(20, 6, 20, 6),
@@ -136,10 +132,7 @@ class _ParticipantPageState extends State<ParticipantPage> {
                             ),
                             mini: true,
                             onPressed: () {
-                              this
-                                  .widget
-                                  .participantViewModel
-                                  .sendMessage(widget.bloc);
+                              this._participantViewModel.sendMessage(_bloc);
                             }),
                       ),
                     ),

@@ -4,11 +4,12 @@ abstract class RoomState {}
 class InitialState extends RoomState{
   InitialState();
 }
-class InitialRoomState extends RoomState{
-  InitialRoomState();
+class EnterRoomState extends RoomState{
+  EnterRoomState();
 }
+
 class SuccessRoomsState extends RoomState {
-  final List<RoomModel> entities;
+  final List<RoomEntity> entities;
   SuccessRoomsState(this.entities);
 }
 class EnterPublicRoomMessageState extends  RoomState{
@@ -31,8 +32,8 @@ class ReceivePublicMessageState extends RoomState {
   }
 }
 class ReceivePrivateMessageState extends RoomState {
-  ReceivePrivateMessageState({required MessageData message, required ParticipantViewModel participantViewModel}){
-    participantViewModel.addMessages(message);
+  ReceivePrivateMessageState({required MessageData message, required RoomViewModel roomViewModel}){
+    roomViewModel.addMessages(message);
   }
 }
 

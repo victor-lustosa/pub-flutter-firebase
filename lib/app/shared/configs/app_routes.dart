@@ -49,14 +49,14 @@ class AppRoutes {
 
       case publicRoomRoute:
         return MaterialPageRoute(
-            builder: (_) => RoomPage((arguments as RoomDTO).getBloc,
-                arguments.getRoomViewModel, arguments.getParticipantViewModel));
+            builder: (_) => RoomPage(
+                bloc: (arguments as RoomDTO).getBloc,
+                roomViewModel: arguments.getRoomViewModel)
+        );
 
       case privateRoomRoute:
         return MaterialPageRoute(
-            builder: (_) => ParticipantPage(
-                (arguments as ParticipantDTO).getBloc,
-                arguments.getParticipantViewModel));
+            builder: (_) => ParticipantPage(user: (arguments as ParticipantDTO).getUser));
 
       default:
         return _unknownRoute();

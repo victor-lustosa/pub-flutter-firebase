@@ -11,17 +11,6 @@ class RoomEntity {
   final List<UserEntity> participants;
   final List<dynamic> messages;
 
-  addMessages(dynamic data) {
-    messages.add(data);
-  }
-
-  addParticipants(UserEntity data) {
-    participants.add(data);
-  }
-
-  removeParticipants(UserEntity data) {
-    participants.removeWhere((element) => data.idUser == element.idUser);
-  }
   const RoomEntity({
     required this.id,
     required this.isAcceptedLocation,

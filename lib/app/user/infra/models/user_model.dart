@@ -54,6 +54,11 @@ class UserModel extends UserEntity{
      'longitude': user.longitude,
    };
  }
+ static Map<String, dynamic> toMaps(List<dynamic> user) {
+   return {
+
+   };
+ }
 
   static String toJson(UserEntity userEntity) => json.encode(UserModel.toMap(userEntity));
 
@@ -66,7 +71,7 @@ class UserModel extends UserEntity{
     required double latitude,
     required double longitude,
     required List<dynamic> messages
-  })  :super(
+  }) : super(
         messages: messages,
         idUser: idUser,
         nickname: nickname,

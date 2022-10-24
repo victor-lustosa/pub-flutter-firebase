@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../participant/infra/models/dto/participant_dto.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
 import '../../../room/blocs/room_bloc.dart';
-import '../../../participant/view-models/participant_view_model.dart';
+
+import '../../../shared/configs/app_routes.dart';
 import '../../view-models/room_view_model.dart';
 
 class RoomPageTwoWidget extends StatefulWidget {
   final RoomViewModel roomViewModel;
-  final ParticipantViewModel participantViewModel;
   final RoomBloc bloc;
-  RoomPageTwoWidget(this.roomViewModel, this.bloc, this.participantViewModel);
+  RoomPageTwoWidget(this.roomViewModel, this.bloc);
 
   @override
   _RoomPageTwoWidgetState createState() => _RoomPageTwoWidgetState();
@@ -63,27 +64,16 @@ class _RoomPageTwoWidgetState extends State<RoomPageTwoWidget> {
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: Text(
                                     widget.roomViewModel.getRoom
-                                        .getParticipants[index].getNickname,
+                                        .participants[index].nickname,
                                     style: GoogleFonts.inter(
                                       color: AppColors.darkBrown,
                                       fontSize: 18,
                                     ))),
-                            // subtitle:Row(
-                            //   children: [
-                            //     Text( '20 pessoas',
-                            //         style:GoogleFonts.inter( fontSize: 13, color: Colors.black45)),
-                            //     Padding(
-                            //         padding: EdgeInsets.only(left: 40) ,
-                            //         child: Text('3.2 km de distância',
-                            //             style:GoogleFonts.inter( fontSize: 13, color: Colors.black45))
-                            //     ),
-                            //   ],
-                            // ),
                             onTap: () {
-                              // widget.participantViewModel.setParticipant(widget.roomViewModel.getRoom.getParticipants[index]);
-                              // Navigator.pushNamed(context, AppRoutes.PRIVATE_ROOM_ROUTE,arguments:
-                              //     ParticipantDTO(bloc: widget.bloc,
-                              //                    participantViewModel: this.widget.participantViewModel));
+                               Navigator.pushNamed(context,
+                                   AppRoutes.privateRoomRoute,
+                                   arguments: ParticipantDTO(user: widget.roomViewModel.getRoom.getParticipants[index])
+                               );
                             });
                       }));
             }));

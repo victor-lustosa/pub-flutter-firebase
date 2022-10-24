@@ -3,60 +3,40 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
-import '../../participant/view-models/participant_view_model.dart';
-
+import '../../user/infra/models/user_model.dart';
 import '../domain/entities/room_entity.dart';
-import '../domain/use-cases/get_rooms.dart';
-import '../domain/use-cases/initial_room.dart';
-import '../domain/use-cases/leave_room.dart';
-import '../domain/use-cases/receive_message.dart';
-import '../domain/use-cases/send_private_message.dart';
-import '../domain/use-cases/send_public_message.dart';
+import '../domain/use-cases/room_use_cases.dart';
 import '../../room/infra/models/data/message_data.dart';
 import '../../room/infra/models/data/public_room_data.dart';
 import '../../room/view-models/room_view_model.dart';
 import '../infra/models/room_model.dart';
 
 
+
 part '../events/room_event.dart';
 part '../states/room_state.dart';
 
 class RoomBloc extends Bloc<RoomEvent, RoomState> {
-  final IGetRooms getRooms;
- // final IInitialRoom initialRoom;
-  //final ISendPublicMessage sendPublicMessage;
-  //final ISendPrivateMessage sendPrivateMessage;
-  //final IReceiveMessage receiveMessage;
-  //final ILeaveRoom leaveRoom;
+  final IRoomUseCases roomUseCases;
 
-  RoomBloc({required this.getRooms,
-            //required this.initialRoom,
-            //required this.sendPublicMessage,
-            //required this.leaveRoom,
-            //required this.sendPrivateMessage,
-            //required this.receiveMessage
+  RoomBloc({required this.roomUseCases,
             }) : super(InitialState()) {
-
     on<GetRoomsEvent>(_getRooms);
-    on<InitialRoomEvent>(_initialRoomEvent);
+    on<EnterRoomEvent>(_enterRoomEvent);
     on<SendMessageEvent>(_sendMessageEvent);
     on<LeaveRoomEvent>(_leaveRoomEvent);
-    on<SendPrivateMessageEvent>(_sendPrivateMessageEvent);
     on<DisconnectEvent>(_disconnectEvent);
     on<ReceiveMessageEvent>(_receiveMessageEvent);
   }
-  Future<void> _getRooms(event, emit) async {
-    await emit.onEach<List<RoomEntity>>(getRooms.call(),
+  Future<void> _getRooms(_, emit) async {
+    await emit.onEach<List<RoomEntity>>(roomUseCases.getRooms(),
         onData: (rooms) {
-          emit(SuccessRoomsState(rooms as List<RoomModel>));
+          emit(SuccessRoomsState(rooms));
         });
   }
-  Future<void> _initialRoomEvent(InitialRoomEvent event, emit) async{
-    /*_socket.emit('enter_public_room', {
-      'roomName': this.roomViewModel.getRoom.getRoomName,
-      'idRoom': this.roomViewModel.getRoom.getIdRoom,
-      'user': this.roomViewModel.getUser.toMap()
-    });*/
+  Future<void> _enterRoomEvent(EnterRoomEvent event, emit) async{
+    roomUseCases.enterRoom(event.room, event.user);
+    emit(EnterRoomState());
   }
   Future<void> _sendMessageEvent(SendMessageEvent event, emit) async{
     /*_socket.emit('public_message', {'message': event.message});
@@ -69,14 +49,7 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
       'user': this.roomViewModel.getUser.toMap()
     });*/
   }
-  Future<void> _sendPrivateMessageEvent(SendPrivateMessageEvent event, emit) async{
-    /*_socket.emit('private_message', {
-      'idSender': this.roomViewModel.getUser.getIdUser,
-      'idReceiver': this.participantViewModel.getParticipant.getIdUser,
-      'message': event.message
-    });
-    emit(SendPrivateMessageState());*/
-  }
+
   Future<void> _receiveMessageEvent(ReceiveMessageEvent event, emit) async{
    /* Data data = Data.fromMap(event.message);
 

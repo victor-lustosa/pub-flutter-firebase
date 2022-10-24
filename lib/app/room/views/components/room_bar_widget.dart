@@ -8,10 +8,9 @@ import '../../../room/blocs/room_bloc.dart';
 import '../../view-models/room_view_model.dart';
 
 class RoomBarWidget extends StatefulWidget {
-  RoomBarWidget(this.bloc, this.roomViewModel, this.mSub);
+  RoomBarWidget(this.bloc, this.roomViewModel);
 
   final RoomBloc bloc;
-  final StreamSubscription mSub;
   final RoomViewModel roomViewModel;
   @override
   State<RoomBarWidget> createState() => _RoomBarWidgetState();
@@ -28,26 +27,11 @@ class _RoomBarWidgetState extends State<RoomBarWidget> {
         //     backgroundImage: widget.contato.urlImagem != null
         //         ? NetworkImage(widget.contato.urlImagem)
         //         : null),
-        Padding(
-            padding: EdgeInsets.only(top: 0, right: 0),
-            child: IconButton(
-                iconSize: 30,
-                icon: Icon(
-                  Icons.navigate_before_rounded,
-                  color: AppColors.darkBrown,
-                ),
-                color: AppColors.darkBrown,
-                onPressed: () {
-                  widget.bloc.add(LeaveRoomEvent());
-                  Navigator.pop(context);
-                  widget.roomViewModel.streamLocation.cancel();
-                  widget.mSub.cancel();
-                  // widget..subscription.cancel();
-                })),
+
         Padding(
             padding: EdgeInsets.only(left: 8),
             child: Text(
-              widget.roomViewModel.getRoom.getRoomName,
+              widget.roomViewModel.getRoom.name,
               style:
                   GoogleFonts.inter(fontSize: 17, color: AppColors.darkBrown),
             ))

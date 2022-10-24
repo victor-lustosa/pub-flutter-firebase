@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import '../../room/blocs/room_bloc.dart';
-import '../../participant/view-models/participant_view_model.dart';
+
 import '../../room/views/components/room_page_one_widget.dart';
 import '../../shared/configs/app_colors.dart';
 import '../view-models/room_view_model.dart';
@@ -13,29 +14,34 @@ import 'components/room_tab_bar_sliver_widget.dart';
 class RoomPage extends StatefulWidget {
   final RoomBloc bloc;
   final RoomViewModel roomViewModel;
-  final ParticipantViewModel participantViewModel;
 
-  RoomPage(this.bloc, this.roomViewModel, this.participantViewModel);
+  RoomPage({required this.bloc, required this.roomViewModel});
 
   @override
   _RoomPageState createState() => _RoomPageState();
 }
 
 class _RoomPageState extends State<RoomPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin{
   double offset = 0.0;
   late StreamSubscription mSub;
   late TabController _tabController;
 
   @override
   void initState() {
-    widget.bloc.add(InitialRoomEvent());
-    widget.roomViewModel.verifyLocation(context, widget.bloc);
+    super.initState();
+    widget.bloc.add(
+        EnterRoomEvent(
+         user:  widget.roomViewModel.getUser,
+         room:  widget.roomViewModel.getRoom
+        )
+    );
+
     mSub = widget.bloc.stream.listen((state) {
       if (state is LeavePublicRoomMessageState) this.mSub.cancel();
     });
-    _tabController = TabController(vsync: this, length: 2);
-    super.initState();
+     _tabController = TabController(vsync: this, length: 2);
+
   }
 
   @override
@@ -55,9 +61,7 @@ class _RoomPageState extends State<RoomPage>
               return <Widget>[
                 SliverAppBar(
                   flexibleSpace: FlexibleSpaceBar(
-                    background: RoomBarWidget(
-                        this.widget.bloc, this.widget.roomViewModel, this.mSub),
-                  ),
+                    background: RoomBarWidget(this.widget.bloc, this.widget.roomViewModel)),
                   automaticallyImplyLeading: false,
                   backgroundColor: AppColors.white,
                   pinned: true,
@@ -71,7 +75,7 @@ class _RoomPageState extends State<RoomPage>
               ];
             },
             body: TabBarView(controller: _tabController, children: <Widget>[
-              RoomPageOneWidget(this.widget.roomViewModel, this.widget.bloc),
+              RoomPageOneWidget(this.widget.roomViewModel, this.widget.bloc,this.mSub),
               // Visibility(visible: true,
               //     child: Container(
               //       decoration: BoxDecoration(
@@ -83,8 +87,7 @@ class _RoomPageState extends State<RoomPage>
               //         ],
               //       ),
               //     )),
-              RoomPageTwoWidget(this.widget.roomViewModel, this.widget.bloc,
-                  this.widget.participantViewModel)
+              RoomPageTwoWidget(this.widget.roomViewModel, this.widget.bloc)
             ])));
   }
 }

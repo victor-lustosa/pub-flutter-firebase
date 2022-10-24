@@ -1,13 +1,16 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../room/blocs/room_bloc.dart';
+import '../../../room/infra/models/dto/room_dto.dart';
+import '../../../shared/components/location_util.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
 import '../../../room/view-models/room_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../shared/configs/app_routes.dart';
+
 
 class EstablishmentPageOneWidget extends StatefulWidget {
   final RoomBloc bloc;
@@ -24,19 +27,12 @@ class _EstablishmentPageOneWidgetState
   //late StreamSubscription mSub;
   @override
   initState() {
-    // final IGetEstablishments _getEstablishments = GetEstablishments();
-    //bloc = EstablishmentBloc(getEstablishmentsUseCase: null);
     /*mSub = bloc.stream.listen((state) {
       if (state is LeavePublicRoomMessageState) this.mSub.cancel();
     });*/
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-  }
 
   @override
   dispose() {
@@ -73,11 +69,8 @@ class _EstablishmentPageOneWidgetState
                         ])
                       ]);
                 }
-                /*else if (state is LoadingRoomsState ) {
-                  return Container(child:Center(child:CircularProgressIndicator()));
-                }*/
                 else if (state is SuccessRoomsState) {
-                  this.widget.roomViewModel.setRooms(this.widget.roomViewModel.calculateDistance(state.entities));
+                  this.widget.roomViewModel.setRooms(LocationUtil.calculateDistance(state.entities, this.widget.roomViewModel.getUser));
 
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
@@ -163,12 +156,11 @@ class _EstablishmentPageOneWidgetState
                                               bool isUserExist = this.widget.roomViewModel.verifyNameUser(this.widget.roomViewModel.getRooms[index]);
                                               if (!isUserExist) {
                                                 this.widget.roomViewModel.setRoom(this.widget.roomViewModel.getRooms[index]);
-                                                /*Navigator.pushNamed(context,
+                                                Navigator.pushNamed(context,
                                                     AppRoutes.publicRoomRoute,
                                                     arguments: RoomDTO(
-                                                        bloc: bloc,
-                                                        roomViewModel: this._establishmentViewModel,
-                                                        participantViewModel: this.participantViewModel));*/
+                                                        bloc: this.widget.bloc,
+                                                        roomViewModel: this.widget.roomViewModel));
                                               } else {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(const SnackBar(

@@ -1,18 +1,17 @@
 import '../../../../room/blocs/room_bloc.dart';
 
-import '../../../view-models/participant_view_model.dart';
+import '../../../../room/view-models/room_view_model.dart';
+import '../../../../user/infra/models/user_model.dart';
+
 
 
 class ParticipantDTO {
-  RoomBloc _bloc;
-  ParticipantViewModel _participantViewModel;
+  UserModel _user;
 
-  get getBloc => _bloc;
-  get getParticipantViewModel => _participantViewModel;
+
+  get getUser => _user;
 
   ParticipantDTO(
-      {required RoomBloc bloc,
-      required ParticipantViewModel participantViewModel})
-      : _bloc = bloc,
-        _participantViewModel = participantViewModel;
+      {required UserModel user})
+      : _user = user;
 }

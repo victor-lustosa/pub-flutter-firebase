@@ -17,7 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> _saveUser(SaveUserEvent event, emit) async{
-    saveUser.call(event.entity);
+    saveUser.add(event.entity);
     emit(SaveSuccessState());
   }
 }

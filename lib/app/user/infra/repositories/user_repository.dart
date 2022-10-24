@@ -1,7 +1,7 @@
 
-import '../../../core/infra/datasources/get_datasource.dart';
+import '../../../core/infra/datasources/datasource.dart';
 import '../../domain/entities/user_entity.dart';
-import '../../domain/repositories/user_repositories.dart';
+import '../../domain/repositories/user_repository.dart';
 
 class UserRepository implements IUserRepository <UserEntity> {
   final IGetDatasource datasource;

@@ -1,19 +1,19 @@
 
-import '../../../core/domain/repositories/add_repository.dart';
+import 'package:pub/app/user/domain/repositories/user_repository.dart';
 import '../entities/user_entity.dart';
 
 
 abstract class ISaveUser {
-  void call(UserEntity userModel);
+  void add(UserEntity userModel);
 }
 
 class SaveUser implements ISaveUser {
-  final IAddRepository repository;
+  final IUserRepository<UserEntity> repository;
 
   SaveUser(this.repository);
 
   @override
-  Future<void> call(UserEntity userModel) async{
+  Future<void> add(UserEntity userModel) async{
     return repository.add(userModel);
   }
 }

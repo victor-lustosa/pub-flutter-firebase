@@ -36,7 +36,6 @@ class EstablishmentPageTwoWidget extends StatelessWidget {
 // import '../../../../shared/configs/app_images.dart';
 // import '../../../../shared/configs/app_routes.dart';
 // import '../../../../shared/room_bloc/stablishment_bloc.dart';
-// import '../../../participant/models/dto/participant_dto.dart';
 // import '../../../participant/view-models/participant_view_model.dart';
 // import '../../../room/view-models/room_view_model.dart';
 // // import '../../repositories/establishment_repository_dto.dart';

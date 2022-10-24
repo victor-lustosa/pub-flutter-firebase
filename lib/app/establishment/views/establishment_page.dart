@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../room/blocs/room_bloc.dart';
-import '../../room/domain/use-cases/get_rooms.dart';
+import '../../room/domain/use-cases/room_use_cases.dart';
 import '../../room/external/room_firestore_datasource.dart';
 import '../../room/infra/repositories/room_repository.dart';
 import '../../room/view-models/room_view_model.dart';
+
+import '../../shared/components/location_util.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../user/infra/models/user_model.dart';
+
 import 'components/establishment_flexible_space_bar_widget.dart';
 import 'components/establishment_page_one_widget.dart';
 import 'components/establishment_page_two_widget.dart';
@@ -16,7 +19,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EstablishmentPage extends StatefulWidget {
   EstablishmentPage(this.user);
-
   final UserModel user;
 
   @override
@@ -30,19 +32,27 @@ class _EstablishmentPageState extends State<EstablishmentPage>
   late TabController _tabController;
   late final RoomViewModel _roomViewModel;
 
+  getUser() async{
+    _roomViewModel = RoomViewModel();
+    _roomViewModel.setUser(await LocationUtil.getPosition(widget.user));
+  }
+
   @override
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
-
+    getUser();
     _bloc = RoomBloc(
-        getRooms: GetRooms(RoomRepository(
-            RoomFirestoreDatasource(FirebaseFirestore.instance))));
-
+        roomUseCases: RoomUseCases(
+              RoomRepository(
+                RoomFirestoreDatasource(FirebaseFirestore.instance)
+              )
+        )
+    );
     _tabController = TabController(vsync: this, length: 2);
-    _roomViewModel = RoomViewModel(user: widget.user);
     _roomViewModel.delayForForms(context);
     _bloc.add(GetRoomsEvent());
+
   }
 
   @override
