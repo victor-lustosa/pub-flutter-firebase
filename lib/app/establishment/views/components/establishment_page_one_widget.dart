@@ -7,19 +7,17 @@ import '../../../shared/components/location_util.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
 import '../../../room/view-models/room_view_model.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../shared/configs/app_routes.dart';
 
+import 'package:google_fonts/google_fonts.dart';
 
 class EstablishmentPageOneWidget extends StatefulWidget {
-  final RoomBloc bloc;
+
   final RoomViewModel roomViewModel;
 
-  EstablishmentPageOneWidget({required this.roomViewModel, required this.bloc});
+  EstablishmentPageOneWidget({required this.roomViewModel});
   @override
-  State<EstablishmentPageOneWidget> createState() =>
-      _EstablishmentPageOneWidgetState();
+  State<EstablishmentPageOneWidget> createState() => _EstablishmentPageOneWidgetState();
 }
 
 class _EstablishmentPageOneWidgetState
@@ -32,7 +30,6 @@ class _EstablishmentPageOneWidgetState
     });*/
     super.initState();
   }
-
 
   @override
   dispose() {
@@ -50,7 +47,7 @@ class _EstablishmentPageOneWidgetState
                   topLeft: const Radius.circular(10.0),
                   topRight: const Radius.circular(10.0))),
           child: BlocBuilder<RoomBloc, RoomState>(
-              bloc: this.widget.bloc,
+              bloc: this.widget.roomViewModel.bloc,
               buildWhen: (context, current) =>
                   context.runtimeType != current.runtimeType &&
                   (current is SuccessRoomsState),
@@ -75,7 +72,7 @@ class _EstablishmentPageOneWidgetState
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
                       onRefresh: () async {
-                        this.widget.bloc.add(GetRoomsEvent());
+                        this.widget.roomViewModel.bloc.add(GetRoomsEvent());
                       },
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
@@ -159,7 +156,7 @@ class _EstablishmentPageOneWidgetState
                                                 Navigator.pushNamed(context,
                                                     AppRoutes.publicRoomRoute,
                                                     arguments: RoomDTO(
-                                                        bloc: this.widget.bloc,
+                                                        bloc: this.widget.roomViewModel.bloc,
                                                         roomViewModel: this.widget.roomViewModel));
                                               } else {
                                                 ScaffoldMessenger.of(context)

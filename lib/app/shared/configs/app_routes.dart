@@ -35,8 +35,7 @@ class AppRoutes {
       case establishmentRoute:
         return MaterialPageRoute(
             // builder: (_) => EstablishmentPage(establishmentDTO.getUser, establishmentDTO.getEstablishment));
-            builder: (_) =>
-                EstablishmentPage((arguments as EstablishmentDTO).getUser));
+            builder: (_) => EstablishmentPage((arguments as EstablishmentDTO).getUser));
 
       case userRegisterRoute:
         return MaterialPageRoute(builder: (_) => UserRegisterPage());
@@ -49,9 +48,7 @@ class AppRoutes {
 
       case publicRoomRoute:
         return MaterialPageRoute(
-            builder: (_) => RoomPage(
-                bloc: (arguments as RoomDTO).getBloc,
-                roomViewModel: arguments.getRoomViewModel)
+            builder: (_) => RoomPage(roomViewModel: (arguments as RoomDTO).getRoomViewModel)
         );
 
       case privateRoomRoute:

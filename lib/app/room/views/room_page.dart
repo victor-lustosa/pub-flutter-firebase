@@ -12,10 +12,9 @@ import 'components/room_page_two_widget.dart';
 import 'components/room_tab_bar_sliver_widget.dart';
 
 class RoomPage extends StatefulWidget {
-  final RoomBloc bloc;
   final RoomViewModel roomViewModel;
 
-  RoomPage({required this.bloc, required this.roomViewModel});
+  RoomPage({required this.roomViewModel});
 
   @override
   _RoomPageState createState() => _RoomPageState();
@@ -30,14 +29,14 @@ class _RoomPageState extends State<RoomPage>
   @override
   void initState() {
     super.initState();
-    widget.bloc.add(
+    widget.roomViewModel.bloc.add(
         EnterRoomEvent(
          user:  widget.roomViewModel.getUser,
          room:  widget.roomViewModel.getRoom
         )
     );
 
-    mSub = widget.bloc.stream.listen((state) {
+    mSub = widget.roomViewModel.bloc.stream.listen((state) {
       if (state is LeavePublicRoomMessageState) this.mSub.cancel();
     });
      _tabController = TabController(vsync: this, length: 2);
@@ -60,8 +59,7 @@ class _RoomPageState extends State<RoomPage>
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: RoomBarWidget(this.widget.bloc, this.widget.roomViewModel)),
+                  flexibleSpace: FlexibleSpaceBar(background: RoomBarWidget(this.widget.roomViewModel)),
                   automaticallyImplyLeading: false,
                   backgroundColor: AppColors.white,
                   pinned: true,
@@ -74,20 +72,25 @@ class _RoomPageState extends State<RoomPage>
                 )
               ];
             },
-            body: TabBarView(controller: _tabController, children: <Widget>[
-              RoomPageOneWidget(this.widget.roomViewModel, this.widget.bloc,this.mSub),
-              // Visibility(visible: true,
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         color: AppColors.brown,
-              //           borderRadius: BorderRadius.all(const Radius.circular(10.0))),
-              //       child: Row(mainAxisAlignment: MainAxisAlignment.center,
-              //         children: [
-              //           IconButton(onPressed:() {}, icon: Icon(Icons.remove,size: 10,color: Color(0xFFFFFFFF),))
-              //         ],
-              //       ),
-              //     )),
-              RoomPageTwoWidget(this.widget.roomViewModel, this.widget.bloc)
-            ])));
+            body: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                    RoomPageOneWidget(this.widget.roomViewModel, this.mSub),
+                    RoomPageTwoWidget(this.widget.roomViewModel),
+                  // Visibility(visible: true,
+                  //     child: Container(
+                  //       decoration: BoxDecoration(
+                  //         color: AppColors.brown,
+                  //           borderRadius: BorderRadius.all(const Radius.circular(10.0))),
+                  //       child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                  //         children: [
+                  //           IconButton(onPressed:() {}, icon: Icon(Icons.remove,size: 10,color: Color(0xFFFFFFFF),))
+                  //         ],
+                  //       ),
+                  //     )),
+            ]
+            )
+        )
+    );
   }
 }

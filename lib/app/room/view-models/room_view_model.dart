@@ -16,10 +16,10 @@ abstract class IRoomViewModel {}
 
 class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
 
-  RoomViewModel() {
+  RoomViewModel({required this.bloc}) {
     _room = RoomModel.empty();
   }
-
+  final RoomBloc bloc;
   final Uri _url = Uri.parse('https://flutter.dev');
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
@@ -41,8 +41,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     if (await canLaunchUrl(_url))
       await launchUrl(_url);
     else
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Não foi possivel abrir a página')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Não foi possivel abrir a página')));
 
     /// Não è possível abrir a URL
   }

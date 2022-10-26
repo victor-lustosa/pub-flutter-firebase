@@ -15,7 +15,7 @@ abstract class IRoomUseCases {
 class RoomUseCases implements IRoomUseCases {
   final IRoomRepository<RoomEntity> repository;
 
-  RoomUseCases(this.repository);
+  RoomUseCases({required this.repository});
 
 
   @override

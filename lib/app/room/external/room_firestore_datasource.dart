@@ -6,7 +6,7 @@ import '../infra/models/room_model.dart';
 class RoomFirestoreDatasource implements IRoomDatasource {
   final FirebaseFirestore firestore;
 
-  RoomFirestoreDatasource(this.firestore);
+  RoomFirestoreDatasource({required this.firestore});
 
   List<Map> _convert(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
     return docs

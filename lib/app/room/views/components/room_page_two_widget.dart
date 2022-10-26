@@ -11,8 +11,8 @@ import '../../view-models/room_view_model.dart';
 
 class RoomPageTwoWidget extends StatefulWidget {
   final RoomViewModel roomViewModel;
-  final RoomBloc bloc;
-  RoomPageTwoWidget(this.roomViewModel, this.bloc);
+
+  RoomPageTwoWidget(this.roomViewModel);
 
   @override
   _RoomPageTwoWidgetState createState() => _RoomPageTwoWidgetState();

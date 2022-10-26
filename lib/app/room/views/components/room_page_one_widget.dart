@@ -9,9 +9,9 @@ import '../../../room/blocs/room_bloc.dart';
 import '../../blocs/bloc_events.dart';
 
 class RoomPageOneWidget extends StatefulWidget {
-  RoomPageOneWidget(this.instance, this.bloc, this.mSub);
+  RoomPageOneWidget(this.instance, this.mSub);
+
   final StreamSubscription mSub;
-  final RoomBloc bloc;
   final RoomViewModel instance;
 
   @override
@@ -157,7 +157,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget>{
         height: MediaQuery.of(context).size.height,
         child: Column(children: <Widget>[
           BlocBuilder<RoomBloc, RoomState>(
-              bloc: widget.bloc,
+              bloc: widget.instance.bloc,
               builder: (context, state) {
                 if (state is InitialState) {
                   return Expanded(child: Container());
@@ -195,7 +195,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget>{
                       },
                       focusNode: this.widget.instance.focusNode,
                       onSubmitted: (_) {
-                        this.widget.instance.sendMessage(widget.bloc, '');
+                        this.widget.instance.sendMessage(widget.instance.bloc, '');
                       },
                       controller: this.widget.instance.textController,
                       autofocus: true,
@@ -225,7 +225,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget>{
                         ),
                         mini: true,
                         onPressed: () {
-                          this.widget.instance.sendMessage(widget.bloc,'public');
+                          this.widget.instance.sendMessage(widget.instance.bloc,'public');
                         }),
                   ),
                 ),

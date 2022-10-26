@@ -7,7 +7,7 @@ import '../models/room_model.dart';
 class RoomRepository implements IRoomRepository<RoomEntity> {
   final IRoomDatasource datasource;
 
-  RoomRepository(this.datasource);
+  RoomRepository({required this.datasource});
 
   List<RoomEntity> _convert(List<Map> list) {
     return list.map(RoomModel.fromMap).toList();

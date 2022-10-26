@@ -19,6 +19,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EstablishmentPage extends StatefulWidget {
   EstablishmentPage(this.user);
+
   final UserModel user;
 
   @override
@@ -28,12 +29,16 @@ class EstablishmentPage extends StatefulWidget {
 class _EstablishmentPageState extends State<EstablishmentPage>
     with SingleTickerProviderStateMixin {
   late final ScrollController _scrollViewController;
-  late final RoomBloc _bloc;
   late TabController _tabController;
   late final RoomViewModel _roomViewModel;
 
-  getUser() async{
-    _roomViewModel = RoomViewModel();
+  getUser() async {
+    _roomViewModel = RoomViewModel(
+        bloc: RoomBloc(
+            roomUseCases: RoomUseCases(
+                repository: RoomRepository(
+                    datasource: RoomFirestoreDatasource(
+                        firestore: FirebaseFirestore.instance)))));
     _roomViewModel.setUser(await LocationUtil.getPosition(widget.user));
   }
 
@@ -41,24 +46,16 @@ class _EstablishmentPageState extends State<EstablishmentPage>
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
-    getUser();
-    _bloc = RoomBloc(
-        roomUseCases: RoomUseCases(
-              RoomRepository(
-                RoomFirestoreDatasource(FirebaseFirestore.instance)
-              )
-        )
-    );
     _tabController = TabController(vsync: this, length: 2);
+    getUser();
+    _roomViewModel.bloc.add(GetRoomsEvent());
     _roomViewModel.delayForForms(context);
-    _bloc.add(GetRoomsEvent());
-
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    _bloc.close();
+    _roomViewModel.bloc.close();
     super.dispose();
   }
 
@@ -87,8 +84,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
             ];
           },
           body: TabBarView(controller: _tabController, children: <Widget>[
-            EstablishmentPageOneWidget(
-                bloc: _bloc, roomViewModel: _roomViewModel),
+            EstablishmentPageOneWidget(roomViewModel: _roomViewModel),
             EstablishmentPageTwoWidget()
           ])),
       // EstablishmentPageTwoWidget(this._roomViewModel, this._participantViewModel, this._bloc)])),

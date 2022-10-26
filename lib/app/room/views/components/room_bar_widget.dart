@@ -8,10 +8,10 @@ import '../../../room/blocs/room_bloc.dart';
 import '../../view-models/room_view_model.dart';
 
 class RoomBarWidget extends StatefulWidget {
-  RoomBarWidget(this.bloc, this.roomViewModel);
+  RoomBarWidget(this.roomViewModel);
 
-  final RoomBloc bloc;
   final RoomViewModel roomViewModel;
+
   @override
   State<RoomBarWidget> createState() => _RoomBarWidgetState();
 }
@@ -19,23 +19,46 @@ class RoomBarWidget extends StatefulWidget {
 class _RoomBarWidgetState extends State<RoomBarWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        // CircleAvatar(
-        //     maxRadius: 20,
-        //     backgroundColor: Colors.grey,
-        //     backgroundImage: widget.contato.urlImagem != null
-        //         ? NetworkImage(widget.contato.urlImagem)
-        //         : null),
+    return Stack(
+        fit: StackFit.loose,
+        alignment: AlignmentDirectional.center,
+        children: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+              padding: EdgeInsets.only(top: 0),
+              child: IconButton(
+                  iconSize: 30,
+                  icon: Icon(
+                    Icons.navigate_before_rounded,
+                    color: AppColors.darkBrown,
+                  ),
+                  color: AppColors.darkBrown,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }))
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          // CircleAvatar(
+          //     maxRadius: 20,
+          //     backgroundColor: Colors.grey,
+          //     backgroundImage: widget.contato.urlImagem != null
+          //         ? NetworkImage(widget.contato.urlImagem)
+          //         : null),
 
-        Padding(
-            padding: EdgeInsets.only(left: 8),
-            child: Text(
-              widget.roomViewModel.getRoom.name,
-              style:
-                  GoogleFonts.inter(fontSize: 17, color: AppColors.darkBrown),
-            ))
-      ],
-    );
+          Padding(
+              padding: EdgeInsets.only(left: 48),
+              child: Text(
+                widget.roomViewModel.getRoom.name,
+                style:
+                    GoogleFonts.inter(fontSize: 17, color: AppColors.darkBrown),
+              ))
+        ],
+      ),
+    ]);
   }
 }

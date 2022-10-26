@@ -54,7 +54,7 @@ class ParticipantViewModel extends ChangeNotifier
     //       this.scrollViewController.position.maxScrollExtent
     //   );
     // });
-   /* if (state is SendMessageState || state is ReceivePublicMessageState) {
+    /* if (state is SendMessageState || state is ReceivePublicMessageState) {
       return Text(
           '${_participant.messages[index].getUser.getNickname} - ${_participant.messages[index].getTextMessage}');
     } else if (state is EnterPublicRoomMessageState) {
