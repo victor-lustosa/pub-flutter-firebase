@@ -7,7 +7,7 @@ class RoomFirestoreDatasource implements IParticipantDatasource {
   RoomFirestoreDatasource(this.firestore);
 
   @override
-  Stream<List<Map>> add() {
+  Future<void> add(user) {
     // TODO: implement add
     throw UnimplementedError();
   }

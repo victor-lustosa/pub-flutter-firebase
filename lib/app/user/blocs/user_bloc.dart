@@ -3,21 +3,38 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:pub/app/user/blocs/location_permission_enum.dart';
+import 'package:pub/app/user/infra/adapters/model_to_entity.dart';
 import '../../user/domain/entities/user_entity.dart';
-import '../../user/domain/use-cases/save_user.dart';
+import '../../user/domain/use-cases/user_use_cases.dart';
+import '../infra/models/user_model.dart';
 
 part '../events/user_event.dart';
 part '../states/user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final ISaveUser saveUser;
+  final IUserUseCases userUseCases;
 
-  UserBloc({required this.saveUser}) : super(InitialState()) {
-    on<SaveUserEvent>(_saveUser);
+  UserBloc({required this.userUseCases}) : super(InitialState()) {
+    on<GetUserEvent>(_get);
+    on<SaveUserEvent>(_save);
+    on<CheckUserLocationEvent>(_checkAccessToLocation);
   }
 
-  Future<void> _saveUser(SaveUserEvent event, emit) async{
-    saveUser.add(event.entity);
-    emit(SaveSuccessState());
+  Future<void> _get(_, emit) async{
+    final user = userUseCases.get();
+    user.then((value) => emit(FetchedUserState(value)));
   }
+
+  Future<void> _save(SaveUserEvent event, emit) async{
+    userUseCases.add(event.entity);
+    emit(UserSavedState());
+  }
+
+  Future<void> _checkAccessToLocation(_, emit) async{
+    Future<LocationPermissionEnum> location =  userUseCases.checkAccessToLocation();
+    location.then((value) => value.name);
+    emit(UserSavedState());
+  }
+
 }

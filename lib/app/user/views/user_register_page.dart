@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../user/view-models/user_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../infra/models/user_model.dart';
+import '../blocs/user_bloc.dart';
+import '../domain/use-cases/user_use_cases.dart';
+import '../external/datasources/user_shared_datasource.dart';
+import '../infra/repositories/user_repository.dart';
 import 'components/age_form_field_widget.dart';
 import 'components/dropdown_widget.dart';
 import 'components/nickname_form_field_widget.dart';
@@ -19,7 +22,11 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
 
   @override
   void initState() {
-    _userViewModel = UserViewModel();
+    _userViewModel = UserViewModel(
+        bloc: UserBloc(
+            userUseCases: UserUseCases(
+                repository: UserRepository(
+                    datasource: UserSharedDatasource()))));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _userViewModel.checkAccessToLocation(context);
     });
@@ -89,7 +96,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               child: Form(
                                   autovalidateMode: AutovalidateMode.always,
                                   child: DropdownWidget(
-                                    _userViewModel.getGenres,
+                                    _userViewModel.genres,
                                     (String value) {
                                       setState(() {
                                         _userViewModel.selectedGenre = value;
@@ -105,15 +112,14 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                                       .validate() &&
                                   _userViewModel.formAgeKey.currentState!
                                       .validate()) {
-
                                 _userViewModel.validateUser();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,
                                     AppRoutes.establishmentRoute,
                                     ModalRoute.withName(
                                         AppRoutes.userRegisterRoute),
-                                    arguments: EstablishmentDTO(
-                                        _userViewModel.getUser));
+                                    arguments:
+                                        EstablishmentDTO(_userViewModel.user));
                               }
                             },
                             icon: Icon(

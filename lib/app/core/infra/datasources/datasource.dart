@@ -1,13 +1,13 @@
 abstract class IGetDatasource {
   Stream<List<Map>> get();
 }
-abstract class IAddDatasource {
-  Stream<List<Map>> add();
+abstract class IAddDatasource<T> {
+  Future<void> add(T);
 }
-abstract class IDeleteDatasource {
-  Stream<List<Map>> delete();
+abstract class IDeleteDatasource<T> {
+  Future<void> delete(T);
 }
-abstract class IUpdateDatasource {
-  Stream<List<Map>> update();
+abstract class IUpdateDatasource<T> {
+  Future<void> update(T);
 }
 

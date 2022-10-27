@@ -10,14 +10,13 @@ abstract class IParticipantViewModel {
 
 class ParticipantViewModel extends ChangeNotifier
     implements IParticipantViewModel {
-  ParticipantViewModel({required UserModel participant})
-      : _participant = participant;
-
+  ParticipantViewModel({required this.participant, required this.bloc});
+  final ParticipantBloc bloc;
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
   String error = '';
   int lineNumbers = 1;
-  UserModel _participant;
+  UserModel participant;
 
   sendMessage(ParticipantBloc bloc) {
     String textMessage = textController.text;
@@ -29,11 +28,11 @@ class ParticipantViewModel extends ChangeNotifier
           roomName: '',
           idMessage: '',
           textMessage: textMessage,
-          user: this.getParticipant,
+          user: this.participant,
           code: 0,
           type: BlocEventType.send_private_message);
 
-      _participant.messages.add(mes);
+      participant.messages.add(mes);
 
       bloc.add(SendPrivateMessageEvent(mes.toMap()));
       focusNode.requestFocus();
@@ -63,12 +62,8 @@ class ParticipantViewModel extends ChangeNotifier
     }*/
   }
 
-  get getParticipant => _participant;
-
-  setParticipant(UserModel participant) => _participant = participant;
-
   void addMessages(MessageData message) {
-    getParticipant.addMessages(message);
+    participant.messages.add(message);
   }
 
 // reload(RoomBloc bloc) {

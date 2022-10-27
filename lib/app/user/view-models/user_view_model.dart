@@ -1,37 +1,35 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import '../../establishment/infra/models/dto/establishment_dto.dart';
+import '../../shared/configs/app_routes.dart';
 import '../../user/infra/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../shared/configs/app_routes.dart';
-import '../../establishment/infra/models/dto/establishment_dto.dart';
+import '../blocs/user_bloc.dart';
 
 abstract class IUserViewModel {
   // currentPosition();
 }
 
 class UserViewModel implements IUserViewModel {
-  late UserModel _user;
+  UserViewModel({required this.bloc});
+
+  final UserBloc bloc;
+  late UserModel user;
   final TextEditingController nickNameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   final formAgeKey = GlobalKey<FormState>();
   final formNicknameKey = GlobalKey<FormState>();
   String selectedGenre = '';
   bool isEnabled = true;
-  int _age = 0;
-  final List<String> _genres = ['não informado', 'masculino', 'feminino'];
+  int age = 0;
+  final List<String> genres = ['não informado', 'masculino', 'feminino'];
 
-  List<String> get getGenres => _genres;
-
-  Future<void> checkUser(BuildContext context) async {
-    final shared = await SharedPreferences.getInstance();
-    final data = shared.getString('user');
-    if (data != null) {
-      UserModel user = UserModel.fromMap(jsonDecode(data));
-      Navigator.pushReplacementNamed(context, AppRoutes.establishmentRoute,
-          arguments: EstablishmentDTO(user));
+  Future<void> checkUser(context, user) async {
+    if (user != null) {
+      Navigator.pushReplacementNamed(
+          context, AppRoutes.establishmentRoute,
+          arguments: EstablishmentDTO(user!));
     } else {
       Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
     }
@@ -39,18 +37,15 @@ class UserViewModel implements IUserViewModel {
 
   void validateUser() {
     if (ageController.text.isNotEmpty && nickNameController.text.isNotEmpty) {
-      setAge(int.tryParse(ageController.text)!);
-      if (getAge >= 18) {
-        if (selectedGenre == '')
-          selectedGenre = _genres[0];
-        _user = UserModel.empty();
-        _user = _user.copyWith(
-            age: getAge,
+      age = int.tryParse(ageController.text)!;
+      if (age >= 18) {
+        if (selectedGenre == '') selectedGenre = genres[0];
+        user = UserModel.empty();
+        user = user.copyWith(
+            age: age,
             genre: selectedGenre,
-            nickname: nickNameController.text.trimLeft().trimRight()
-        );
-
-        saveUser(_user);
+            nickname: nickNameController.text.trimLeft().trimRight());
+        saveUser(user);
       }
     }
   }
@@ -81,12 +76,6 @@ class UserViewModel implements IUserViewModel {
       }
     }
   }
-
-  get getAge => _age;
-  get getUser => _user;
-
-  setAge(int value) => _age = value;
-
 }
 
 /* modelo pra fazer o modal de icones*/

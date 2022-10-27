@@ -6,7 +6,7 @@ class RoomFunctionsDatasource implements IParticipantDatasource {
 
 
   @override
-  Stream<List<Map>> add() {
+  Future<void> add(user) {
     // TODO: implement add
     throw UnimplementedError();
   }

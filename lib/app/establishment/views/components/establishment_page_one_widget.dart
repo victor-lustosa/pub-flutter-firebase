@@ -67,7 +67,7 @@ class _EstablishmentPageOneWidgetState
                       ]);
                 }
                 else if (state is SuccessRoomsState) {
-                  this.widget.roomViewModel.setRooms(LocationUtil.calculateDistance(state.entities, this.widget.roomViewModel.getUser));
+                  this.widget.roomViewModel.rooms = LocationUtil.calculateDistance(state.entities, this.widget.roomViewModel.user);
 
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
@@ -77,7 +77,7 @@ class _EstablishmentPageOneWidgetState
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: this.widget.roomViewModel.getRooms.length,
+                          itemCount: this.widget.roomViewModel.rooms.length,
                           itemBuilder: (context, index) {
                             return Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
@@ -102,7 +102,7 @@ class _EstablishmentPageOneWidgetState
                                                             blurRadius: 3,
                                                             offset: Offset(1, 3)),
                                                       ]),
-                                                  child: this.widget.roomViewModel.getRooms[index].isAcceptedLocation
+                                                  child: this.widget.roomViewModel.rooms[index].isAcceptedLocation
                                                       ? Image.asset(
                                                           AppImages.lightLogo,
                                                           width: 20,
@@ -113,13 +113,13 @@ class _EstablishmentPageOneWidgetState
                                                           height: 20))),
                                           title: Padding(
                                               padding: EdgeInsets.only(bottom: 10),
-                                              child: this.widget.roomViewModel.getRooms[index].isAcceptedLocation
-                                                  ? Text(this.widget.roomViewModel.getRooms[index].name,
+                                              child: this.widget.roomViewModel.rooms[index].isAcceptedLocation
+                                                  ? Text(this.widget.roomViewModel.rooms[index].name,
                                                       style: GoogleFonts.inter(
                                                         color: AppColors.brown,
                                                         fontSize: 18,
                                                       ))
-                                                  : Text(this.widget.roomViewModel.getRooms[index].name,
+                                                  : Text(this.widget.roomViewModel.rooms[index].name,
                                                       style: GoogleFonts.inter(
                                                         color: Colors.grey,
                                                         fontSize: 18,
@@ -142,22 +142,20 @@ class _EstablishmentPageOneWidgetState
                                                   padding:
                                                       EdgeInsets.only(left: 40),
                                                   child: Text(
-                                                      '${(this.widget.roomViewModel.getRooms[index].distance).toStringAsFixed(2)} km de distância',
+                                                      '${(this.widget.roomViewModel.rooms[index].distance).toStringAsFixed(2)} km de distância',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
                                                           color: Colors.black45)))
                                             ],
                                           ),
                                           onTap: () {
-                                            if (this.widget.roomViewModel.getRooms[index].isAcceptedLocation) {
-                                              bool isUserExist = this.widget.roomViewModel.verifyNameUser(this.widget.roomViewModel.getRooms[index]);
+                                            if (this.widget.roomViewModel.rooms[index].isAcceptedLocation) {
+                                              bool isUserExist = this.widget.roomViewModel.verifyNameUser(this.widget.roomViewModel.rooms[index]);
                                               if (!isUserExist) {
-                                                this.widget.roomViewModel.setRoom(this.widget.roomViewModel.getRooms[index]);
+                                                this.widget.roomViewModel.room = this.widget.roomViewModel.rooms[index];
                                                 Navigator.pushNamed(context,
                                                     AppRoutes.publicRoomRoute,
-                                                    arguments: RoomDTO(
-                                                        bloc: this.widget.roomViewModel.bloc,
-                                                        roomViewModel: this.widget.roomViewModel));
+                                                    arguments: RoomDTO(roomViewModel: this.widget.roomViewModel));
                                               } else {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(const SnackBar(

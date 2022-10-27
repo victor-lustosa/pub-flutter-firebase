@@ -5,6 +5,10 @@ class InitialState extends UserState{
   InitialState();
 }
 
-class SaveSuccessState extends UserState {
-  SaveSuccessState();
+class UserSavedState extends UserState {
+  UserSavedState();
+}
+class FetchedUserState extends UserState {
+  UserEntity? user;
+  FetchedUserState(this.user);
 }

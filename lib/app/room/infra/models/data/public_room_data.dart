@@ -3,26 +3,21 @@ import '../data/data.dart';
 import '../../../blocs/bloc_events.dart';
 
 class PublicRoomData extends Data{
-  String _idRoom = '';
-  late String _roomName;
-  late int _code;
-  late UserModel _user;
-  late String _textMessage;
+  late String idRoom;
+  late String roomName;
+  late int code;
+  late UserModel user;
+  late String textMessage;
 
-  get getRoomName => _roomName;
-  get getCode => _code;
-  get getType => super.type;
-  get getTextMessage => _textMessage;
-  get getUser => _user;
-  get getIdRoom => _idRoom;
+
 
   Map<String, dynamic> toMap() {
     return {
-      'idRoom': this._idRoom,
-      'roomName': this._roomName,
-      'textMessage': this._textMessage,
-      'user': UserModel.toMap(this._user),
-      'code': this._code,
+      'idRoom': this.idRoom,
+      'roomName': this.roomName,
+      'textMessage': this.textMessage,
+      'user': UserModel.toMap(this.user),
+      'code': this.code,
       'type': super.type.name.toString()
     };
   }
@@ -44,10 +39,10 @@ class PublicRoomData extends Data{
     required user,
     required int code,
     required type,
-  })  : _idRoom = idRoom,
-        _roomName = roomName,
-        _textMessage = textMessage,
-        _user = user,
-        _code = code,
+  })  : idRoom = idRoom,
+        roomName = roomName,
+        textMessage = textMessage,
+        user = user,
+        code = code,
         super(type: type);
 }

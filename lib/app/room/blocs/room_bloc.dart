@@ -86,5 +86,4 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     });
     _socket.disconnect();*/
   }
-
 }

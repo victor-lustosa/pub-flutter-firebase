@@ -17,7 +17,10 @@ class RoomUseCases implements IRoomUseCases {
 
   RoomUseCases({required this.repository});
 
-
+  @override
+  Stream<List<RoomEntity>> getRooms() {
+    return repository.get();
+  }
   @override
   Future<void> enterRoom(RoomModel room, UserModel user) {
     return repository.add(room,user);
@@ -38,10 +41,5 @@ class RoomUseCases implements IRoomUseCases {
   @override
   Future<void> sendMessage(message) {
     return repository.sendMessage();
-  }
-
-  @override
-  Stream<List<RoomEntity>> getRooms() {
-    return repository.get();
   }
 }

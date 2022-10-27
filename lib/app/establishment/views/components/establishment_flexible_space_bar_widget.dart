@@ -29,22 +29,7 @@ class EstablishmentFlexibleSpaceBarWidget extends StatelessWidget {
                     ))),
           ],
         ),
-        Row(
-          children: [
-            /* Padding(
-                padding: EdgeInsets.only(top: 25),
-                child: IconButton(
-                    iconSize: 30,
-                    icon: Icon(
-                      Icons.navigate_before_rounded,
-                      color: AppColors.white,
-                    ),
-                    color: AppColors.darkBrown,
-                    onPressed: () {
-                      SystemNavigator.pop();
-                    })),*/
-          ],
-        ),
+
         Row(
           children: [
             Padding(

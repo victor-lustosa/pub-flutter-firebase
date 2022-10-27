@@ -6,7 +6,6 @@ import '../../room/blocs/room_bloc.dart';
 
 import '../../user/infra/models/user_model.dart';
 import '../blocs/bloc_events.dart';
-import '../domain/entities/room_entity.dart';
 import '../infra/models/data/message_data.dart';
 import '../infra/models/data/public_room_data.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,37 +14,49 @@ import '../infra/models/room_model.dart';
 abstract class IRoomViewModel {}
 
 class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
-
   RoomViewModel({required this.bloc}) {
-    _room = RoomModel.empty();
+    room = RoomModel.empty();
+    mSub = bloc.stream.listen((state) {
+      if (state is LeavePublicRoomMessageState) this.mSub.cancel();
+    });
   }
+  late ScrollController scrollViewController;
   final RoomBloc bloc;
   final Uri _url = Uri.parse('https://flutter.dev');
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
   String error = '';
   List<dynamic> participants = [];
-  List<RoomModel> _rooms = [];
-  late RoomModel _room;
-  late UserModel _user;
+  List<RoomModel> rooms = [];
+  late RoomModel room;
+  late UserModel user;
   bool isParticipantExist = false;
-  bool isUserExist = false;
   int lineNumbers = 1;
-
+  double offset = 0.0;
+  late StreamSubscription mSub;
+  late TabController tabController;
   void delayForForms(BuildContext context) async {
     await Future.delayed(const Duration(minutes: 30));
     openURL(context);
+  }
+
+  scroll() {
+    Timer(Duration(microseconds: 50), () {
+      this
+          .scrollViewController
+          .jumpTo(this.scrollViewController.position.maxScrollExtent);
+    });
   }
 
   openURL(BuildContext context) async {
     if (await canLaunchUrl(_url))
       await launchUrl(_url);
     else
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Não foi possivel abrir a página')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Não foi possivel abrir a página')));
 
     /// Não è possível abrir a URL
   }
-
 
   bool verifyNameUser(RoomModel room) {
     /* for (dynamic participant in room.getParticipants) {
@@ -53,31 +64,31 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
           isUserExist = true;
         }
       }*/
-    return isUserExist;
+    return isParticipantExist;
   }
 
   sendMessage(RoomBloc bloc, String type) {
     String textMessage = textController.text;
-    if(type == "public"){
-    if (textMessage.isNotEmpty) {
-      var mes = MessageData(
-          idRoom: this.getRoom.id,
-          createdAt: DateTime.now().toString(),
-          roomName: this.getRoom.name,
-          idMessage: '',
-          textMessage: textMessage.trimLeft().trimRight(),
-          user: this.getUser,
-          code: 0,
-          type: BlocEventType.send_public_message);
+    if (type == "public") {
+      if (textMessage.isNotEmpty) {
+        var mes = MessageData(
+            idRoom: this.room.id,
+            createdAt: DateTime.now().toString(),
+            roomName: this.room.name,
+            idMessage: '',
+            textMessage: textMessage.trimLeft().trimRight(),
+            user: this.user,
+            code: 0,
+            type: BlocEventType.send_public_message);
 
-      _room.messages.add(mes);
+        room.messages.add(mes);
 
-      bloc.add(SendMessageEvent(mes.toMap()));
-      focusNode.requestFocus();
-      textController.clear();
-      focusNode.requestFocus();
-    }
-    } else{
+        bloc.add(SendMessageEvent(mes.toMap()));
+        focusNode.requestFocus();
+        textController.clear();
+        focusNode.requestFocus();
+      }
+    } else {
       if (textMessage.isNotEmpty) {
         var mes = MessageData(
             idRoom: '',
@@ -85,11 +96,11 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
             roomName: '',
             idMessage: '',
             textMessage: textMessage,
-            user: this.getParticipant,
+            user: this.participant,
             code: 0,
             type: BlocEventType.send_private_message);
 
-        _participant.messages.add(mes);
+        participant.messages.add(mes);
 
         bloc.add(SendPrivateMessageEvent(mes.toMap()));
         focusNode.requestFocus();
@@ -108,15 +119,30 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   }
 
   void addParticipants(PublicRoomData data) {
-    if (data.getUser.getNickname == getUser.getNickname) {
-      getUser.setIdUser(data.getUser.getIdUser);
-      getRoom.setIdRoom(data.getIdRoom);
+    if (data.user.nickname == user.nickname) {
+      user = user.copyWith(
+          idUser: data.user.idUser,
+          latitude: user.latitude,
+          longitude: user.longitude,
+          nickname: user.nickname,
+          genre: user.genre,
+          age: user.age,
+          messages: user.messages);
+      room = room.copyWith(
+          longitude: room.longitude,
+          latitude: room.latitude,
+          id: data.idRoom,
+          name: room.name,
+          distance: room.distance,
+          isAcceptedLocation: room.isAcceptedLocation,
+          messages: room.messages,
+          participants: room.participants);
     } else {
-      for (dynamic room in _rooms) {
-        if (room.getIdRoom == data.getIdRoom) {
+      for (dynamic room in rooms) {
+        if (room.getIdRoom == data.idRoom) {
           verifyParticipants(room, data);
           if (!isParticipantExist) {
-            room.addParticipants(data.getUser);
+            room.addParticipants(data.user);
           }
         }
         isParticipantExist = false;
@@ -125,12 +151,10 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     notifyListeners();
   }
 
-
-
   void removeParticipants(PublicRoomData data) {
-    for (dynamic room in _rooms) {
-      if (room.getIdRoom == data.getIdRoom) {
-        room.removeParticipants(data.getUser);
+    for (dynamic room in rooms) {
+      if (room.getIdRoom == data.idRoom) {
+        room.removeParticipants(data.user);
       }
     }
     notifyListeners();
@@ -139,21 +163,10 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   addMessages(message) {
     // if(boolAdd == true){
     // boolAdd = false;
-    getRoom.addMessages(message);
+    room.messages.add(message);
   }
 
-  get getRoom => _room;
-  get getRooms => _rooms;
-  get getUser => _user;
-  setRooms(List<RoomModel> rooms) => _rooms = rooms;
-  setRoom(RoomModel room) => _room = room;
-  setUser(UserModel user) => _user = user;
-
-  late UserModel _participant;
-
-  get getParticipant => _participant;
-
-  setParticipant(UserModel participant) => _participant = participant;
+  late UserModel participant;
 
   /*void addMessages(MessageData message) {
     getParticipant.addMessages(message);
@@ -166,6 +179,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   void dispose() {
     textController.dispose();
     focusNode.dispose();
+    mSub.cancel();
     super.dispose();
   }
 }

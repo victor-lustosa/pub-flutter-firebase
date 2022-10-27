@@ -39,7 +39,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                 repository: RoomRepository(
                     datasource: RoomFirestoreDatasource(
                         firestore: FirebaseFirestore.instance)))));
-    _roomViewModel.setUser(await LocationUtil.getPosition(widget.user));
+    _roomViewModel.user = await LocationUtil.getPosition(widget.user);
   }
 
   @override
@@ -71,6 +71,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                   background:
                       EstablishmentFlexibleSpaceBarWidget(this.widget.user),
                 ),
+                bottom: EstablishmentTabBarSliverWidget(_tabController),
                 automaticallyImplyLeading: false,
                 backgroundColor: AppColors.darkBrown,
                 pinned: true,
@@ -79,7 +80,6 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                 expandedHeight: 133.0,
                 collapsedHeight: 33,
                 toolbarHeight: 33,
-                bottom: EstablishmentTabBarSliverWidget(_tabController),
               )
             ];
           },

@@ -18,7 +18,7 @@ class ParticipantPage extends StatefulWidget {
 }
 
 class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
-  late final ParticipantBloc _bloc;
+
   late final ScrollController _scrollViewController;
   late final ParticipantViewModel _participantViewModel;
   @override
@@ -26,7 +26,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
     // widget.bloc.add(EnterPrivateRoomEvent(widget.participantViewModel));
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     //_bloc = ParticipantBloc(sendPrivateMessage: sendPrivateMessage);
-    _participantViewModel = ParticipantViewModel(participant: widget.user);
+  //  _participantViewModel = ParticipantViewModel(participant: widget.user,bloc: );
     super.initState();
   }
 
@@ -42,7 +42,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
         appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
-            title: ParticipantBarWidget(_participantViewModel.getParticipant)),
+            title: ParticipantBarWidget(_participantViewModel.participant)),
         body: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(color: Colors.white),
@@ -50,7 +50,8 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
             height: MediaQuery.of(context).size.height,
             child: Column(children: <Widget>[
               BlocBuilder<ParticipantBloc, ParticipantState>(
-                  bloc: _bloc,
+                  bloc: _participantViewModel.bloc,
+
                   builder: (context, state) {
                     if (state is InitialState) {
                       return Expanded(child: Container());
@@ -58,7 +59,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
                       return Expanded(
                         child: ListView.builder(
                             controller: _scrollViewController,
-                            itemCount: _participantViewModel.getParticipant.getMessages.length,
+                            itemCount: _participantViewModel.participant.messages.length,
                             itemBuilder: (context, index) {
                               return Align(
                                 alignment: alignment(state, index, widget.user),
@@ -100,7 +101,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
                           },
                           focusNode: _participantViewModel.focusNode,
                           onSubmitted: (_) {
-                            this._participantViewModel.sendMessage(_bloc);
+                            this._participantViewModel.sendMessage(_participantViewModel.bloc);
                           },
                           controller:
                               this._participantViewModel.textController,
@@ -132,7 +133,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
                             ),
                             mini: true,
                             onPressed: () {
-                              this._participantViewModel.sendMessage(_bloc);
+                              this._participantViewModel.sendMessage(_participantViewModel.bloc);
                             }),
                       ),
                     ),

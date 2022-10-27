@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../participant/infra/models/dto/participant_dto.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
-import '../../../room/blocs/room_bloc.dart';
 
 import '../../../shared/configs/app_routes.dart';
 import '../../view-models/room_view_model.dart';
@@ -30,7 +29,7 @@ class _RoomPageTwoWidgetState extends State<RoomPageTwoWidget> {
         child: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: widget.roomViewModel.getRoom.getParticipants.length,
+            itemCount: widget.roomViewModel.room.participants.length,
             itemBuilder: (context, index) {
               return Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
@@ -63,17 +62,18 @@ class _RoomPageTwoWidgetState extends State<RoomPageTwoWidget> {
                             title: Padding(
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: Text(
-                                    widget.roomViewModel.getRoom
+                                    widget.roomViewModel.room
                                         .participants[index].nickname,
                                     style: GoogleFonts.inter(
                                       color: AppColors.darkBrown,
                                       fontSize: 18,
                                     ))),
                             onTap: () {
-                               Navigator.pushNamed(context,
-                                   AppRoutes.privateRoomRoute,
-                                   arguments: ParticipantDTO(user: widget.roomViewModel.getRoom.getParticipants[index])
-                               );
+                              Navigator.pushNamed(
+                                  context, AppRoutes.privateRoomRoute,
+                                  arguments: ParticipantDTO(
+                                      user: widget.roomViewModel.room
+                                          .participants[index]));
                             });
                       }));
             }));
