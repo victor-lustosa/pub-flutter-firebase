@@ -21,8 +21,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> _get(_, emit) async{
-    final user = userUseCases.get();
-    user.then((value) => emit(FetchedUserState(value)));
+    final user = await userUseCases.get();
+    emit(FetchedUserState(user));
   }
 
   Future<void> _save(SaveUserEvent event, emit) async{
@@ -31,8 +31,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> _checkAccessToLocation(_, emit) async{
-    Future<LocationPermissionEnum> location =  userUseCases.checkAccessToLocation();
-    location.then((value) => value.name);
+    LocationPermissionEnum location =  await userUseCases.checkAccessToLocation();
+    location.name;
     emit(UserSavedState());
   }
 

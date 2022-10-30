@@ -12,16 +12,10 @@ class UserRepository implements IUserRepository<UserEntity> {
   UserRepository({required this.datasource});
 
   @override
-  Future<UserEntity?> get() {
-    final data = datasource.get();
+  Future<UserEntity?> get() async{
     var user;
-    data.then((value) => {
-          if (value != null) {
-            user = UserModel.fromMap(jsonDecode(value))
-          }
-        }
-    );
-    return Future.value(user);
+    final data = await datasource.get();
+    return data != null?Future.value(UserModel.fromMap(jsonDecode(data))):Future.value(user);
   }
 
   @override
