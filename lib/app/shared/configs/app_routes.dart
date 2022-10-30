@@ -5,7 +5,6 @@ import '../../establishment/views/establishment_page.dart';
 import '../../home/views/home_page.dart';
 import '../../participant/infra/models/dto/participant_dto.dart';
 import '../../participant/views/participant_page.dart';
-import '../../room/infra/models/dto/room_dto.dart';
 import '../../room/views/room_page.dart';
 import '../../user/views/user_register_page.dart';
 
@@ -48,7 +47,7 @@ class AppRoutes {
 
       case publicRoomRoute:
         return MaterialPageRoute(
-            builder: (_) => RoomPage(roomViewModel: (arguments as RoomDTO).getRoomViewModel)
+            builder: (_) => RoomPage()
         );
 
       case privateRoomRoute:

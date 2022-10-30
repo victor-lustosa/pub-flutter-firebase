@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../room/blocs/room_bloc.dart';
-import '../../room/domain/use-cases/room_use_cases.dart';
-import '../../room/external/room_firestore_datasource.dart';
-import '../../room/infra/repositories/room_repository.dart';
 import '../../room/view-models/room_view_model.dart';
 
 import '../../shared/components/location_util.dart';
@@ -15,8 +12,7 @@ import 'components/establishment_flexible_space_bar_widget.dart';
 import 'components/establishment_page_one_widget.dart';
 import 'components/establishment_page_two_widget.dart';
 import 'components/establishment_tab_bar_sliver_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:provider/provider.dart';
 class EstablishmentPage extends StatefulWidget {
   EstablishmentPage(this.user);
 
@@ -30,16 +26,9 @@ class _EstablishmentPageState extends State<EstablishmentPage>
     with SingleTickerProviderStateMixin {
   late final ScrollController _scrollViewController;
   late TabController _tabController;
-  late final RoomViewModel _roomViewModel;
 
   getUser() async {
-    _roomViewModel = RoomViewModel(
-        bloc: RoomBloc(
-            roomUseCases: RoomUseCases(
-                repository: RoomRepository(
-                    datasource: RoomFirestoreDatasource(
-                        firestore: FirebaseFirestore.instance)))));
-    _roomViewModel.user = await LocationUtil.getPosition(widget.user);
+    context.read<RoomViewModel>().user = await LocationUtil.getPosition(widget.user);
   }
 
   @override
@@ -48,14 +37,15 @@ class _EstablishmentPageState extends State<EstablishmentPage>
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _tabController = TabController(vsync: this, length: 2);
     getUser();
-    _roomViewModel.bloc.add(GetRoomsEvent());
-    _roomViewModel.delayForForms(context);
+    context.read<RoomViewModel>().bloc.add(GetRoomsEvent());
+    context.read<RoomViewModel>().delayForForms(context);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    _roomViewModel.bloc.close();
+    _scrollViewController.dispose();
+    context.read<RoomViewModel>().dispose();
     super.dispose();
   }
 
@@ -84,7 +74,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
             ];
           },
           body: TabBarView(controller: _tabController, children: <Widget>[
-            EstablishmentPageOneWidget(roomViewModel: _roomViewModel),
+            EstablishmentPageOneWidget(),
             EstablishmentPageTwoWidget()
           ])),
       // EstablishmentPageTwoWidget(this._roomViewModel, this._participantViewModel, this._bloc)])),
@@ -93,7 +83,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
           width: 160,
           child: FloatingActionButton.extended(
             onPressed: () {
-              _roomViewModel.openURL(context);
+              context.read<RoomViewModel>().openURL(context);
             },
             label: Text("Ajude com sua opinião",
                 style: GoogleFonts.inter(fontSize: 10.5, color: Colors.white)),

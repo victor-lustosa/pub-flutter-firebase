@@ -3,15 +3,13 @@ import '../../shared/configs/app_colors.dart';
 import '../../user/view-models/user_view_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../blocs/user_bloc.dart';
-import '../domain/use-cases/user_use_cases.dart';
-import '../external/datasources/user_shared_datasource.dart';
-import '../infra/repositories/user_repository.dart';
 import 'components/age_form_field_widget.dart';
 import 'components/dropdown_widget.dart';
 import 'components/nickname_form_field_widget.dart';
 import 'components/user_register_bar_widget.dart';
 import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../shared/configs/app_routes.dart';
+import 'package:provider/provider.dart';
 
 class UserRegisterPage extends StatefulWidget {
   _UserRegisterPageState createState() => _UserRegisterPageState();
@@ -22,15 +20,11 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
 
   @override
   void initState() {
-    _userViewModel = UserViewModel(
-        bloc: UserBloc(
-            userUseCases: UserUseCases(
-                repository: UserRepository(
-                    datasource: UserSharedDatasource()))));
+    super.initState();
+    _userViewModel = UserViewModel(bloc: context.read<UserBloc>());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _userViewModel.checkAccessToLocation(context);
     });
-    super.initState();
   }
 
   @override
@@ -65,8 +59,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               height: 100,
                               child: Form(
                                   key: _userViewModel.formNicknameKey,
-                                  child: NicknameFormFieldWidget(
-                                      _userViewModel.nickNameController)))),
+                                  child: NicknameFormFieldWidget(_userViewModel.nickNameController)))),
                       Padding(
                           padding: EdgeInsets.only(top: 0),
                           child: Container(
@@ -74,8 +67,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               height: 100,
                               child: Form(
                                   key: _userViewModel.formAgeKey,
-                                  child: AgeFormFieldWidget(
-                                      _userViewModel.ageController)))),
+                                  child: AgeFormFieldWidget(_userViewModel.ageController)))),
                       Padding(
                           padding: EdgeInsets.only(top: 0),
                           child: Container(
@@ -108,18 +100,15 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                         padding: EdgeInsets.only(top: 80),
                         child: ElevatedButton.icon(
                             onPressed: () {
-                              if (_userViewModel.formNicknameKey.currentState!
-                                      .validate() &&
-                                  _userViewModel.formAgeKey.currentState!
-                                      .validate()) {
-                                _userViewModel.validateUser();
+                              if (_userViewModel.formNicknameKey.currentState!.validate() &&
+                                  _userViewModel.formAgeKey.currentState!.validate()) {
+                                _userViewModel.saveUser();
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,
                                     AppRoutes.establishmentRoute,
                                     ModalRoute.withName(
                                         AppRoutes.userRegisterRoute),
-                                    arguments:
-                                        EstablishmentDTO(_userViewModel.user));
+                                    arguments: EstablishmentDTO(_userViewModel.user));
                               }
                             },
                             icon: Icon(

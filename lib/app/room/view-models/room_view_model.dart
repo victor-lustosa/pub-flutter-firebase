@@ -67,7 +67,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     return isParticipantExist;
   }
 
-  sendMessage(RoomBloc bloc, String type) {
+  sendMessage(String type) {
     String textMessage = textController.text;
     if (type == "public") {
       if (textMessage.isNotEmpty) {
@@ -180,6 +180,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     textController.dispose();
     focusNode.dispose();
     mSub.cancel();
+    bloc.close();
     super.dispose();
   }
 }

@@ -8,8 +8,6 @@ import '../../../room/blocs/room_bloc.dart';
 import '../../blocs/bloc_events.dart';
 
 class RoomPageOneWidget extends StatefulWidget {
-  RoomPageOneWidget(this.instance);
-  final RoomViewModel instance;
 
   @override
   State<RoomPageOneWidget> createState() => _RoomPageOneWidgetState();
@@ -23,8 +21,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
   @override
   initState() {
     super.initState();
-    widget.instance.scrollViewController =
-        ScrollController(initialScrollOffset: 0.0);
+    context.read<RoomViewModel>().scrollViewController = ScrollController(initialScrollOffset: 0.0);
     /* LocationUtil.verifyLocation(context,
         widget.bloc,
         widget.mSub,
@@ -48,7 +45,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
       //}
       //if (widget.instance.room.messages[index].type == BlocEventType.receive_public_message) {
       //  isAddPositionNameMessage = false;
-      widget.instance.scroll();
+      context.read<RoomViewModel>().scroll();
       return Align(
           alignment: Alignment.centerLeft,
           child: Padding(
@@ -66,7 +63,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                                   const EdgeInsets.only(bottom: 6, left: 6),
                               child: Row(children: [
                                 Text(
-                                    '${widget.instance.room.messages[index].user.nickname}'),
+                                    '${context.read<RoomViewModel>().room.messages[index].user.nickname}'),
                               ])),
                           Container(
                               // width: MediaQuery.of(context).size.width,
@@ -80,13 +77,13 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(8))),
                               child: Text(
-                                  '${widget.instance.room.messages[index].textMessage}'))
+                                  '${context.read<RoomViewModel>().room.messages[index].textMessage}'))
                           //     : Padding(
                           //     padding: const EdgeInsets.only(bottom: 0)
                           // )
                         ]),
                   ])));
-    } else if (widget.instance.room.messages[index].type ==
+    } else if (context.read<RoomViewModel>().room.messages[index].type ==
         BlocEventType.send_public_message) {
       return Align(
           alignment: Alignment.centerRight,
@@ -103,7 +100,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                         color: Color(0xffdcd9d9),
                         borderRadius: BorderRadius.all(Radius.circular(8))),
                     child: Text(
-                        '${widget.instance.room.messages[index].textMessage}'),
+                        '${context.read<RoomViewModel>().room.messages[index].textMessage}'),
                   )
                 ],
               ),
@@ -111,9 +108,9 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
           )
           // ),
           );
-    } else if (widget.instance.room.messages[index].type ==
+    } else if (context.read<RoomViewModel>().room.messages[index].type ==
             BlocEventType.enter_public_room ||
-        widget.instance.room.messages[index].type ==
+            context.read<RoomViewModel>().room.messages[index].type ==
             BlocEventType.leave_public_room) {
       return Align(
           alignment: Alignment.center,
@@ -130,7 +127,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                           color: Colors.black45,
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: Text(
-                          '${widget.instance.room.messages[index].textMessage}',
+                          '${context.read<RoomViewModel>().room.messages[index].textMessage}',
                           style: GoogleFonts.inter(
                               color: AppColors.white, fontSize: 10))),
                 ],
@@ -151,7 +148,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
         height: MediaQuery.of(context).size.height,
         child: Column(children: <Widget>[
           BlocBuilder<RoomBloc, RoomState>(
-              bloc: widget.instance.bloc,
+              bloc: context.read<RoomBloc>(),
               builder: (context, state) {
                 if (state is InitialState) {
                   return Expanded(child: Container());
@@ -161,8 +158,8 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                   return Expanded(
                       child: ListView.builder(
                           key: PageStorageKey<String>('MessagesList'),
-                          controller: widget.instance.scrollViewController,
-                          itemCount: widget.instance.room.messages.length,
+                          controller: context.read<RoomViewModel>().scrollViewController,
+                          itemCount: context.read<RoomViewModel>().room.messages.length,
                           itemBuilder: (context, index) {
                             return boxMessage(state, index, context);
                           }));
@@ -187,17 +184,14 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                         //   instance.lineNumbers = 5;
                         // }
                       },
-                      focusNode: this.widget.instance.focusNode,
+                      focusNode: context.read<RoomViewModel>().focusNode,
                       onSubmitted: (_) {
-                        this
-                            .widget
-                            .instance
-                            .sendMessage(widget.instance.bloc, '');
+                        context.read<RoomViewModel>().sendMessage('');
                       },
-                      controller: this.widget.instance.textController,
+                      controller: context.read<RoomViewModel>().textController,
                       autofocus: true,
                       keyboardType: TextInputType.multiline,
-                      maxLines: this.widget.instance.lineNumbers,
+                      maxLines: context.read<RoomViewModel>().lineNumbers,
                       style: GoogleFonts.inter(fontSize: 15),
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20, 6, 20, 6),
@@ -222,10 +216,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                         ),
                         mini: true,
                         onPressed: () {
-                          this
-                              .widget
-                              .instance
-                              .sendMessage(widget.instance.bloc, 'public');
+                          context.read<RoomViewModel>().sendMessage('public');
                         }),
                   ),
                 ),

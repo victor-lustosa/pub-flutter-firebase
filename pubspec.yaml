@@ -43,6 +43,7 @@ dev_dependencies:
   firebase_core: ^1.24.0 #Recursos basicos
   firebase_auth: ^3.11.0 #Autenticacao
   cloud_firestore: ^3.5.0 #Banco de dados
+  provider: ^6.0.4
 #  dartz: 0.9.1
 
 # For information on the generic Dart part of this file, see the

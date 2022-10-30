@@ -13,9 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class EstablishmentPageOneWidget extends StatefulWidget {
 
-  final RoomViewModel roomViewModel;
-
-  EstablishmentPageOneWidget({required this.roomViewModel});
+  EstablishmentPageOneWidget();
   @override
   State<EstablishmentPageOneWidget> createState() => _EstablishmentPageOneWidgetState();
 }
@@ -32,11 +30,6 @@ class _EstablishmentPageOneWidgetState
   }
 
   @override
-  dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: AppColors.darkBrown),
@@ -47,42 +40,34 @@ class _EstablishmentPageOneWidgetState
                   topLeft: const Radius.circular(10.0),
                   topRight: const Radius.circular(10.0))),
           child: BlocBuilder<RoomBloc, RoomState>(
-              bloc: this.widget.roomViewModel.bloc,
+              bloc: context.read<RoomBloc>(),
               buildWhen: (context, current) =>
                   context.runtimeType != current.runtimeType &&
                   (current is SuccessRoomsState),
               builder: (context, state) {
                 if (state is InitialState) {
-                  return Stack(
-                      fit: StackFit.loose,
-                      alignment: Alignment.center,
-                      children: [
-                        Column(children: [
-                          Padding(
-                              padding: EdgeInsets.only(top: 270),
-                              child: Center(
+                  return Center(
                                   child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkBrown))))
-                        ])
-                      ]);
+                                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkBrown))
+                        );
                 }
                 else if (state is SuccessRoomsState) {
-                  this.widget.roomViewModel.rooms = LocationUtil.calculateDistance(state.entities, this.widget.roomViewModel.user);
+                  context.read<RoomViewModel>().rooms = LocationUtil.calculateDistance(state.entities, context.read<RoomViewModel>().user);
 
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
                       onRefresh: () async {
-                        this.widget.roomViewModel.bloc.add(GetRoomsEvent());
+                        context.read<RoomViewModel>().bloc.add(GetRoomsEvent());
                       },
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: this.widget.roomViewModel.rooms.length,
+                          itemCount: context.read<RoomViewModel>().rooms.length,
                           itemBuilder: (context, index) {
                             return Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
                                 child: AnimatedBuilder(
-                                    animation: this.widget.roomViewModel,
+                                    animation: context.read<RoomViewModel>(),
                                     builder: (context, child) {
                                       return ListTile(
                                           leading: Padding(
@@ -102,7 +87,7 @@ class _EstablishmentPageOneWidgetState
                                                             blurRadius: 3,
                                                             offset: Offset(1, 3)),
                                                       ]),
-                                                  child: this.widget.roomViewModel.rooms[index].isAcceptedLocation
+                                                  child: context.read<RoomViewModel>().rooms[index].isAcceptedLocation
                                                       ? Image.asset(
                                                           AppImages.lightLogo,
                                                           width: 20,
@@ -113,28 +98,28 @@ class _EstablishmentPageOneWidgetState
                                                           height: 20))),
                                           title: Padding(
                                               padding: EdgeInsets.only(bottom: 10),
-                                              child: this.widget.roomViewModel.rooms[index].isAcceptedLocation
-                                                  ? Text(this.widget.roomViewModel.rooms[index].name,
+                                              child: context.read<RoomViewModel>().rooms[index].isAcceptedLocation
+                                                  ? Text(context.read<RoomViewModel>().rooms[index].name,
                                                       style: GoogleFonts.inter(
                                                         color: AppColors.brown,
                                                         fontSize: 18,
                                                       ))
-                                                  : Text(this.widget.roomViewModel.rooms[index].name,
+                                                  : Text(context.read<RoomViewModel>().rooms[index].name,
                                                       style: GoogleFonts.inter(
                                                         color: Colors.grey,
                                                         fontSize: 18,
                                                       ))),
                                           subtitle: Row(
                                             children: [
-                                              this.widget.roomViewModel.participants.length == 1
+                                              context.read<RoomViewModel>().participants.length == 1
                                                   ? Text(
-                                                      '${this.widget.roomViewModel.participants.length} pessoa',
+                                                      '${context.read<RoomViewModel>().participants.length} pessoa',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
                                                           color:
                                                               Colors.black45))
                                                   : Text(
-                                                      '${this.widget.roomViewModel.participants.length} pessoas',
+                                                      '${context.read<RoomViewModel>().participants.length} pessoas',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
                                                           color: Colors.black45)),
@@ -142,20 +127,20 @@ class _EstablishmentPageOneWidgetState
                                                   padding:
                                                       EdgeInsets.only(left: 40),
                                                   child: Text(
-                                                      '${(this.widget.roomViewModel.rooms[index].distance).toStringAsFixed(2)} km de distância',
+                                                      '${(context.read<RoomViewModel>().rooms[index].distance).toStringAsFixed(2)} km de distância',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
                                                           color: Colors.black45)))
                                             ],
                                           ),
                                           onTap: () {
-                                            if (this.widget.roomViewModel.rooms[index].isAcceptedLocation) {
-                                              bool isUserExist = this.widget.roomViewModel.verifyNameUser(this.widget.roomViewModel.rooms[index]);
+                                            if (context.read<RoomViewModel>().rooms[index].isAcceptedLocation) {
+                                              bool isUserExist = context.read<RoomViewModel>().verifyNameUser(context.read<RoomViewModel>().rooms[index]);
                                               if (!isUserExist) {
-                                                this.widget.roomViewModel.room = this.widget.roomViewModel.rooms[index];
+                                                context.read<RoomViewModel>().room = context.read<RoomViewModel>().rooms[index];
                                                 Navigator.pushNamed(context,
                                                     AppRoutes.publicRoomRoute,
-                                                    arguments: RoomDTO(roomViewModel: this.widget.roomViewModel));
+                                                    arguments: RoomDTO(roomViewModel: context.read<RoomViewModel>()));
                                               } else {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(const SnackBar(

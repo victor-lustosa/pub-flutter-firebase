@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
 import '../../../participant/infra/models/dto/participant_dto.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
@@ -9,9 +9,6 @@ import '../../../shared/configs/app_routes.dart';
 import '../../view-models/room_view_model.dart';
 
 class RoomPageTwoWidget extends StatefulWidget {
-  final RoomViewModel roomViewModel;
-
-  RoomPageTwoWidget(this.roomViewModel);
 
   @override
   _RoomPageTwoWidgetState createState() => _RoomPageTwoWidgetState();
@@ -29,12 +26,12 @@ class _RoomPageTwoWidgetState extends State<RoomPageTwoWidget> {
         child: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: widget.roomViewModel.room.participants.length,
+            itemCount: context.read<RoomViewModel>().room.participants.length,
             itemBuilder: (context, index) {
               return Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
                   child: AnimatedBuilder(
-                      animation: this.widget.roomViewModel,
+                      animation: context.read<RoomViewModel>(),
                       builder: (context, child) {
                         return ListTile(
                             leading: Padding(
@@ -62,7 +59,7 @@ class _RoomPageTwoWidgetState extends State<RoomPageTwoWidget> {
                             title: Padding(
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: Text(
-                                    widget.roomViewModel.room
+                                    context.read<RoomViewModel>().room
                                         .participants[index].nickname,
                                     style: GoogleFonts.inter(
                                       color: AppColors.darkBrown,
@@ -72,7 +69,7 @@ class _RoomPageTwoWidgetState extends State<RoomPageTwoWidget> {
                               Navigator.pushNamed(
                                   context, AppRoutes.privateRoomRoute,
                                   arguments: ParticipantDTO(
-                                      user: widget.roomViewModel.room
+                                      user: context.read<RoomViewModel>().room
                                           .participants[index]));
                             });
                       }));

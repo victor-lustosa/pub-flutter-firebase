@@ -8,11 +8,9 @@ import '../view-models/room_view_model.dart';
 import 'components/room_bar_widget.dart';
 import 'components/room_page_two_widget.dart';
 import 'components/room_tab_bar_sliver_widget.dart';
-
+import 'package:provider/provider.dart';
 class RoomPage extends StatefulWidget {
-  final RoomViewModel roomViewModel;
-
-  RoomPage({required this.roomViewModel});
+  RoomPage();
 
   @override
   _RoomPageState createState() => _RoomPageState();
@@ -26,8 +24,8 @@ class _RoomPageState extends State<RoomPage>
   @override
   void initState() {
     super.initState();
-    widget.roomViewModel.bloc.add(EnterRoomEvent(
-        user: widget.roomViewModel.user, room: widget.roomViewModel.room));
+    context.read<RoomViewModel>().bloc.add(EnterRoomEvent(
+        user: context.read<RoomViewModel>().user, room: context.read<RoomViewModel>().room));
 
     _tabController = TabController(vsync: this, length: 2);
   }
@@ -48,7 +46,7 @@ class _RoomPageState extends State<RoomPage>
               return <Widget>[
                 SliverAppBar(
                   flexibleSpace: FlexibleSpaceBar(
-                      background: RoomBarWidget(this.widget.roomViewModel)),
+                      background: RoomBarWidget(context.read<RoomViewModel>())),
                   automaticallyImplyLeading: false,
                   backgroundColor: AppColors.white,
                   pinned: true,
@@ -62,8 +60,8 @@ class _RoomPageState extends State<RoomPage>
               ];
             },
             body: TabBarView(controller: _tabController, children: <Widget>[
-              RoomPageOneWidget(this.widget.roomViewModel),
-              RoomPageTwoWidget(this.widget.roomViewModel),
+              RoomPageOneWidget(),
+              RoomPageTwoWidget(),
               // Visibility(visible: true,
               //     child: Container(
               //       decoration: BoxDecoration(

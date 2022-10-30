@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../shared/configs/app_routes.dart';
 import '../../user/infra/models/user_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:geolocator/geolocator.dart';
 
 import '../blocs/user_bloc.dart';
@@ -35,7 +35,7 @@ class UserViewModel implements IUserViewModel {
     }
   }
 
-  void validateUser() {
+  void saveUser() {
     if (ageController.text.isNotEmpty && nickNameController.text.isNotEmpty) {
       age = int.tryParse(ageController.text)!;
       if (age >= 18) {
@@ -45,18 +45,10 @@ class UserViewModel implements IUserViewModel {
             age: age,
             genre: selectedGenre,
             nickname: nickNameController.text.trimLeft().trimRight());
-        saveUser(user);
+
       }
     }
-  }
-
-  saveUser(UserModel user) async {
-    try {
-      SharedPreferences shared = await SharedPreferences.getInstance();
-      shared.setString('user', UserModel.toJson(user));
-    } catch (e) {
-      throw Exception("Erro ao salvar usuario: $e");
-    }
+    bloc.add(SaveUserEvent(user));
   }
 
   checkAccessToLocation(BuildContext context) async {
