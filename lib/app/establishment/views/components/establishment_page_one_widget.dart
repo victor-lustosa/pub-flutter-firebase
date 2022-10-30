@@ -12,10 +12,11 @@ import '../../../shared/configs/app_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EstablishmentPageOneWidget extends StatefulWidget {
-
   EstablishmentPageOneWidget();
+
   @override
-  State<EstablishmentPageOneWidget> createState() => _EstablishmentPageOneWidgetState();
+  State<EstablishmentPageOneWidget> createState() =>
+      _EstablishmentPageOneWidgetState();
 }
 
 class _EstablishmentPageOneWidgetState
@@ -47,12 +48,13 @@ class _EstablishmentPageOneWidgetState
               builder: (context, state) {
                 if (state is InitialState) {
                   return Center(
-                                  child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkBrown))
-                        );
-                }
-                else if (state is SuccessRoomsState) {
-                  context.read<RoomViewModel>().rooms = LocationUtil.calculateDistance(state.entities, context.read<RoomViewModel>().user);
+                      child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              AppColors.darkBrown)));
+                } else if (state is SuccessRoomsState) {
+                  context.read<RoomViewModel>().rooms =
+                      LocationUtil.calculateDistance(
+                          state.entities, context.read<RoomViewModel>().user);
 
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
@@ -78,40 +80,69 @@ class _EstablishmentPageOneWidgetState
                                                   height: 40,
                                                   decoration: BoxDecoration(
                                                       color: AppColors.white,
-                                                      borderRadius:
-                                                          BorderRadius.all(const Radius.circular(5.0)),
+                                                      borderRadius: BorderRadius
+                                                          .all(const Radius
+                                                              .circular(5.0)),
                                                       boxShadow: [
                                                         BoxShadow(
-                                                            color: Colors.grey.withOpacity(0.15),
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.15),
                                                             spreadRadius: 1,
                                                             blurRadius: 3,
-                                                            offset: Offset(1, 3)),
+                                                            offset:
+                                                                Offset(1, 3)),
                                                       ]),
-                                                  child: context.read<RoomViewModel>().rooms[index].isAcceptedLocation
+                                                  child: context
+                                                          .read<RoomViewModel>()
+                                                          .rooms[index]
+                                                          .isAcceptedLocation
                                                       ? Image.asset(
                                                           AppImages.lightLogo,
                                                           width: 20,
                                                           height: 20)
                                                       : Image.asset(
-                                                          AppImages.lightUnauthorizedLogo,
+                                                          AppImages
+                                                              .lightUnauthorizedLogo,
                                                           width: 20,
                                                           height: 20))),
                                           title: Padding(
-                                              padding: EdgeInsets.only(bottom: 10),
-                                              child: context.read<RoomViewModel>().rooms[index].isAcceptedLocation
-                                                  ? Text(context.read<RoomViewModel>().rooms[index].name,
-                                                      style: GoogleFonts.inter(
-                                                        color: AppColors.brown,
+                                              padding:
+                                                  EdgeInsets.only(bottom: 10),
+                                              child: context
+                                                      .read<RoomViewModel>()
+                                                      .rooms[index]
+                                                      .isAcceptedLocation
+                                                  ? Text(
+                                                      context
+                                                          .read<
+                                                              RoomViewModel>()
+                                                          .rooms[index]
+                                                          .name,
+                                                      style:
+                                                          GoogleFonts.inter(
+                                                        color:
+                                                            AppColors.brown,
                                                         fontSize: 18,
                                                       ))
-                                                  : Text(context.read<RoomViewModel>().rooms[index].name,
-                                                      style: GoogleFonts.inter(
+                                                  : Text(
+                                                      context
+                                                          .read<
+                                                              RoomViewModel>()
+                                                          .rooms[index]
+                                                          .name,
+                                                      style:
+                                                          GoogleFonts.inter(
                                                         color: Colors.grey,
                                                         fontSize: 18,
                                                       ))),
                                           subtitle: Row(
                                             children: [
-                                              context.read<RoomViewModel>().participants.length == 1
+                                              context
+                                                          .read<RoomViewModel>()
+                                                          .participants
+                                                          .length ==
+                                                      1
                                                   ? Text(
                                                       '${context.read<RoomViewModel>().participants.length} pessoa',
                                                       style: GoogleFonts.inter(
@@ -122,7 +153,8 @@ class _EstablishmentPageOneWidgetState
                                                       '${context.read<RoomViewModel>().participants.length} pessoas',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
-                                                          color: Colors.black45)),
+                                                          color:
+                                                              Colors.black45)),
                                               Padding(
                                                   padding:
                                                       EdgeInsets.only(left: 40),
@@ -130,21 +162,38 @@ class _EstablishmentPageOneWidgetState
                                                       '${(context.read<RoomViewModel>().rooms[index].distance).toStringAsFixed(2)} km de distância',
                                                       style: GoogleFonts.inter(
                                                           fontSize: 13,
-                                                          color: Colors.black45)))
+                                                          color:
+                                                              Colors.black45)))
                                             ],
                                           ),
                                           onTap: () {
-                                            if (context.read<RoomViewModel>().rooms[index].isAcceptedLocation) {
-                                              bool isUserExist = context.read<RoomViewModel>().verifyNameUser(context.read<RoomViewModel>().rooms[index]);
+                                            if (context
+                                                .read<RoomViewModel>()
+                                                .rooms[index]
+                                                .isAcceptedLocation) {
+                                              bool isUserExist = context
+                                                  .read<RoomViewModel>()
+                                                  .verifyNameUser(context
+                                                      .read<RoomViewModel>()
+                                                      .rooms[index]);
                                               if (!isUserExist) {
-                                                context.read<RoomViewModel>().room = context.read<RoomViewModel>().rooms[index];
+                                                context
+                                                        .read<RoomViewModel>()
+                                                        .room =
+                                                    context
+                                                        .read<RoomViewModel>()
+                                                        .rooms[index];
                                                 Navigator.pushNamed(context,
                                                     AppRoutes.publicRoomRoute,
-                                                    arguments: RoomDTO(roomViewModel: context.read<RoomViewModel>()));
+                                                    arguments: RoomDTO(
+                                                        roomViewModel:
+                                                            context.read<
+                                                                RoomViewModel>()));
                                               } else {
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(const SnackBar(
-                                                        content: Text('Seu nickname já existe na sala, altere-o para entrar')));
+                                                        content: Text(
+                                                            'Seu nickname já existe na sala, altere-o para entrar')));
                                               }
                                             }
                                           });

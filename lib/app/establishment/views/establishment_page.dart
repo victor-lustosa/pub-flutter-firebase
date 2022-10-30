@@ -6,13 +6,15 @@ import '../../room/view-models/room_view_model.dart';
 
 import '../../shared/components/location_util.dart';
 import '../../shared/configs/app_colors.dart';
+import '../../shared/configs/app_images.dart';
+import '../../shared/configs/app_routes.dart';
 import '../../user/infra/models/user_model.dart';
 
-import 'components/establishment_flexible_space_bar_widget.dart';
 import 'components/establishment_page_one_widget.dart';
 import 'components/establishment_page_two_widget.dart';
 import 'components/establishment_tab_bar_sliver_widget.dart';
 import 'package:provider/provider.dart';
+
 class EstablishmentPage extends StatefulWidget {
   EstablishmentPage(this.user);
 
@@ -28,7 +30,8 @@ class _EstablishmentPageState extends State<EstablishmentPage>
   late TabController _tabController;
 
   getUser() async {
-    context.read<RoomViewModel>().user = await LocationUtil.getPosition(widget.user);
+    context.read<RoomViewModel>().user =
+        await LocationUtil.getPosition(widget.user);
   }
 
   @override
@@ -58,9 +61,85 @@ class _EstablishmentPageState extends State<EstablishmentPage>
             return <Widget>[
               SliverAppBar(
                 flexibleSpace: FlexibleSpaceBar(
-                  background:
-                      EstablishmentFlexibleSpaceBarWidget(this.widget.user),
-                ),
+                    background: Stack(
+                  alignment: Alignment.centerLeft,
+                  fit: StackFit.loose,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(top: 45, left: 60),
+                            child: Text("APP",
+                                style: GoogleFonts.inter(
+                                  color: AppColors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ))),
+                      ],
+                    ),
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 50, top: 25),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  AppRoutes.editUserRoute,
+                                  ModalRoute.withName(
+                                      AppRoutes.establishmentRoute),
+                                  arguments: this.widget.user);
+                            },
+                            iconSize: 45,
+                            icon: ClipOval(
+                              child: Image.asset(AppImages.userAvatar,
+                                  width: 45, height: 45),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(top: 10, left: 115),
+                            child: Text(this.widget.user.nickname,
+                                style: GoogleFonts.inter(
+                                  color: AppColors.white,
+                                  fontSize:
+                                      15, /* fontWeight: FontWeight.w600,*/
+                                ))),
+                      ],
+                    ),
+
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: <Widget>[
+                    //     Padding(
+                    //         padding: const EdgeInsets.only(left: 0,bottom: 65),
+                    //         child: IconButton(
+                    //           iconSize: 30,
+                    //           icon: Icon(Icons.search_rounded, color: Colors.white, size: 23),
+                    //           onPressed: ()  {
+                    //           },
+                    //         )
+                    //     ),
+                    //     Padding(
+                    //         padding: const EdgeInsets.only(right: 5,bottom: 65),
+                    //         child: IconButton(
+                    //           iconSize: 30,
+                    //           icon: Icon(Icons.menu, color: Colors.white, size: 24),
+                    //           onPressed: ()  {
+                    //           },
+                    //         )
+                    //     ),
+                    //   ],
+                    // )
+                  ],
+                )),
                 bottom: EstablishmentTabBarSliverWidget(_tabController),
                 automaticallyImplyLeading: false,
                 backgroundColor: AppColors.darkBrown,

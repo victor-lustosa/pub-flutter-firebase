@@ -7,7 +7,6 @@ import 'package:pub/app/user/blocs/location_permission_enum.dart';
 import '../../user/domain/entities/user_entity.dart';
 import '../../user/domain/use-cases/user_use_cases.dart';
 
-
 part '../events/user_event.dart';
 part '../states/user_state.dart';
 
