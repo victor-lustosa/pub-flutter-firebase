@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../shared/configs/app_fonts.dart';
 import '../../../user/infra/models/user_model.dart';
 import '../../../shared/configs/app_colors.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 
 class ParticipantBarWidget  extends  StatefulWidget {
@@ -40,8 +41,7 @@ class _ParticipantBarWidgetState extends State<ParticipantBarWidget> {
               padding: EdgeInsets.only(left: 8),
               child: Text(
                 widget.participant.nickname,
-                style:
-                GoogleFonts.inter(fontSize: 17, color: AppColors.darkBrown),
+                style:AppFonts.participantNickname
               )
           )
         ],

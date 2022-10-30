@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:pub/app/shared/configs/app_fonts.dart';
 
 import '../../../shared/configs/app_colors.dart';
 
@@ -20,12 +21,8 @@ class RoomTabBarSliverWidget extends PreferredSize {
                     color: AppColors.lightBrown),
                 indicatorWeight: 0,
                 indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: GoogleFonts.inter(
-                  fontSize: 13, /* fontWeight: FontWeight.w600,*/
-                ),
-                unselectedLabelStyle: GoogleFonts.inter(
-                  fontSize: 13, /*fontWeight: FontWeight.w600,*/
-                ),
+                labelStyle: AppFonts.tabBarLabelStyle,
+                unselectedLabelStyle: AppFonts.tabBarLabelStyle,
                 indicatorColor: AppColors.darkBrown,
                 labelColor: AppColors.white,
                 unselectedLabelColor: Colors.grey,

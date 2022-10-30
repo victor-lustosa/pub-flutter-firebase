@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pub/app/shared/configs/app_fonts.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../user/views/user_register_page.dart';
 
@@ -36,10 +36,7 @@ class HomePage extends StatelessWidget {
                                   UserRegisterPage()));
                     },
                     label: Text("Cadastrar",
-                        style: GoogleFonts.inter(
-                          color: AppColors.white,
-                          fontSize: 14.5, /* fontWeight: FontWeight.w600,*/
-                        )),
+                        style: AppFonts.registerButton),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(

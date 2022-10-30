@@ -41,7 +41,6 @@ class EstablishmentPageTwoWidget extends StatelessWidget {
 // // import '../../repositories/establishment_repository_dto.dart';
 // // import '../../view-models/establishment_view_model.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:google_fonts/google_fonts.dart';
 //
 //
 // class EstablishmentPageTwoWidget extends StatefulWidget {
@@ -130,16 +129,16 @@ class EstablishmentPageTwoWidget extends StatelessWidget {
 //                                     title: Padding(
 //                                         padding: EdgeInsets.only(bottom: 10),
 //                                         child: Text(widget.roomViewModel.getRoom.getParticipants[index].getNickname,
-//                                             style: GoogleFonts.inter(color: AppColors.darkBrown, fontSize: 18,))
+//                                             style: AppFonts.participantNicknamePageTwo)
 //                                     ),
 //                                     // subtitle:Row(
 //                                     //   children: [
-//                                     //     Text( '20 pessoas',
-//                                     //         style:GoogleFonts.inter( fontSize: 13, color: Colors.black45)),
+//                                     //     Text( 'pessoas',
+//                                     //         style:AppFonts.distanceLabelPageTwo),
 //                                     //     Padding(
 //                                     //         padding: EdgeInsets.only(left: 40) ,
 //                                     //         child: Text('3.2 km de distância',
-//                                     //             style:GoogleFonts.inter( fontSize: 13, color: Colors.black45))
+//                                     //             style:)
 //                                     //     ),
 //                                     //   ],
 //                                     // ),

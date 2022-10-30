@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../../shared/configs/app_fonts.dart';
 
 class DropdownWidget extends StatefulWidget{
 
@@ -31,7 +31,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                 child:  SizedBox(width: 294,height: 44,
                   child: Text(
                       val,
-                      style:GoogleFonts.inter( fontSize: 15, color: Colors.black54)
+                      style:AppFonts.titleOptionsDropdown
                   ),
                 )
 
@@ -47,7 +47,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
 
           ]
       ),
-      style:GoogleFonts.inter(fontSize: 15),
+      style:AppFonts.titleLabelDropdown,
       onChanged: (newValue) {
         _dropDownItemSelected(newValue!);
         this.setState(() {

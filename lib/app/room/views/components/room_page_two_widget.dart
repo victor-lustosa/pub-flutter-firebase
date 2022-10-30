@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:pub/app/shared/configs/app_fonts.dart';
 import '../../../participant/infra/models/dto/participant_dto.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
@@ -61,10 +61,7 @@ class _RoomPageTwoWidgetState extends State<RoomPageTwoWidget> {
                                 child: Text(
                                     context.read<RoomViewModel>().room
                                         .participants[index].nickname,
-                                    style: GoogleFonts.inter(
-                                      color: AppColors.darkBrown,
-                                      fontSize: 18,
-                                    ))),
+                                    style: AppFonts.roomNickname)),
                             onTap: () {
                               Navigator.pushNamed(
                                   context, AppRoutes.privateRoomRoute,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../room/blocs/room_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../room/views/components/room_page_one_widget.dart';
 import '../../shared/configs/app_colors.dart';
+import '../../shared/configs/app_fonts.dart';
 import '../view-models/room_view_model.dart';
 import 'components/room_page_two_widget.dart';
 import 'components/room_tab_bar_sliver_widget.dart';
@@ -81,9 +80,7 @@ class _RoomPageState extends State<RoomPage>
                                 padding: EdgeInsets.only(left: 48),
                                 child: Text(
                                   context.read<RoomViewModel>().room.name,
-                                  style: GoogleFonts.inter(
-                                      fontSize: 17, color: AppColors.darkBrown),
-                                ))
+                                  style: AppFonts.roomName))
                           ],
                         ),
                       ])),

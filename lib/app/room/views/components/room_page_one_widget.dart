@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../room/view-models/room_view_model.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../shared/configs/app_colors.dart';
 import '../../../room/blocs/room_bloc.dart';
+import '../../../shared/configs/app_fonts.dart';
 import '../../blocs/bloc_events.dart';
 
 class RoomPageOneWidget extends StatefulWidget {
@@ -128,8 +128,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       child: Text(
                           '${context.read<RoomViewModel>().room.messages[index].textMessage}',
-                          style: GoogleFonts.inter(
-                              color: AppColors.white, fontSize: 10))),
+                          style: AppFonts.textMessage)),
                 ],
               ),
             ]),
@@ -192,7 +191,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                       autofocus: true,
                       keyboardType: TextInputType.multiline,
                       maxLines: context.read<RoomViewModel>().lineNumbers,
-                      style: GoogleFonts.inter(fontSize: 15),
+                      style: AppFonts.boxMessage,
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.fromLTRB(20, 6, 20, 6),
                           hintText: "Digite uma mensagem...",

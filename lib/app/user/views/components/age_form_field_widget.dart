@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../../../shared/configs/app_fonts.dart';
 
 class AgeFormFieldWidget extends StatelessWidget {
 
@@ -54,7 +55,7 @@ class AgeFormFieldWidget extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.black12)
                 )
             ),
-            style: GoogleFonts.inter(fontSize: 15)
+            style: AppFonts.formAge
         )
     );
   }

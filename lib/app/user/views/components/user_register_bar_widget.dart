@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../shared/configs/app_colors.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../../shared/configs/app_fonts.dart';
 class UserRegisterBarWidget extends PreferredSize {
 
   UserRegisterBarWidget(BuildContext context)
@@ -33,17 +33,17 @@ class UserRegisterBarWidget extends PreferredSize {
               ),
               Padding(padding: EdgeInsets.only(bottom: 100),
                   child: Text("Primeiro acesso",
-                      style: GoogleFonts.inter( color: AppColors.white, fontSize: 25, /* fontWeight: FontWeight.w600,*/)
+                      style: AppFonts.titleFirstAccess
                   )
               ),
               Padding(padding: EdgeInsets.only(top: 50),
                   child: Text("Insira seus dados",
-                      style: GoogleFonts.inter( color: AppColors.white, fontSize: 17,)
+                      style:AppFonts.titleInsertData
                   )
               ),
               // Padding(padding: EdgeInsets.only(top: 200, right: 30),
               //     child:Text("Escolha uma imagem",
-              //         style: GoogleFonts.inter( color: AppColors.white, fontSize: 13,)
+              //         style:AppFonts.titleChooseImage
               //     )
               // ),Padding(padding: EdgeInsets.only(left: 180, top: 175), child: IconButton(
               //   icon: const Icon(Icons.account_circle,size: 60),

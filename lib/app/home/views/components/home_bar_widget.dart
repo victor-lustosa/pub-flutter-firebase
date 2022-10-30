@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/configs/app_colors.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../../../shared/configs/app_fonts.dart';
 import '../../../shared/configs/app_images.dart';
 
 class HomeBarWidget extends PreferredSize {
@@ -20,10 +21,7 @@ class HomeBarWidget extends PreferredSize {
                         padding: EdgeInsets.only(top: 15),
                         child: Text(
                           "APP",
-                          style: GoogleFonts.gugi(
-                            color: AppColors.white,
-                            fontSize: 30, /* fontWeight: FontWeight.w600,*/
-                          ),
+                          style: AppFonts.titleAppHome
                         )),
                   ]),
                 )));

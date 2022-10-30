@@ -5,7 +5,6 @@
 // import 'components/enterprise_register_bar_widget.dart';
 // import 'package:pub/app/pages/user/view-models/user_view_model.dart';
 // import 'package:pub/app/core/components/form_field_widget.dart';
-// import 'package:google_fonts/google_fonts.dart';
 // import 'package:pub/app/core/components/dropdown_widget.dart';
 // import 'package:location/location.dart';
 //
@@ -100,7 +99,7 @@
 //                                         builder: (context) => EstablishmentPage(user, establishment)));
 //                                   }},
 //                                 child: Text("Avançar",
-//                                     style:GoogleFonts.inter( fontSize: 15, color: Colors.white)
+//                                     style:AppFonts.enterpriseNextButton
 //                                 ),
 //                                 style: ButtonStyle(
 //                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(

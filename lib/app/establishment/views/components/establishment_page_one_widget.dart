@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pub/app/shared/configs/app_fonts.dart';
 
 import '../../../room/blocs/room_bloc.dart';
 import '../../../room/infra/models/dto/room_dto.dart';
@@ -8,8 +9,6 @@ import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
 import '../../../room/view-models/room_view_model.dart';
 import '../../../shared/configs/app_routes.dart';
-
-import 'package:google_fonts/google_fonts.dart';
 
 class EstablishmentPageOneWidget extends StatefulWidget {
   EstablishmentPageOneWidget();
@@ -75,10 +74,9 @@ class _EstablishmentPageOneWidgetState
                                                   height: 40,
                                                   decoration: BoxDecoration(
                                                       color: AppColors.white,
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              const Radius.circular(
-                                                                  5.0)),
+                                                      borderRadius: BorderRadius.all(
+                                                          const Radius.circular(
+                                                              5.0)),
                                                       boxShadow: [
                                                         BoxShadow(
                                                             color: Colors.grey
@@ -93,58 +91,36 @@ class _EstablishmentPageOneWidgetState
                                                           .read<RoomViewModel>()
                                                           .rooms[index]
                                                           .isAcceptedLocation
-                                                      ? Image.asset(
-                                                          AppImages.lightLogo,
-                                                          width: 20,
-                                                          height: 20)
+                                                      ? Image.asset(AppImages.lightLogo,
+                                                          width: 20, height: 20)
                                                       : Image.asset(AppImages.lightUnauthorizedLogo,
                                                           width: 20,
                                                           height: 20))),
                                           title: Padding(
                                               padding:
                                                   EdgeInsets.only(bottom: 10),
-                                              child: context
-                                                      .read<RoomViewModel>()
-                                                      .rooms[index]
-                                                      .isAcceptedLocation
-                                                  ? Text(context.read<RoomViewModel>().rooms[index].name,
-                                                      style: GoogleFonts.inter(
-                                                        color: AppColors.brown,
-                                                        fontSize: 18,
-                                                      ))
-                                                  : Text(context.read<RoomViewModel>().rooms[index].name,
-                                                      style: GoogleFonts.inter(
-                                                        color: Colors.grey,
-                                                        fontSize: 18,
-                                                      ))),
+                                              child: Text(context.read<RoomViewModel>().rooms[index].name,
+                                                  style: context.read<RoomViewModel>().rooms[index].isAcceptedLocation ? AppFonts.roomEnabledName : AppFonts.roomDisabledName)),
                                           subtitle: Row(
                                             children: [
-                                              context
-                                                          .read<RoomViewModel>()
-                                                          .participants
-                                                          .length ==
-                                                      1
-                                                  ? Text(
-                                                      '${context.read<RoomViewModel>().participants.length} pessoa',
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 13,
-                                                          color:
-                                                              Colors.black45))
-                                                  : Text(
-                                                      '${context.read<RoomViewModel>().participants.length} pessoas',
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 13,
-                                                          color:
-                                                              Colors.black45)),
+                                              Text(
+                                                  context
+                                                              .read<
+                                                                  RoomViewModel>()
+                                                              .participants
+                                                              .length ==
+                                                          1
+                                                      ? '${context.read<RoomViewModel>().participants.length} pessoa'
+                                                      : '${context.read<RoomViewModel>().participants.length} pessoas',
+                                                  style: AppFonts
+                                                      .numberParticipants),
                                               Padding(
                                                   padding:
                                                       EdgeInsets.only(left: 40),
                                                   child: Text(
                                                       '${(context.read<RoomViewModel>().rooms[index].distance).toStringAsFixed(2)} km de distância',
-                                                      style: GoogleFonts.inter(
-                                                          fontSize: 13,
-                                                          color:
-                                                              Colors.black45)))
+                                                      style: AppFonts
+                                                          .distanceLabel))
                                             ],
                                           ),
                                           onTap: () {

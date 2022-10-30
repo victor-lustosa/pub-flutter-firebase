@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../shared/configs/app_colors.dart';
+import '../../shared/configs/app_fonts.dart';
 import '../../user/view-models/user_view_model.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../blocs/user_bloc.dart';
 import 'components/age_form_field_widget.dart';
 import 'components/dropdown_widget.dart';
@@ -116,8 +116,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               color: AppColors.white,
                             ),
                             label: Text("Avançar",
-                                style: GoogleFonts.inter(
-                                    fontSize: 15, color: Colors.white)),
+                                style: AppFonts.userNextButton),
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(

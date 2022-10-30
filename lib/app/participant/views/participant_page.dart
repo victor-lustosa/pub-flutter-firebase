@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../shared/components/chat_mixin.dart';
 import '../../shared/configs/app_colors.dart';
+import '../../shared/configs/app_fonts.dart';
 import '../../user/infra/models/user_model.dart';
 import '../blocs/participant_bloc.dart';
 import '../view-models/participant_view_model.dart';
 import 'components/participant_bar_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ParticipantPage extends StatefulWidget {
   final UserModel user;
@@ -109,7 +109,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
                           keyboardType: TextInputType.multiline,
                           maxLines:
                               this._participantViewModel.lineNumbers,
-                          style: GoogleFonts.inter(fontSize: 15),
+                          style: AppFonts.boxMessage,
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.fromLTRB(20, 6, 20, 6),
                               hintText: "Digite uma mensagem...",

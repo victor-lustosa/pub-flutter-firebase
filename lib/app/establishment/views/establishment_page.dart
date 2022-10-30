@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 import '../../room/blocs/room_bloc.dart';
 import '../../room/view-models/room_view_model.dart';
 
 import '../../shared/components/location_util.dart';
 import '../../shared/configs/app_colors.dart';
+import '../../shared/configs/app_fonts.dart';
 import '../../shared/configs/app_images.dart';
 import '../../shared/configs/app_routes.dart';
 import '../../user/infra/models/user_model.dart';
@@ -70,11 +71,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                         Padding(
                             padding: EdgeInsets.only(top: 45, left: 60),
                             child: Text("APP",
-                                style: GoogleFonts.inter(
-                                  color: AppColors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ))),
+                                style: AppFonts.appTitle)),
                       ],
                     ),
 
@@ -107,11 +104,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                         Padding(
                             padding: EdgeInsets.only(top: 10, left: 115),
                             child: Text(this.widget.user.nickname,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.white,
-                                  fontSize:
-                                      15, /* fontWeight: FontWeight.w600,*/
-                                ))),
+                                style: AppFonts.nicknameDisabled)),
                       ],
                     ),
 
@@ -162,10 +155,10 @@ class _EstablishmentPageState extends State<EstablishmentPage>
           width: 160,
           child: FloatingActionButton.extended(
             onPressed: () {
-              context.read<RoomViewModel>().openURL(context);
+
             },
-            label: Text("Ajude com sua opinião",
-                style: GoogleFonts.inter(fontSize: 10.5, color: Colors.white)),
+            label: Text("visão em mapa",
+                style: AppFonts.mapsButton),
             backgroundColor: AppColors.lightBrown,
             // icon: Icon(Icons.map, size: 15, color: Colors.white)
           )),
