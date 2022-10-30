@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../room/blocs/room_bloc.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../../room/views/components/room_page_one_widget.dart';
 import '../../shared/configs/app_colors.dart';
 import '../view-models/room_view_model.dart';
-import 'components/room_bar_widget.dart';
 import 'components/room_page_two_widget.dart';
 import 'components/room_tab_bar_sliver_widget.dart';
 import 'package:provider/provider.dart';
+
 class RoomPage extends StatefulWidget {
   RoomPage();
 
@@ -25,8 +25,8 @@ class _RoomPageState extends State<RoomPage>
   void initState() {
     super.initState();
     context.read<RoomViewModel>().bloc.add(EnterRoomEvent(
-        user: context.read<RoomViewModel>().user, room: context.read<RoomViewModel>().room));
-
+        user: context.read<RoomViewModel>().user,
+        room: context.read<RoomViewModel>().room));
     _tabController = TabController(vsync: this, length: 2);
   }
 
@@ -46,7 +46,47 @@ class _RoomPageState extends State<RoomPage>
               return <Widget>[
                 SliverAppBar(
                   flexibleSpace: FlexibleSpaceBar(
-                      background: RoomBarWidget(context.read<RoomViewModel>())),
+                      background: Stack(
+                          fit: StackFit.loose,
+                          alignment: AlignmentDirectional.center,
+                          children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(top: 0),
+                                child: IconButton(
+                                    iconSize: 30,
+                                    icon: Icon(
+                                      Icons.navigate_before_rounded,
+                                      color: AppColors.darkBrown,
+                                    ),
+                                    color: AppColors.darkBrown,
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    }))
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            // CircleAvatar(
+                            //     maxRadius: 20,
+                            //     backgroundColor: Colors.grey,
+                            //     backgroundImage: widget.contato.urlImagem != null
+                            //         ? NetworkImage(widget.contato.urlImagem)
+                            //         : null),
+
+                            Padding(
+                                padding: EdgeInsets.only(left: 48),
+                                child: Text(
+                                  context.read<RoomViewModel>().room.name,
+                                  style: GoogleFonts.inter(
+                                      fontSize: 17, color: AppColors.darkBrown),
+                                ))
+                          ],
+                        ),
+                      ])),
                   automaticallyImplyLeading: false,
                   backgroundColor: AppColors.white,
                   pinned: true,
