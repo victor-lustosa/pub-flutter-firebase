@@ -9,7 +9,7 @@ abstract class IRoomUseCases {
   Future<void> enterRoom(RoomModel room, UserModel user);
   Future<void> receiveMessage();
   Future<void> sendMessage(message);
-  Future<void> leaveRoom();
+  Future<void> leaveRoom(RoomModel room, UserModel user);
 }
 
 class RoomUseCases implements IRoomUseCases {
@@ -27,9 +27,8 @@ class RoomUseCases implements IRoomUseCases {
   }
 
   @override
-  Future<void> leaveRoom() {
-    // TODO: implement leaveRoom
-    throw UnimplementedError();
+  Future<void> leaveRoom(RoomModel room, UserModel user) {
+    return repository.delete(room,user);
   }
 
   @override

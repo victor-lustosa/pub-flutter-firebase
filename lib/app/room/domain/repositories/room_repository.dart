@@ -5,5 +5,6 @@ abstract class IRoomRepository <T> implements IGetRepository<T>{
   Future<void> add(T,P);
   Future<void> sendMessage();
   Future<void> receiveMessage();
-  Future<void> leaveRoom();
+  Future<void> delete(T,P);
+
 }

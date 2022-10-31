@@ -43,6 +43,9 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                   return Expanded(child: Container());
                 } else if (state is EnterRoomState) {
                   return Expanded(child: Container());
+                } else if (state is LeaveRoomState) {
+                 print("VASCO SOBE");
+                  return Expanded(child: Container(child: Text("VASCO SOBE")));
                 } else {
                   return Expanded(
                       child: ListView.builder(

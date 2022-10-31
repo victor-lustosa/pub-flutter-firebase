@@ -8,6 +8,10 @@ class EnterRoomState extends RoomState{
   EnterRoomState();
 }
 
+class LeaveRoomState extends RoomState{
+  LeaveRoomState();
+}
+
 class SuccessRoomsState extends RoomState {
   final List<RoomEntity> entities;
   SuccessRoomsState(this.entities);

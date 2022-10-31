@@ -20,7 +20,9 @@ class DisconnectEvent extends RoomEvent{
 }
 
 class LeaveRoomEvent extends RoomEvent{
-  LeaveRoomEvent();
+  final RoomModel room;
+  final UserModel user;
+  LeaveRoomEvent({ required this.user, required this.room});
 }
 
 class DontBuildEvent extends RoomEvent{

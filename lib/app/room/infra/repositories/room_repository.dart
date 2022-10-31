@@ -24,12 +24,6 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
   }
 
   @override
-  Future<void> leaveRoom() {
-    // TODO: implement leaveRoom
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> receiveMessage() {
     // TODO: implement receiveMessage
     throw UnimplementedError();
@@ -39,6 +33,11 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
   Future<void> sendMessage() {
     // TODO: implement sendPublicMessage
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> delete(room, user) async {
+    datasource.delete(room, user);
   }
 
 }

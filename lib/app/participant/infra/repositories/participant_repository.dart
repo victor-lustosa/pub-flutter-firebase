@@ -41,4 +41,10 @@ class RoomRepository implements IRoomRepository<UserModel> {
     // TODO: implement sendMessage
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> delete(T, P) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
 }

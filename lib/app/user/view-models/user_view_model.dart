@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pub/app/shared/components/id_util.dart';
 import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../shared/configs/app_routes.dart';
 import '../../user/infra/models/user_model.dart';
@@ -42,6 +43,7 @@ class UserViewModel implements IUserViewModel {
         if (selectedGenre == '') selectedGenre = genres[0];
         user = UserModel.empty();
         user = user.copyWith(
+            idUser: IdUtil.generateRandomString(),
             age: age,
             genre: selectedGenre,
             nickname: nickNameController.text.trimLeft().trimRight());

@@ -26,7 +26,7 @@ class LocationUtil {
           position.longitude, room.latitude, room.longitude) /
           1000);
       if (distance > 10.2) {
-        bloc.add(LeaveRoomEvent());
+        bloc.add(LeaveRoomEvent(room:room, user:user));
         Navigator.pushNamed(context, AppRoutes.establishmentRoute,
             arguments: EstablishmentDTO(user));
         streamLocation.cancel();

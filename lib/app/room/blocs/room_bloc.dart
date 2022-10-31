@@ -43,11 +43,8 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     emit(SendMessageState());*/
   }
   Future<void> _leaveRoomEvent(LeaveRoomEvent event, emit) async{
-    /*_socket.emit('leave_public_room', {
-      'roomName': this.roomViewModel.getRoom.getRoomName,
-      'idRoom': this.roomViewModel.getRoom.getIdRoom,
-      'user': this.roomViewModel.getUser.toMap()
-    });*/
+    roomUseCases.leaveRoom(event.room, event.user);
+    emit(LeaveRoomState());
   }
 
   Future<void> _receiveMessageEvent(ReceiveMessageEvent event, emit) async{
@@ -87,3 +84,5 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     _socket.disconnect();*/
   }
 }
+
+
