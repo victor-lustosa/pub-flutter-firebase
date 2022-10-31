@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
-import 'package:pub/app/user/blocs/location_permission_enum.dart';
+import '../../user/blocs/location_permission_enum.dart';
 import '../../user/domain/entities/user_entity.dart';
 import '../../user/domain/use-cases/user_use_cases.dart';
 

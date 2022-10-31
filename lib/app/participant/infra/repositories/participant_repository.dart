@@ -1,7 +1,6 @@
 
-import 'package:pub/app/room/domain/repositories/room_repository.dart';
-import 'package:pub/app/room/infra/datasources/room_datasource.dart';
-
+import '../../../room/domain/repositories/room_repository.dart';
+import '../../../room/infra/datasources/room_datasource.dart';
 import '../../../user/infra/models/user_model.dart';
 
 class RoomRepository implements IRoomRepository<UserModel> {

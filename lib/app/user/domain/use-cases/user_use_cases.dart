@@ -1,6 +1,6 @@
 
-import 'package:pub/app/user/blocs/location_permission_enum.dart';
-import 'package:pub/app/user/domain/repositories/user_repository.dart';
+import '../../../user/blocs/location_permission_enum.dart';
+import '../../../user/domain/repositories/user_repository.dart';
 import '../entities/user_entity.dart';
 
 
@@ -23,8 +23,8 @@ class UserUseCases implements IUserUseCases {
   }
 
   @override
-  Future<void> add(UserEntity userModel) async {
-    return repository.add(userModel);
+  Future<void> add(UserEntity user) async {
+    return repository.add(user);
   }
 
   @override

@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
 import '../../room/blocs/room_bloc.dart';
-
 import '../../user/infra/models/user_model.dart';
 import '../blocs/bloc_events.dart';
 import '../infra/models/data/message_data.dart';
@@ -27,6 +24,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   final textController = TextEditingController(text: '');
   String error = '';
   List<dynamic> participants = [];
+  List<dynamic> messages = [];
   List<RoomModel> rooms = [];
   late RoomModel room;
   late UserModel user;
@@ -39,12 +37,13 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     await Future.delayed(const Duration(minutes: 30));
     openURL(context);
   }
+  addMessages(dynamic data) {
+    messages.add(data);
+  }
 
   scroll() {
     Timer(Duration(microseconds: 50), () {
-      this
-          .scrollViewController
-          .jumpTo(this.scrollViewController.position.maxScrollExtent);
+      this.scrollViewController.jumpTo(this.scrollViewController.position.maxScrollExtent);
     });
   }
 
@@ -54,7 +53,6 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     else
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Não foi possivel abrir a página')));
-
     /// Não è possível abrir a URL
   }
 
@@ -81,7 +79,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
             code: 0,
             type: BlocEventType.send_public_message);
 
-        room.messages.add(mes);
+        //messages.add(mes);
 
         bloc.add(SendMessageEvent(mes.toMap()));
         focusNode.requestFocus();
@@ -135,7 +133,6 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
           name: room.name,
           distance: room.distance,
           isAcceptedLocation: room.isAcceptedLocation,
-          messages: room.messages,
           participants: room.participants);
     } else {
       for (dynamic room in rooms) {
@@ -160,21 +157,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     notifyListeners();
   }
 
-  addMessages(message) {
-    // if(boolAdd == true){
-    // boolAdd = false;
-    room.messages.add(message);
-  }
-
   late UserModel participant;
-
-  /*void addMessages(MessageData message) {
-    getParticipant.addMessages(message);
-  }*/
-
-// reload(RoomBloc bloc) {
-//   widget.bloc.add(LoadingRoomsEvent());
-// }
 
   void dispose() {
     textController.dispose();

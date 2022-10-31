@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pub/app/shared/configs/app_fonts.dart';
+import '../../shared/configs/app_fonts.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../user/views/user_register_page.dart';
 

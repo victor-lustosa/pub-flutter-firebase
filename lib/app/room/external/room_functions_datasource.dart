@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:pub/app/room/domain/entities/room_entity.dart';
-
-import 'package:pub/app/user/domain/entities/user_entity.dart';
-
+import '../domain/entities/room_entity.dart';
+import '../../user/domain/entities/user_entity.dart';
 import '../infra/datasources/room_datasource.dart';
 
 class RoomFunctionsDatasource implements IRoomDatasource {

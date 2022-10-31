@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:pub/app/participant/infra/datasources/participant_datasource.dart';
+import '../../participant/infra/datasources/participant_datasource.dart';
 
 
 class RoomFunctionsDatasource implements IParticipantDatasource {

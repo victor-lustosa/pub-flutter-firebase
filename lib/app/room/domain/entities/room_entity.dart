@@ -9,7 +9,6 @@ class RoomEntity {
   final bool isAcceptedLocation;
   // final String icon;
   final List<UserEntity> participants;
-  final List<dynamic> messages;
 
   const RoomEntity({
     required this.id,
@@ -18,7 +17,6 @@ class RoomEntity {
     required this.latitude,
     required this.longitude,
     required this.distance,
-    required this.participants,
-    required this.messages,
+    required this.participants
   });
 }

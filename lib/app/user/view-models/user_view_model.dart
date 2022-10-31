@@ -45,7 +45,6 @@ class UserViewModel implements IUserViewModel {
             age: age,
             genre: selectedGenre,
             nickname: nickNameController.text.trimLeft().trimRight());
-
       }
     }
     bloc.add(SaveUserEvent(user));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pub/app/shared/configs/app_fonts.dart';
+import '../../../shared/configs/app_fonts.dart';
 import '../../../participant/infra/models/dto/participant_dto.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';

@@ -1,7 +1,7 @@
-import 'package:pub/app/user/infra/datasources/user_datasource.dart';
+import '../../../user/infra/datasources/user_datasource.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../infra/models/user_model.dart';
+
 class UserSharedDatasource<T> implements IUserDatasource<T>{
   final SharedPreferences _shared;
 

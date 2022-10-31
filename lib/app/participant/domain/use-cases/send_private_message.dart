@@ -1,5 +1,5 @@
-import 'package:pub/app/participant/domain/repositories/participant_repository.dart';
-import 'package:pub/app/room/infra/models/data/message_data.dart';
+import '../../../participant/domain/repositories/participant_repository.dart';
+import '../../../room/infra/models/data/message_data.dart';
 
 abstract class ISendPrivateMessage {
   Future<void> call(MessageData message);

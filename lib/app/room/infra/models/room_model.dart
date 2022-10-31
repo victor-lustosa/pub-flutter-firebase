@@ -13,7 +13,7 @@ class RoomModel extends RoomEntity {
     required double distance,
     required bool isAcceptedLocation,
     required List<UserEntity> participants,
-    required List<dynamic> messages
+
   }) : super(
     id: id,
     name: name,
@@ -21,8 +21,7 @@ class RoomModel extends RoomEntity {
     longitude: longitude,
     distance: distance,
     isAcceptedLocation: isAcceptedLocation,
-    participants: participants,
-    messages: messages
+    participants: participants
   );
 
   factory RoomModel.empty() => RoomModel(
@@ -33,11 +32,8 @@ class RoomModel extends RoomEntity {
       distance: 0.0,
       isAcceptedLocation: false,
       participants: [],
-      messages: []
+
   );
-  addMessages(dynamic data) {
-    messages.add(data);
-  }
 
   addParticipants(UserEntity data) {
     participants.add(data);
@@ -53,11 +49,10 @@ class RoomModel extends RoomEntity {
       name: json['name'],
       latitude: double.parse(json['latitude']),
       longitude: double.parse(json['longitude']),
-      messages: [
-        if (json.containsKey('messages'))
-          ...(json['messages'] as List).map(MessageData.fromMap).toList(),
+      participants: [
+        if (json.containsKey('participants'))
+          ...(json['participants'] as List).map(UserModel.fromMap).toList(),
       ],
-      participants: [],
       distance: 0.0,
     );
   }
@@ -68,8 +63,7 @@ class RoomModel extends RoomEntity {
       'latitude': room.latitude,
       'longitude': room.longitude,
       'distance': room.distance,
-      'participants':  UserModel.toMaps(room.participants),
-      'messages': UserModel.toMaps(room.messages)
+      'participants':  UserModel.toMaps(room.participants)
     };
   }
   RoomModel copyWith({
@@ -80,7 +74,7 @@ class RoomModel extends RoomEntity {
     double? distance,
     bool? isAcceptedLocation,
     List<UserEntity>? participants,
-    List<dynamic>? messages
+
   }) {
     return RoomModel(
         id: id ?? this.id,
@@ -90,7 +84,6 @@ class RoomModel extends RoomEntity {
         distance: distance ?? this.distance,
         isAcceptedLocation: isAcceptedLocation ?? this.isAcceptedLocation,
         participants: participants ?? this.participants,
-        messages: messages ?? this.messages
     );
   }
 }

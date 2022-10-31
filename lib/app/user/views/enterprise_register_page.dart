@@ -1,11 +1,11 @@
 // import 'package:flutter/material.dart';
-// import 'package:pub/app/core/configs/app_colors.dart';
-// import 'package:pub/app/pages/user/models/user.dart';
-// import 'package:pub/app/pages/establishment/views/establishment_page.dart';
+// import '/core/configs/app_colors.dart';
+// import '/pages/user/models/user.dart';
+// import '/pages/establishment/views/establishment_page.dart';
 // import 'components/enterprise_register_bar_widget.dart';
-// import 'package:pub/app/pages/user/view-models/user_view_model.dart';
-// import 'package:pub/app/core/components/form_field_widget.dart';
-// import 'package:pub/app/core/components/dropdown_widget.dart';
+// import '/pages/user/view-models/user_view_model.dart';
+// import '/core/components/form_field_widget.dart';
+// import '/core/components/dropdown_widget.dart';
 // import 'package:location/location.dart';
 //
 // import '../../establishment/models/establishment.dart';

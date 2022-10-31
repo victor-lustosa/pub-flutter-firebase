@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pub/app/shared/configs/app_fonts.dart';
+import '../../../shared/configs/app_fonts.dart';
 
 import '../../../room/blocs/room_bloc.dart';
 import '../../../room/infra/models/dto/room_dto.dart';

@@ -1,5 +1,5 @@
 
-import 'package:pub/app/user/infra/models/user_model.dart';
+import '../../../user/infra/models/user_model.dart';
 import '../../infra/models/room_model.dart';
 import '../entities/room_entity.dart';
 import '../repositories/room_repository.dart';

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../room/view-models/room_view_model.dart';
-
 import '../../../shared/configs/app_colors.dart';
 import '../../../room/blocs/room_bloc.dart';
 import '../../../shared/configs/app_fonts.dart';
-import '../../blocs/bloc_events.dart';
 
 class RoomPageOneWidget extends StatefulWidget {
-
   @override
   State<RoomPageOneWidget> createState() => _RoomPageOneWidgetState();
 }
@@ -18,124 +15,17 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
   //bool isAddPositionNameMessage = false;
   //int nameMessageCount = 0;
   double offset = 0.0;
+
   @override
   initState() {
     super.initState();
-    context.read<RoomViewModel>().scrollViewController = ScrollController(initialScrollOffset: 0.0);
+    context.read<RoomViewModel>().scrollViewController =
+        ScrollController(initialScrollOffset: 0.0);
     /* LocationUtil.verifyLocation(context,
         widget.bloc,
         widget.mSub,
         widget.instance.getRoom,
         widget.instance.getUser);*/
-  }
-
-  boxMessage(state, index, context) {
-    if (state is ReceivePublicMessageState) {
-      //if (!isAddPositionNameMessage &&
-      //    widget.instance.room.messages[index].user.nickname != widget.instance.user.nickname &&
-      //    widget.instance.room.messages[index].type == BlocEventType.receive_public_message) {
-      //widget.instance.room.messages[index].namePosition(nameMessageCount);
-      //userSendMessage = widget.instance.room.messages[index].user.nickname;
-      //nameMessageCount++;
-      //   isAddPositionNameMessage = true;
-      //  }
-      //} else if (widget.instance.room.messages[index].user.nickname == widget.instance.user.nickname) {
-      //userSendMessage = widget.instance.user.nickname;
-      //nameMessageCount = 0;
-      //}
-      //if (widget.instance.room.messages[index].type == BlocEventType.receive_public_message) {
-      //  isAddPositionNameMessage = false;
-      context.read<RoomViewModel>().scroll();
-      return Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Stack(fit: StackFit.loose,
-                  // alignment: AlignmentDirectional.centerStart,
-                  // width: MediaQuery.of(context).size.width * 0.8,
-                  children: [
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // widget.instance.getRoom.getMessages[index].getNamePosition < 2?
-                          Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 6, left: 6),
-                              child: Row(children: [
-                                Text(
-                                    '${context.read<RoomViewModel>().room.messages[index].user.nickname}'),
-                              ])),
-                          Container(
-                              // width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.all(14),
-                              decoration: BoxDecoration(
-                                  // color: _room.getMessages[index].getUser.getNickname != _user.getNickname ?
-                                  color: Colors.white,
-                                  // : Color(0xffdcd9d9),
-                                  border: Border.all(
-                                      color: Color(0xffdcd9d9), width: 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8))),
-                              child: Text(
-                                  '${context.read<RoomViewModel>().room.messages[index].textMessage}'))
-                          //     : Padding(
-                          //     padding: const EdgeInsets.only(bottom: 0)
-                          // )
-                        ]),
-                  ])));
-    } else if (context.read<RoomViewModel>().room.messages[index].type ==
-        BlocEventType.send_public_message) {
-      return Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Stack(fit: StackFit.loose, children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    // width: MediaQuery.of(context).size.width * 0.8,
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                        color: Color(0xffdcd9d9),
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: Text(
-                        '${context.read<RoomViewModel>().room.messages[index].textMessage}'),
-                  )
-                ],
-              ),
-            ]),
-          )
-          // ),
-          );
-    } else if (context.read<RoomViewModel>().room.messages[index].type ==
-            BlocEventType.enter_public_room ||
-            context.read<RoomViewModel>().room.messages[index].type ==
-            BlocEventType.leave_public_room) {
-      return Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Stack(fit: StackFit.loose, children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                      // width: MediaQuery.of(context).size.width * 0.8,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Colors.black45,
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: Text(
-                          '${context.read<RoomViewModel>().room.messages[index].textMessage}',
-                          style: AppFonts.textMessage)),
-                ],
-              ),
-            ]),
-          )
-          // ),
-          );
-    }
   }
 
   @override
@@ -158,9 +48,49 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                       child: ListView.builder(
                           key: PageStorageKey<String>('MessagesList'),
                           controller: context.read<RoomViewModel>().scrollViewController,
-                          itemCount: context.read<RoomViewModel>().room.messages.length,
+                          itemCount: context.read<RoomViewModel>().messages.length,
                           itemBuilder: (context, index) {
-                            return boxMessage(state, index, context);
+
+                            context.read<RoomViewModel>().scroll();
+
+                            return Align(
+                                alignment: context.read<RoomViewModel>().messages[index].user.nickname != context.read<RoomViewModel>().user.nickname
+                                    ? Alignment.centerLeft
+                                    : Alignment.centerRight,
+                                child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 4),
+                                    child: Stack(fit: StackFit.loose,
+                                        // alignment: AlignmentDirectional.centerStart,
+                                        // width: MediaQuery.of(context).size.width * 0.8,
+                                        children: [
+                                          Column(
+                                              crossAxisAlignment: context.read<RoomViewModel>().messages[index].user.nickname != context.read<RoomViewModel>().user.nickname
+                                                  ? CrossAxisAlignment.start
+                                                  : CrossAxisAlignment.end,
+                                              children: [
+                                                // context.read<RoomViewModel>().messages[index].namePosition < 2?
+                                                Padding(
+                                                    padding: const EdgeInsets.only(bottom: 6, left: 6),
+                                                    child: Row(
+                                                        children: [
+                                                          Text(
+                                                          '${context.read<RoomViewModel>().messages[index].user.nickname}'),
+                                                    ])),
+                                                Container(
+                                                    // width: MediaQuery.of(context).size.width * 0.8,
+                                                    padding: const EdgeInsets.all(14),
+                                                    decoration: BoxDecoration(
+                                                        color: context.read<RoomViewModel>().messages[index].user.nickname != context.read<RoomViewModel>().user.nickname
+                                                            ? Colors.white
+                                                            : Color(0xffdcd9d9),
+                                                        border: Border.all(color: Color(0xffdcd9d9), width: 1),
+                                                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                                                    child: Text('${context.read<RoomViewModel>().messages[index].textMessage}'))
+                                                //     : Padding(
+                                                //     padding: const EdgeInsets.only(bottom: 0)
+                                                // )
+                                              ]),
+                                        ])));
                           }));
                 }
               }),
@@ -172,17 +102,6 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                     padding: EdgeInsets.only(left: 4, right: 8),
                     child: TextField(
                       onEditingComplete: () {},
-                      onChanged: (String value) {
-                        // if(value.length < 30) {
-                        //   instance.lineNumbers = 1;
-                        // } else if(value.length < 60){
-                        //   instance.lineNumbers = 2;
-                        // } else if(value.length < 100){
-                        //   instance.lineNumbers = 3;
-                        // } else{
-                        //   instance.lineNumbers = 5;
-                        // }
-                      },
                       focusNode: context.read<RoomViewModel>().focusNode,
                       onSubmitted: (_) {
                         context.read<RoomViewModel>().sendMessage('');
