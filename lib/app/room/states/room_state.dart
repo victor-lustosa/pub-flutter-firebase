@@ -12,31 +12,31 @@ class LeaveRoomState extends RoomState{
   LeaveRoomState();
 }
 
-class SuccessRoomsState extends RoomState {
+class SuccessfullyFetchedRoomsState extends RoomState {
   final List<RoomEntity> entities;
-  SuccessRoomsState(this.entities);
+  SuccessfullyFetchedRoomsState(this.entities);
 }
 class EnterPublicRoomMessageState extends  RoomState{
-  EnterPublicRoomMessageState({required PublicRoomData message, required RoomViewModel roomViewModel}){
+  EnterPublicRoomMessageState({required StateMessageData message, required RoomViewModel roomViewModel}){
     roomViewModel.addParticipants(message);
     if(message.user.nickname != roomViewModel.user.nickname)
       roomViewModel.addMessages(message);
   }
 }
 class LeavePublicRoomMessageState extends RoomState{
-  LeavePublicRoomMessageState({required PublicRoomData message, required RoomViewModel roomViewModel}){
+  LeavePublicRoomMessageState({required StateMessageData message, required RoomViewModel roomViewModel}){
     roomViewModel.removeParticipants(message);
     if(message.user.nickname != roomViewModel.user.nickname)
       roomViewModel.addMessages(message);
   }
 }
 class ReceivePublicMessageState extends RoomState {
-  ReceivePublicMessageState({required MessageData message, required RoomViewModel roomViewModel}){
+  ReceivePublicMessageState({required MessagePublicRoomData message, required RoomViewModel roomViewModel}){
     roomViewModel.addMessages(message);
   }
 }
 class ReceivePrivateMessageState extends RoomState {
-  ReceivePrivateMessageState({required MessageData message, required RoomViewModel roomViewModel}){
+  ReceivePrivateMessageState({required MessagePrivateRoomData message, required RoomViewModel roomViewModel}){
     roomViewModel.addMessages(message);
   }
 }

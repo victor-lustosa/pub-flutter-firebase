@@ -33,8 +33,7 @@ class RoomUseCases implements IRoomUseCases {
 
   @override
   Future<void> receiveMessage() {
-    // TODO: implement receiveMessage
-    throw UnimplementedError();
+    return repository.receiveMessage();
   }
 
   @override

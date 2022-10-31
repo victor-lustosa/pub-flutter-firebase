@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
-
 import '../../room/blocs/room_bloc.dart';
 import '../../room/view-models/room_view_model.dart';
-
-import '../../shared/components/location_util.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_fonts.dart';
 import '../../shared/configs/app_images.dart';
 import '../../shared/configs/app_routes.dart';
-import '../../user/infra/models/user_model.dart';
 
 import 'components/establishment_page_one_widget.dart';
 import 'components/establishment_page_two_widget.dart';
@@ -17,9 +13,6 @@ import 'components/establishment_tab_bar_sliver_widget.dart';
 import 'package:provider/provider.dart';
 
 class EstablishmentPage extends StatefulWidget {
-  EstablishmentPage(this.user);
-
-  final UserModel user;
 
   @override
   _EstablishmentPageState createState() => _EstablishmentPageState();
@@ -30,17 +23,12 @@ class _EstablishmentPageState extends State<EstablishmentPage>
   late final ScrollController _scrollViewController;
   late TabController _tabController;
 
-  getUser() async {
-    context.read<RoomViewModel>().user =
-        await LocationUtil.getPosition(widget.user);
-  }
-
   @override
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _tabController = TabController(vsync: this, length: 2);
-    getUser();
+    context.read<RoomViewModel>().getUser();
     context.read<RoomViewModel>().bloc.add(GetRoomsEvent());
     context.read<RoomViewModel>().delayForForms(context);
   }
@@ -87,7 +75,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                                   AppRoutes.editUserRoute,
                                   ModalRoute.withName(
                                       AppRoutes.establishmentRoute),
-                                  arguments: this.widget.user);
+                                  arguments: context.read<RoomViewModel>().user);
                             },
                             iconSize: 45,
                             icon: ClipOval(
@@ -103,7 +91,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                       children: [
                         Padding(
                             padding: EdgeInsets.only(top: 10, left: 115),
-                            child: Text(this.widget.user.nickname,
+                            child: Text(context.read<RoomViewModel>().user.nickname,
                                 style: AppFonts.nicknameDisabled)),
                       ],
                     ),
@@ -154,9 +142,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
           height: 30,
           width: 160,
           child: FloatingActionButton.extended(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             label: Text("visão em mapa",
                 style: AppFonts.mapsButton),
             backgroundColor: AppColors.lightBrown,

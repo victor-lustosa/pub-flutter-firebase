@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../room/blocs/bloc_events.dart';
 import '../../participant/blocs/participant_bloc.dart';
-import '../../room/infra/models/data/message_data.dart';
+import '../../room/infra/models/data/data.dart';
 import '../../user/infra/models/user_model.dart';
 
 abstract class IParticipantViewModel {
@@ -22,15 +22,12 @@ class ParticipantViewModel extends ChangeNotifier
     String textMessage = textController.text;
 
     if (textMessage.isNotEmpty) {
-      var mes = MessageData(
-          idRoom: '',
+      var mes = MessagePrivateRoomData(
+          id: '',
           createdAt: DateTime.now().toString(),
-          roomName: '',
-          idMessage: '',
           textMessage: textMessage,
           user: this.participant,
-          code: 0,
-          type: BlocEventType.send_private_message);
+          type: BlocEventType.send_private_message, );
 
       participant.messages.add(mes);
 

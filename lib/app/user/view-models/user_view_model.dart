@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pub/app/shared/components/id_util.dart';
+import '../../shared/components/id_util.dart';
 import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../shared/configs/app_routes.dart';
 import '../../user/infra/models/user_model.dart';
@@ -25,16 +25,6 @@ class UserViewModel implements IUserViewModel {
   bool isEnabled = true;
   int age = 0;
   final List<String> genres = ['não informado', 'masculino', 'feminino'];
-
-  Future<void> checkUser(context, user) async {
-    if (user != null) {
-      Navigator.pushReplacementNamed(
-          context, AppRoutes.establishmentRoute,
-          arguments: EstablishmentDTO(user!));
-    } else {
-      Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
-    }
-  }
 
   void saveUser() {
     if (ageController.text.isNotEmpty && nickNameController.text.isNotEmpty) {

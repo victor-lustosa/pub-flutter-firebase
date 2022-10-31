@@ -2,7 +2,6 @@
 import '../../../user/domain/entities/user_entity.dart';
 import '../../../user/infra/models/user_model.dart';
 import '../../domain/entities/room_entity.dart';
-import 'data/message_data.dart';
 class RoomModel extends RoomEntity {
 
   RoomModel({

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../room/blocs/room_bloc.dart';
+import '../../shared/components/location_util.dart';
 import '../../user/infra/models/user_model.dart';
 import '../blocs/bloc_events.dart';
-import '../infra/models/data/message_data.dart';
-import '../infra/models/data/public_room_data.dart';
+import '../infra/models/data/data.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import '../infra/models/room_model.dart';
 
@@ -40,7 +41,9 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   addMessages(dynamic data) {
     messages.add(data);
   }
-
+  getUser() async {
+    user = await LocationUtil.getPosition(user);
+  }
   scroll() {
     Timer(Duration(microseconds: 50), () {
       this.scrollViewController.jumpTo(this.scrollViewController.position.maxScrollExtent);
@@ -57,54 +60,46 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   }
 
   bool verifyNameUser(RoomModel room) {
-    /* for (dynamic participant in room.getParticipants) {
-        if (getUser.getNickname == participant.getNickname) {
-          isUserExist = true;
+      if (room.isAcceptedLocation) {
+        /* for (dynamic participant in room.participants) {
+        if (user.nickname == participant.nickname) {
+          isParticipantExist = true;
         }
       }*/
+        if (!isParticipantExist) {
+          this.room = room;
+        }
+      }
     return isParticipantExist;
   }
 
-  sendMessage(String type) {
+  sendMessage({required bool isPublic}) {
     String textMessage = textController.text;
-    if (type == "public") {
+    var mes;
       if (textMessage.isNotEmpty) {
-        var mes = MessageData(
+        if (isPublic) {
+        mes = MessagePublicRoomData(
+            id: '',
             idRoom: this.room.id,
             createdAt: DateTime.now().toString(),
             roomName: this.room.name,
-            idMessage: '',
             textMessage: textMessage.trimLeft().trimRight(),
             user: this.user,
             code: 0,
             type: BlocEventType.send_public_message);
-
+      } else {
+          mes = MessagePrivateRoomData(
+            id: '',
+            createdAt: DateTime.now().toString(),
+            textMessage: textMessage,
+            user: this.participant,
+            type: BlocEventType.send_private_message);
+      }
         //messages.add(mes);
-
+        //participant.messages.add(mes);
         bloc.add(SendMessageEvent(mes.toMap()));
         focusNode.requestFocus();
         textController.clear();
-        focusNode.requestFocus();
-      }
-    } else {
-      if (textMessage.isNotEmpty) {
-        var mes = MessageData(
-            idRoom: '',
-            createdAt: DateTime.now().toString(),
-            roomName: '',
-            idMessage: '',
-            textMessage: textMessage,
-            user: this.participant,
-            code: 0,
-            type: BlocEventType.send_private_message);
-
-        participant.messages.add(mes);
-
-        bloc.add(SendPrivateMessageEvent(mes.toMap()));
-        focusNode.requestFocus();
-        textController.clear();
-        focusNode.requestFocus();
-      }
     }
   }
 
@@ -116,7 +111,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     }
   }
 
-  void addParticipants(PublicRoomData data) {
+  void addParticipants(StateMessageData data) {
     if (data.user.nickname == user.nickname) {
       user = user.copyWith(
           idUser: data.user.idUser,
@@ -148,7 +143,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     notifyListeners();
   }
 
-  void removeParticipants(PublicRoomData data) {
+  void removeParticipants(StateMessageData data) {
     for (dynamic room in rooms) {
       if (room.getIdRoom == data.idRoom) {
         room.removeParticipants(data.user);

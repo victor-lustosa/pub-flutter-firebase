@@ -14,11 +14,7 @@ class EstablishmentTabBarSliverWidget extends PreferredSize {
                 controller: tabController,
                 // isScrollable: true,
                 indicator: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10)), // Creates border
+                    borderRadius: BorderRadius.all(Radius.circular(10)), // Creates border
                     color: AppColors.white),
                 indicatorWeight: 0,
                 indicatorSize: TabBarIndicatorSize.label,

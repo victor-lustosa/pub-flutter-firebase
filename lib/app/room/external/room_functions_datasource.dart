@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:pub/app/room/domain/entities/room_entity.dart';
-
-import 'package:pub/app/user/domain/entities/user_entity.dart';
-
+import '../../room/domain/entities/room_entity.dart';
+import '../../user/domain/entities/user_entity.dart';
 import '../../user/infra/models/user_model.dart';
 import '../infra/datasources/room_datasource.dart';
 import '../infra/models/room_model.dart';
@@ -33,6 +31,18 @@ class RoomFunctionsDatasource implements IRoomDatasource {
   @override
   Future<void> delete(RoomModel room, UserModel user) {
     // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> receiveMessage() {
+    // TODO: implement receiveMessage
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> sendMessage() {
+    // TODO: implement sendMessage
     throw UnimplementedError();
   }
 }

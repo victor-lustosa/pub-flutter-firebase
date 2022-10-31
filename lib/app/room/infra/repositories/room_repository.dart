@@ -9,14 +9,6 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
 
   RoomRepository({required this.datasource});
 
-  List<RoomEntity> _convert(List<Map> list) {
-    return list.map(RoomModel.fromMap).toList();
-  }
-
-  @override
-  Future<void> add(room, user) async {
-    datasource.add(room, user);
-  }
   @override
   Stream<List<RoomEntity>> get() {
     final stream = datasource.get();
@@ -24,15 +16,18 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
   }
 
   @override
-  Future<void> receiveMessage() {
-    // TODO: implement receiveMessage
-    throw UnimplementedError();
+  Future<void> add(room, user) async {
+    datasource.add(room, user);
   }
 
   @override
   Future<void> sendMessage() {
-    // TODO: implement sendPublicMessage
-    throw UnimplementedError();
+    return datasource.sendMessage();
+  }
+
+  @override
+  Future<void> receiveMessage() {
+    return datasource.receiveMessage();
   }
 
   @override
@@ -40,4 +35,7 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
     datasource.delete(room, user);
   }
 
+  List<RoomEntity> _convert(List<Map> list) {
+    return list.map(RoomModel.fromMap).toList();
+  }
 }

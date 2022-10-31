@@ -6,12 +6,9 @@ import 'package:meta/meta.dart';
 import '../../user/infra/models/user_model.dart';
 import '../domain/entities/room_entity.dart';
 import '../domain/use-cases/room_use_cases.dart';
-import '../../room/infra/models/data/message_data.dart';
-import '../../room/infra/models/data/public_room_data.dart';
-import '../../room/view-models/room_view_model.dart';
+import '../../room/infra/models/data/data.dart';
 import '../infra/models/room_model.dart';
-
-
+import '../view-models/room_view_model.dart';
 
 part '../events/room_event.dart';
 part '../states/room_state.dart';
@@ -31,7 +28,7 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
   Future<void> _getRooms(_, emit) async {
     await emit.onEach<List<RoomEntity>>(roomUseCases.getRooms(),
         onData: (rooms) {
-          emit(SuccessRoomsState(rooms));
+          emit(SuccessfullyFetchedRoomsState(rooms));
         });
   }
   Future<void> _enterRoomEvent(EnterRoomEvent event, emit) async{

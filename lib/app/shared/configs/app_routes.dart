@@ -32,27 +32,22 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => HomePage());
 
       case establishmentRoute:
-        return MaterialPageRoute(
-            // builder: (_) => EstablishmentPage(establishmentDTO.getUser, establishmentDTO.getEstablishment));
-            builder: (_) => EstablishmentPage((arguments as EstablishmentDTO).getUser));
+        return MaterialPageRoute(builder: (_) => EstablishmentPage());
 
       case userRegisterRoute:
         return MaterialPageRoute(builder: (_) => UserRegisterPage());
 
       // case ENTERPRISE_REGISTER_ROUTE:
-      //   return MaterialPageRoute(
-      //       builder: (_) =>  EnterpriseRegisterPage());
+      //   return MaterialPageRoute(builder: (_) =>  EnterpriseRegisterPage());
+
       case editUserRoute:
         return MaterialPageRoute(builder: (_) => UserRegisterPage());
 
       case publicRoomRoute:
-        return MaterialPageRoute(
-            builder: (_) => RoomPage()
-        );
+        return MaterialPageRoute(builder: (_) => RoomPage());
 
       case privateRoomRoute:
-        return MaterialPageRoute(
-            builder: (_) => ParticipantPage(user: (arguments as ParticipantDTO).getUser));
+        return MaterialPageRoute(builder: (_) => ParticipantPage(user: (arguments as ParticipantDTO).getUser));
 
       default:
         return _unknownRoute();

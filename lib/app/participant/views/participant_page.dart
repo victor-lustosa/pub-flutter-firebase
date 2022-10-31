@@ -6,7 +6,6 @@ import '../../shared/configs/app_fonts.dart';
 import '../../user/infra/models/user_model.dart';
 import '../blocs/participant_bloc.dart';
 import '../view-models/participant_view_model.dart';
-import 'components/participant_bar_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ParticipantPage extends StatefulWidget {
@@ -42,7 +41,37 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
         appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
-            title: ParticipantBarWidget(_participantViewModel.participant)),
+            title: Row(
+              children: <Widget>[
+                // CircleAvatar(
+                //     maxRadius: 20,
+                //     backgroundColor: Colors.grey,
+                //     backgroundImage: widget.contato.urlImagem != null
+                //         ? NetworkImage(widget.contato.urlImagem)
+                //         : null),
+                Padding(
+                    padding: EdgeInsets.only(top: 0, right: 0),
+                    child: IconButton(
+                        iconSize: 30,
+                        icon: Icon(
+                          Icons.navigate_before_rounded,
+                          color: AppColors.darkBrown,
+                        ),
+                        color: AppColors.darkBrown,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }
+                    )
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text(
+                        _participantViewModel.participant.nickname,
+                        style:AppFonts.participantNickname
+                    )
+                )
+              ],
+            )),
         body: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(color: Colors.white),
@@ -66,8 +95,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
                                 child: Padding(
                                   padding: const EdgeInsets.all(6),
                                   child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
+                                      width: MediaQuery.of(context).size.width * 0.8,
                                       padding: const EdgeInsets.all(14),
                                       decoration: BoxDecoration(
                                           color: color(state, index, widget.user),

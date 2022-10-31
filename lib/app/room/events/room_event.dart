@@ -14,29 +14,19 @@ class EnterRoomEvent extends RoomEvent{
   final UserModel user;
   EnterRoomEvent({ required this.user, required this.room});
 }
-
-class DisconnectEvent extends RoomEvent{
-  DisconnectEvent();
-}
-
 class LeaveRoomEvent extends RoomEvent{
   final RoomModel room;
   final UserModel user;
   LeaveRoomEvent({ required this.user, required this.room});
 }
 
-class DontBuildEvent extends RoomEvent{
-  DontBuildEvent();
-}
-
 class SendMessageEvent extends RoomEvent{
-  final Map<String,dynamic> message;
+  final dynamic message;
   SendMessageEvent(this.message);
 }
 
-class SendPrivateMessageEvent extends RoomEvent{
-  final Map<String,dynamic> message;
-  SendPrivateMessageEvent(this.message);
+class DisconnectEvent extends RoomEvent{
+  DisconnectEvent();
 }
 
 class SendingMessageEvent extends RoomEvent{

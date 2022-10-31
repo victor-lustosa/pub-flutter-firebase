@@ -76,8 +76,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                                                     padding: const EdgeInsets.only(bottom: 6, left: 6),
                                                     child: Row(
                                                         children: [
-                                                          Text(
-                                                          '${context.read<RoomViewModel>().messages[index].user.nickname}'),
+                                                          Text('${context.read<RoomViewModel>().messages[index].user.nickname}'),
                                                     ])),
                                                 Container(
                                                     // width: MediaQuery.of(context).size.width * 0.8,
@@ -107,7 +106,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                       onEditingComplete: () {},
                       focusNode: context.read<RoomViewModel>().focusNode,
                       onSubmitted: (_) {
-                        context.read<RoomViewModel>().sendMessage('');
+                        context.read<RoomViewModel>().sendMessage(isPublic: true);
                       },
                       controller: context.read<RoomViewModel>().textController,
                       autofocus: true,
@@ -137,7 +136,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                         ),
                         mini: true,
                         onPressed: () {
-                          context.read<RoomViewModel>().sendMessage('public');
+                          context.read<RoomViewModel>().sendMessage(isPublic: true);
                         }),
                   ),
                 ),

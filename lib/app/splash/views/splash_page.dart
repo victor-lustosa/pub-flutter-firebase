@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:provider/provider.dart';
+import 'package:pub/app/user/infra/adapters/entity_to_model.dart';
+import '../../room/view-models/room_view_model.dart';
 import '../../shared/configs/app_colors.dart';
+import '../../shared/configs/app_routes.dart';
 import '../../user/blocs/user_bloc.dart';
 import '../../user/view-models/user_view_model.dart';
 
@@ -28,18 +29,22 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          body: BlocConsumer<UserBloc, UserState>(
-              listener: (context, state) {
-                if (state is FetchedUserState) {
-                  userViewModel.checkUser(context, state.user);
+        body: BlocConsumer<UserBloc, UserState>(
+            listener: (context, state) {
+              if (state is FetchedUserState) {
+                if (state.user != null) {
+                  context.read<RoomViewModel>().user = EntityToModel.user(state.user!);
+                  Navigator.pushReplacementNamed(context, AppRoutes.establishmentRoute);
+                } else {
+                  Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
                 }
-              },
-              bloc: context.read<UserBloc>(),
-              builder: (context, state) {
-                return Center(
-                    child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkBrown)));
-              }));
-
+              }
+            },
+            bloc: context.read<UserBloc>(),
+            builder: (context, state) {
+              return Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkBrown)));
+       }));
   }
 }
