@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../room/blocs/room_bloc.dart';
-import '../../room/view-models/room_view_model.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_fonts.dart';
 import '../../shared/configs/app_images.dart';
 import '../../shared/configs/app_routes.dart';
 
+import '../blocs/establishment_bloc.dart';
+import '../view-models/establishment_view_model.dart';
 import 'components/establishment_page_one_widget.dart';
 import 'components/establishment_page_two_widget.dart';
 import 'components/establishment_tab_bar_sliver_widget.dart';
@@ -28,16 +28,16 @@ class _EstablishmentPageState extends State<EstablishmentPage>
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _tabController = TabController(vsync: this, length: 2);
-    context.read<RoomViewModel>().getUser();
-    context.read<RoomViewModel>().bloc.add(GetRoomsEvent());
-    context.read<RoomViewModel>().delayForForms(context);
+    context.read<EstablishmentViewModel>().getUser();
+    context.read<EstablishmentViewModel>().bloc.add(GetRoomsEvent());
+    context.read<EstablishmentViewModel>().delayForForms(context);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     _scrollViewController.dispose();
-    context.read<RoomViewModel>().dispose();
+    context.read<EstablishmentViewModel>().dispose();
     super.dispose();
   }
 
@@ -75,7 +75,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                                   AppRoutes.editUserRoute,
                                   ModalRoute.withName(
                                       AppRoutes.establishmentRoute),
-                                  arguments: context.read<RoomViewModel>().user);
+                                  arguments: context.read<EstablishmentViewModel>().user);
                             },
                             iconSize: 45,
                             icon: ClipOval(
@@ -91,7 +91,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                       children: [
                         Padding(
                             padding: EdgeInsets.only(top: 10, left: 115),
-                            child: Text(context.read<RoomViewModel>().user.nickname,
+                            child: Text(context.read<EstablishmentViewModel>().user.nickname,
                                 style: AppFonts.nicknameDisabled)),
                       ],
                     ),

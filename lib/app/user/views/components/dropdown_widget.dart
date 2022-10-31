@@ -18,13 +18,9 @@ class _DropdownWidgetState extends State<DropdownWidget> {
     return DropdownButton<String>(
       elevation: 16,
       underline:SizedBox() ,iconSize: 32,iconEnabledColor: Colors.white,
-      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10)),
+      borderRadius: BorderRadius.all(Radius.circular(10)),
       items: this.widget.list.map<DropdownMenuItem<String>>((String val) {
         return DropdownMenuItem<String>(
-
             value: val,
             child: Padding(
                 padding: const EdgeInsets.only(top: 16, left: 22),
@@ -44,7 +40,6 @@ class _DropdownWidgetState extends State<DropdownWidget> {
             Padding(
                 padding: EdgeInsets.only(top:5,left: 25),
                 child:Text("${this.widget.name}")),
-
           ]
       ),
       style:AppFonts.titleLabelDropdown,

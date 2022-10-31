@@ -7,7 +7,6 @@ import 'components/age_form_field_widget.dart';
 import 'components/dropdown_widget.dart';
 import 'components/nickname_form_field_widget.dart';
 import 'components/user_register_bar_widget.dart';
-import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../shared/configs/app_routes.dart';
 import 'package:provider/provider.dart';
 
@@ -60,42 +59,34 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               child: Form(
                                   key: _userViewModel.formNicknameKey,
                                   child: NicknameFormFieldWidget(_userViewModel.nickNameController)))),
-                      Padding(
-                          padding: EdgeInsets.only(top: 0),
-                          child: Container(
-                              width: 350.0,
-                              height: 100,
-                              child: Form(
-                                  key: _userViewModel.formAgeKey,
-                                  child: AgeFormFieldWidget(_userViewModel.ageController)))),
-                      Padding(
-                          padding: EdgeInsets.only(top: 0),
-                          child: Container(
-                              width: 350,
-                              height: 55,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
-                                border: new Border.all(
-                                    color: Colors.black12,
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                              ),
-                              child: Form(
-                                  autovalidateMode: AutovalidateMode.always,
-                                  child: DropdownWidget(
-                                    _userViewModel.genres,
-                                    (String value) {
-                                      setState(() {
-                                        _userViewModel.selectedGenre = value;
-                                      });
-                                    },
-                                    "gênero",
-                                  )))),
+                      Container(
+                          width: 350.0,
+                          height: 100,
+                          child: Form(
+                              key: _userViewModel.formAgeKey,
+                              child: AgeFormFieldWidget(_userViewModel.ageController))),
+                      Container(
+                          width: 350,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: new Border.all(
+                                color: Colors.black12,
+                                width: 1.0,
+                                style: BorderStyle.solid),
+                          ),
+                          child: Form(
+                              autovalidateMode: AutovalidateMode.always,
+                              child: DropdownWidget(
+                                _userViewModel.genres,
+                                (String value) {
+                                  setState(() {
+                                    _userViewModel.selectedGenre = value;
+                                  });
+                                },
+                                "gênero",
+                              ))),
                       Padding(
                         padding: EdgeInsets.only(top: 80),
                         child: ElevatedButton.icon(
@@ -106,31 +97,16 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                                 Navigator.pushNamedAndRemoveUntil(
                                     context,
                                     AppRoutes.establishmentRoute,
-                                    ModalRoute.withName(
-                                        AppRoutes.userRegisterRoute),
-                                    arguments: EstablishmentDTO(_userViewModel.user));
+                                    ModalRoute.withName(AppRoutes.userRegisterRoute));
                               }
                             },
-                            icon: Icon(
-                              Icons.navigate_next_rounded,
-                              color: AppColors.white,
-                            ),
-                            label: Text("Avançar",
-                                style: AppFonts.userNextButton),
+                            icon: Icon(Icons.navigate_next_rounded, color: AppColors.white),
+                            label: Text("Avançar", style: AppFonts.userNextButton),
                             style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(10),
-                                          bottomRight: Radius.circular(10),
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10)))),
-                              backgroundColor: MaterialStateProperty.all(
-                                  AppColors.lightBrown),
-                              padding: MaterialStateProperty.all(
-                                  EdgeInsets.symmetric(
-                                      horizontal: 110, vertical: 11)),
+                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                             RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                              backgroundColor: MaterialStateProperty.all(AppColors.lightBrown),
+                              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 110, vertical: 11)),
                             )),
                       )
                     ])))));

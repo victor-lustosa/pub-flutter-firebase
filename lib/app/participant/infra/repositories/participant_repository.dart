@@ -3,7 +3,7 @@ import '../../../room/domain/repositories/room_repository.dart';
 import '../../../room/infra/datasources/room_datasource.dart';
 import '../../../user/infra/models/user_model.dart';
 
-class RoomRepository implements IRoomRepository<UserModel> {
+/*class RoomRepository  {
   final IRoomDatasource datasource;
 
   RoomRepository({required this.datasource});
@@ -31,13 +31,13 @@ class RoomRepository implements IRoomRepository<UserModel> {
   }
 
   @override
-  Future<void> receiveMessage() {
+  Future<void> receiveMessage(T, P) {
     // TODO: implement receiveMessage
     throw UnimplementedError();
   }
 
   @override
-  Future<void> sendMessage() {
+  Future<void> sendMessage(T, P) {
     // TODO: implement sendMessage
     throw UnimplementedError();
   }
@@ -48,3 +48,4 @@ class RoomRepository implements IRoomRepository<UserModel> {
     throw UnimplementedError();
   }
 }
+*/

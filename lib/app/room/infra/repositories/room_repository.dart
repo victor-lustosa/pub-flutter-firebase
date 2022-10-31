@@ -10,24 +10,18 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
   RoomRepository({required this.datasource});
 
   @override
-  Stream<List<RoomEntity>> get() {
-    final stream = datasource.get();
-    return stream.map(_convert);
-  }
-
-  @override
   Future<void> add(room, user) async {
     datasource.add(room, user);
   }
 
   @override
-  Future<void> sendMessage() {
-    return datasource.sendMessage();
+  Future<void> sendMessage(room, user) {
+    return datasource.sendMessage(room, user);
   }
 
   @override
-  Future<void> receiveMessage() {
-    return datasource.receiveMessage();
+  Future<void> receiveMessage(room, user) {
+    return datasource.receiveMessage(room, user);
   }
 
   @override

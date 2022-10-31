@@ -22,7 +22,7 @@ class ParticipantViewModel extends ChangeNotifier
     String textMessage = textController.text;
 
     if (textMessage.isNotEmpty) {
-      var mes = MessagePrivateRoomData(
+      var mes = PrivateRoomMessageData(
           id: '',
           createdAt: DateTime.now().toString(),
           textMessage: textMessage,

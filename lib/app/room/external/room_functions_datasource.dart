@@ -14,13 +14,6 @@ class RoomFunctionsDatasource implements IRoomDatasource {
   //   return;'
   //}
 
-  @override
-  Stream<List<Map>> get() {
-    //   final valorRetornado = dio.get('url/exemplo');
-    StreamController<List<Map>> exemplo = StreamController<List<Map>>();
-
-    return exemplo.stream;
-  }
 
   @override
   Future<void> add(RoomEntity room, UserEntity user) {
@@ -35,13 +28,13 @@ class RoomFunctionsDatasource implements IRoomDatasource {
   }
 
   @override
-  Future<void> receiveMessage() {
+  Future<void> receiveMessage(RoomModel room, UserModel user) {
     // TODO: implement receiveMessage
     throw UnimplementedError();
   }
 
   @override
-  Future<void> sendMessage() {
+  Future<void> sendMessage(RoomModel room, UserModel user) {
     // TODO: implement sendMessage
     throw UnimplementedError();
   }

@@ -1,15 +1,12 @@
 
-import '../../../user/infra/models/user_model.dart';
-import '../../infra/models/room_model.dart';
 import '../entities/room_entity.dart';
 import '../repositories/room_repository.dart';
 
 abstract class IRoomUseCases {
-  Stream<List<RoomEntity>> getRooms();
-  Future<void> enterRoom(RoomModel room, UserModel user);
-  Future<void> receiveMessage();
-  Future<void> sendMessage(message);
-  Future<void> leaveRoom(RoomModel room, UserModel user);
+  Future<void> enterRoom(room, user);
+  Future<void> receiveMessage(room, message);
+  Future<void> sendMessage(room, message);
+  Future<void> leaveRoom(room, user);
 }
 
 class RoomUseCases implements IRoomUseCases {
@@ -18,26 +15,22 @@ class RoomUseCases implements IRoomUseCases {
   RoomUseCases({required this.repository});
 
   @override
-  Stream<List<RoomEntity>> getRooms() {
-    return repository.get();
-  }
-  @override
-  Future<void> enterRoom(RoomModel room, UserModel user) {
+  Future<void> enterRoom(room, user) {
     return repository.add(room,user);
   }
 
   @override
-  Future<void> leaveRoom(RoomModel room, UserModel user) {
+  Future<void> leaveRoom(room, user) {
     return repository.delete(room,user);
   }
 
   @override
-  Future<void> receiveMessage() {
-    return repository.receiveMessage();
+  Future<void> receiveMessage(room, message) {
+    return repository.receiveMessage(room, message);
   }
 
   @override
-  Future<void> sendMessage(message) {
-    return repository.sendMessage();
+  Future<void> sendMessage(room, message) {
+    return repository.sendMessage(room, message);
   }
 }

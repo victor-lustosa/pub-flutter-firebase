@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../room/view-models/room_view_model.dart';
 import '../../../shared/configs/app_fonts.dart';
-import '../../../room/blocs/room_bloc.dart';
 import '../../../shared/components/location_util.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../shared/configs/app_images.dart';
-import '../../../room/view-models/room_view_model.dart';
 import '../../../shared/configs/app_routes.dart';
+import '../../blocs/establishment_bloc.dart';
+import '../../view-models/establishment_view_model.dart';
 
 class EstablishmentPageOneWidget extends StatefulWidget {
   EstablishmentPageOneWidget();
 
   @override
-  State<EstablishmentPageOneWidget> createState() =>
-      _EstablishmentPageOneWidgetState();
+  State<EstablishmentPageOneWidget> createState() => _EstablishmentPageOneWidgetState();
 }
 
 class _EstablishmentPageOneWidgetState
@@ -37,29 +37,29 @@ class _EstablishmentPageOneWidgetState
               borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(10.0),
                   topRight: const Radius.circular(10.0))),
-          child: BlocBuilder<RoomBloc, RoomState>(
-              bloc: context.read<RoomBloc>(),
+          child: BlocBuilder<EstablishmentBloc, EstablishmentState>(
+              bloc: context.read<EstablishmentBloc>(),
               buildWhen: (context, current) => context.runtimeType != current.runtimeType && (current is SuccessfullyFetchedRoomsState),
               builder: (context, state) {
 
                 if (state is SuccessfullyFetchedRoomsState) {
 
-                  context.read<RoomViewModel>().rooms = LocationUtil.calculateDistance(state.entities, context.read<RoomViewModel>().user);
+                  context.read<EstablishmentViewModel>().rooms = LocationUtil.calculateDistance(state.entities, context.read<EstablishmentViewModel>().user);
 
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
                       onRefresh: () async {
-                        context.read<RoomViewModel>().bloc.add(GetRoomsEvent());
+                        context.read<EstablishmentViewModel>().bloc.add(GetRoomsEvent());
                       },
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: context.read<RoomViewModel>().rooms.length,
+                          itemCount: context.read<EstablishmentViewModel>().rooms.length,
                           itemBuilder: (context, index) {
                             return Padding(
                                 padding: const EdgeInsets.only(bottom: 12.0),
                                 child: AnimatedBuilder(
-                                    animation: context.read<RoomViewModel>(),
+                                    animation: context.read<EstablishmentViewModel>(),
                                     builder: (context, child) {
                                       return ListTile(
                                           leading: Padding(
@@ -76,7 +76,7 @@ class _EstablishmentPageOneWidgetState
                                                             blurRadius: 3,
                                                             offset: Offset(1, 3)),
                                                       ]),
-                                                  child: context.read<RoomViewModel>().rooms[index].isAcceptedLocation
+                                                  child: context.read<EstablishmentViewModel>().rooms[index].isAcceptedLocation
                                                       ? Image.asset(
                                                           AppImages.lightLogo,
                                                           width: 20,
@@ -89,26 +89,28 @@ class _EstablishmentPageOneWidgetState
                                           ),
                                           title: Padding(
                                               padding: EdgeInsets.only(bottom: 10),
-                                              child: Text(context.read<RoomViewModel>().rooms[index].name,
-                                                  style: context.read<RoomViewModel>().rooms[index].isAcceptedLocation
+                                              child: Text(context.read<EstablishmentViewModel>().rooms[index].name,
+                                                  style: context.read<EstablishmentViewModel>().rooms[index].isAcceptedLocation
                                                       ? AppFonts.roomEnabledName
                                                       : AppFonts.roomDisabledName)),
                                           subtitle: Row(
                                             children: [
                                               Text(
-                                                  context.read<RoomViewModel>().participants.length == 1
-                                                      ? '${context.read<RoomViewModel>().participants.length} pessoa'
-                                                      : '${context.read<RoomViewModel>().participants.length} pessoas',
+                                                  context.read<EstablishmentViewModel>().participants.length == 1
+                                                      ? '${context.read<EstablishmentViewModel>().participants.length} pessoa'
+                                                      : '${context.read<EstablishmentViewModel>().participants.length} pessoas',
                                                   style: AppFonts
                                                       .numberParticipants),
                                               Padding(
                                                   padding: EdgeInsets.only(left: 40),
-                                                  child: Text('${(context.read<RoomViewModel>().rooms[index].distance).toStringAsFixed(2)} km de distância',
+                                                  child: Text('${(context.read<EstablishmentViewModel>().rooms[index].distance).toStringAsFixed(2)} km de distância',
                                                       style: AppFonts.distanceLabel))
                                             ],
                                           ),
                                           onTap: () {
-                                              if (!context.read<RoomViewModel>().verifyNameUser(context.read<RoomViewModel>().rooms[index])) {
+                                              if (!context.read<EstablishmentViewModel>().verifyNameUser(context.read<EstablishmentViewModel>().rooms[index])) {
+                                                context.read<RoomViewModel>().user = context.read<EstablishmentViewModel>().user;
+                                                context.read<RoomViewModel>().room = context.read<EstablishmentViewModel>().room;
                                                 Navigator.pushNamed(context, AppRoutes.publicRoomRoute);
                                               } else {
                                                 ScaffoldMessenger.of(context)
@@ -123,7 +125,7 @@ class _EstablishmentPageOneWidgetState
                   return RefreshIndicator(
                       color: AppColors.darkBrown,
                       onRefresh: () async {
-                        context.read<RoomViewModel>().bloc.add(GetRoomsEvent());
+                        context.read<EstablishmentViewModel>().bloc.add(GetRoomsEvent());
                       },
                       child: Center(
                           child: CircularProgressIndicator(

@@ -18,26 +18,24 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
 
   RoomBloc({required this.roomUseCases,
             }) : super(InitialState()) {
-    on<GetRoomsEvent>(_getRooms);
     on<EnterRoomEvent>(_enterRoomEvent);
     on<SendMessageEvent>(_sendMessageEvent);
     on<LeaveRoomEvent>(_leaveRoomEvent);
     on<DisconnectEvent>(_disconnectEvent);
     on<ReceiveMessageEvent>(_receiveMessageEvent);
   }
-  Future<void> _getRooms(_, emit) async {
-    await emit.onEach<List<RoomEntity>>(roomUseCases.getRooms(),
-        onData: (rooms) {
-          emit(SuccessfullyFetchedRoomsState(rooms));
-        });
-  }
   Future<void> _enterRoomEvent(EnterRoomEvent event, emit) async{
     roomUseCases.enterRoom(event.room, event.user);
     emit(EnterRoomState());
   }
   Future<void> _sendMessageEvent(SendMessageEvent event, emit) async{
-    /*_socket.emit('public_message', {'message': event.message});
-    emit(SendMessageState());*/
+
+    if(event.message is PublicRoomMessageData)
+       roomUseCases.sendMessage(event.room, (event.message as PublicRoomMessageData).toMap());
+    if(event.message is PrivateRoomMessageData)
+       roomUseCases.sendMessage(event.room, (event.message as PrivateRoomMessageData).toMap());
+
+    emit(SendMessageState());
   }
   Future<void> _leaveRoomEvent(LeaveRoomEvent event, emit) async{
     roomUseCases.leaveRoom(event.room, event.user);

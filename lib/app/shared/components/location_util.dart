@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-
-import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../room/blocs/room_bloc.dart';
 import '../../room/domain/entities/room_entity.dart';
 import '../../room/infra/models/room_model.dart';
@@ -27,8 +25,7 @@ class LocationUtil {
           1000);
       if (distance > 10.2) {
         bloc.add(LeaveRoomEvent(room:room, user:user));
-        Navigator.pushNamed(context, AppRoutes.establishmentRoute,
-            arguments: EstablishmentDTO(user));
+        Navigator.pushNamed(context, AppRoutes.establishmentRoute);
         streamLocation.cancel();
       }
     });

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../shared/components/id_util.dart';
-import '../../establishment/infra/models/dto/establishment_dto.dart';
-import '../../shared/configs/app_routes.dart';
 import '../../user/infra/models/user_model.dart';
-
 import 'package:geolocator/geolocator.dart';
-
 import '../blocs/user_bloc.dart';
 
 abstract class IUserViewModel {

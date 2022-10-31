@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pub/app/user/infra/adapters/entity_to_model.dart';
-import '../../room/view-models/room_view_model.dart';
+import '../../establishment/view-models/establishment_view_model.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_routes.dart';
 import '../../user/blocs/user_bloc.dart';
@@ -33,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
             listener: (context, state) {
               if (state is FetchedUserState) {
                 if (state.user != null) {
-                  context.read<RoomViewModel>().user = EntityToModel.user(state.user!);
+                  context.read<EstablishmentViewModel>().user = EntityToModel.user(state.user!);
                   Navigator.pushReplacementNamed(context, AppRoutes.establishmentRoute);
                 } else {
                   Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);

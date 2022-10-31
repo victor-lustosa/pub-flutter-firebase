@@ -44,56 +44,58 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                 } else if (state is EnterRoomState) {
                   return Expanded(child: Container());
                 } else if (state is LeaveRoomState) {
-                 print("VASCO SOBE");
-                  return Expanded(child: Container(child: Text("VASCO SOBE")));
+                  return Expanded(child: Container());
                 } else {
                   return Expanded(
-                      child: ListView.builder(
-                          key: PageStorageKey<String>('MessagesList'),
-                          controller: context.read<RoomViewModel>().scrollViewController,
-                          itemCount: context.read<RoomViewModel>().messages.length,
-                          itemBuilder: (context, index) {
+                    child: ListView.builder(
+                      key: PageStorageKey<String>('MessagesList'),
+                      controller: context.read<RoomViewModel>().scrollViewController,
+                      itemCount: context.read<RoomViewModel>().messages.length,
+                      itemBuilder: (context, index) {
 
-                            context.read<RoomViewModel>().scroll();
+                        context.read<RoomViewModel>().scroll();
 
-                            return Align(
-                                alignment: context.read<RoomViewModel>().messages[index].user.nickname != context.read<RoomViewModel>().user.nickname
-                                    ? Alignment.centerLeft
-                                    : Alignment.centerRight,
-                                child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 4),
-                                    child: Stack(fit: StackFit.loose,
-                                        // alignment: AlignmentDirectional.centerStart,
-                                        // width: MediaQuery.of(context).size.width * 0.8,
-                                        children: [
-                                          Column(
-                                              crossAxisAlignment: context.read<RoomViewModel>().messages[index].user.nickname != context.read<RoomViewModel>().user.nickname
-                                                  ? CrossAxisAlignment.start
-                                                  : CrossAxisAlignment.end,
-                                              children: [
-                                                // context.read<RoomViewModel>().messages[index].namePosition < 2?
-                                                Padding(
-                                                    padding: const EdgeInsets.only(bottom: 6, left: 6),
-                                                    child: Row(
-                                                        children: [
-                                                          Text('${context.read<RoomViewModel>().messages[index].user.nickname}'),
-                                                    ])),
-                                                Container(
-                                                    // width: MediaQuery.of(context).size.width * 0.8,
-                                                    padding: const EdgeInsets.all(14),
-                                                    decoration: BoxDecoration(
-                                                        color: context.read<RoomViewModel>().messages[index].user.nickname != context.read<RoomViewModel>().user.nickname
-                                                            ? Colors.white
-                                                            : Color(0xffdcd9d9),
-                                                        border: Border.all(color: Color(0xffdcd9d9), width: 1),
-                                                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                                                    child: Text('${context.read<RoomViewModel>().messages[index].textMessage}'))
-                                                //     : Padding(
-                                                //     padding: const EdgeInsets.only(bottom: 0)
-                                                // )
-                                              ]),
-                                        ])));
-                          }));
+                        return Align(
+                            alignment: context.read<RoomViewModel>().messages[index].user.nickname !=
+                                context.read<RoomViewModel>().user.nickname
+                                ? Alignment.centerLeft
+                                : Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 4),
+                              child: Stack(fit: StackFit.loose,
+                                  // alignment: AlignmentDirectional.centerStart,
+                                  // width: MediaQuery.of(context).size.width * 0.8,
+                                children: [
+                                  Column(
+                                      crossAxisAlignment: context.read<RoomViewModel>().messages[index].user.nickname !=
+                                          context.read<RoomViewModel>().user.nickname
+                                          ? CrossAxisAlignment.start
+                                          : CrossAxisAlignment.end,
+                                      children: [
+                                        // context.read<RoomViewModel>().messages[index].namePosition < 2?
+                                        Padding(
+                                            padding: const EdgeInsets.only(bottom: 6, left: 6),
+                                            child: Row(
+                                                children: [
+                                                  Text('${context.read<RoomViewModel>().messages[index].user.nickname}'),
+                                            ])),
+                                        Container(
+                                            // width: MediaQuery.of(context).size.width * 0.8,
+                                            padding: const EdgeInsets.all(14),
+                                            decoration: BoxDecoration(
+                                                color: context.read<RoomViewModel>().messages[index].user.nickname !=
+                                                    context.read<RoomViewModel>().user.nickname
+                                                    ? Colors.white
+                                                    : Color(0xffdcd9d9),
+                                                border: Border.all(color: Color(0xffdcd9d9), width: 1),
+                                                borderRadius: BorderRadius.all(Radius.circular(8))),
+                                            child: Text('${context.read<RoomViewModel>().messages[index].textMessage}'))
+                                        //     : Padding(
+                                          //     padding: const EdgeInsets.only(bottom: 0)
+                                          // )
+                                        ]),
+                                ])));
+                      }));
                 }
               }),
           SafeArea(

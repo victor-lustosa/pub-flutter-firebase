@@ -8,19 +8,6 @@ class RoomFirestoreDatasource implements IRoomDatasource {
 
   RoomFirestoreDatasource({required this.firestore});
 
-  List<Map> _convert(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
-    return docs.map((document) => {
-      'id': document.id,
-      ...document.data(),
-    }).toList();
-  }
-
-  @override
-  Stream<List<Map>> get() {
-    final snapshot = firestore.collection('rooms').snapshots();
-    return snapshot.map((room) => room.docs).map(_convert);
-  }
-
   @override
   Future<void> add(RoomModel room, UserModel user) async {
     firestore.collection("rooms")
@@ -31,15 +18,21 @@ class RoomFirestoreDatasource implements IRoomDatasource {
   }
 
   @override
-  Future<void> receiveMessage() {
-    // TODO: implement receiveMessage
-    throw UnimplementedError();
+  Future<void> receiveMessage(RoomModel room, UserModel user) async {
+    firestore.collection("rooms")
+        .doc(room.id)
+        .collection("messages")
+        .doc(user.idUser)
+        .set(UserModel.toMap(user));
   }
 
   @override
-  Future<void> sendMessage() {
-    // TODO: implement sendMessage
-    throw UnimplementedError();
+  Future<void> sendMessage(RoomModel room, UserModel user) async {
+    firestore.collection("rooms")
+        .doc(room.id)
+        .collection("messages")
+        .doc(user.idUser)
+        .set(UserModel.toMap(user));
   }
 //TODO:Alterar o model de Room pra colocar uma variavel que vai ter o numero de participantes,
 // alterar metodos add para incrementar o valor do numero de participantes, pegar esse valor na tela

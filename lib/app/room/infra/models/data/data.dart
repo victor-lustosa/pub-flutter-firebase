@@ -38,7 +38,7 @@ class StateMessageData extends Data{
   }) :
         super(id: id, type: type);
 }
-class MessagePublicRoomData extends MessageData{
+class PublicRoomMessageData extends MessageData{
   final String idRoom;
   final String roomName;
 
@@ -54,8 +54,8 @@ class MessagePublicRoomData extends MessageData{
     };
   }
 
-  factory MessagePublicRoomData.fromMap(dynamic map) {
-    return MessagePublicRoomData(
+  factory PublicRoomMessageData.fromMap(dynamic map) {
+    return PublicRoomMessageData(
         id: map['id'],
         idRoom: map['idRoom'],
         roomName: map['roomName'],
@@ -66,7 +66,7 @@ class MessagePublicRoomData extends MessageData{
         type: BlocEventType.values.firstWhere((element) => element.name.toString() == map['type']));
   }
 
-  MessagePublicRoomData({
+  PublicRoomMessageData({
     required this.roomName,
     required this.idRoom,
     required String id,
@@ -82,7 +82,7 @@ class MessagePublicRoomData extends MessageData{
             textMessage: textMessage);
 }
 
-class MessagePrivateRoomData extends MessageData{
+class PrivateRoomMessageData extends MessageData{
 
   Map<String, dynamic> toMap() {
     return {
@@ -94,8 +94,8 @@ class MessagePrivateRoomData extends MessageData{
     };
   }
 
-  factory MessagePrivateRoomData.fromMap(Map<String, dynamic> map) {
-    return MessagePrivateRoomData(
+  factory PrivateRoomMessageData.fromMap(Map<String, dynamic> map) {
+    return PrivateRoomMessageData(
         id: map['id'],
         textMessage: map['textMessage'],
         user: UserModel.fromMap(map['user']),
@@ -103,7 +103,7 @@ class MessagePrivateRoomData extends MessageData{
         type: BlocEventType.values.firstWhere((element) => element.name.toString() == map['type']));
   }
 
-  MessagePrivateRoomData({
+  PrivateRoomMessageData({
     required String id,
     required String textMessage,
     required UserModel user,

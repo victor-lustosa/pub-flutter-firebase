@@ -12,10 +12,6 @@ class LeaveRoomState extends RoomState{
   LeaveRoomState();
 }
 
-class SuccessfullyFetchedRoomsState extends RoomState {
-  final List<RoomEntity> entities;
-  SuccessfullyFetchedRoomsState(this.entities);
-}
 class EnterPublicRoomMessageState extends  RoomState{
   EnterPublicRoomMessageState({required StateMessageData message, required RoomViewModel roomViewModel}){
     roomViewModel.addParticipants(message);
@@ -31,12 +27,12 @@ class LeavePublicRoomMessageState extends RoomState{
   }
 }
 class ReceivePublicMessageState extends RoomState {
-  ReceivePublicMessageState({required MessagePublicRoomData message, required RoomViewModel roomViewModel}){
+  ReceivePublicMessageState({required PublicRoomMessageData message, required RoomViewModel roomViewModel}){
     roomViewModel.addMessages(message);
   }
 }
 class ReceivePrivateMessageState extends RoomState {
-  ReceivePrivateMessageState({required MessagePrivateRoomData message, required RoomViewModel roomViewModel}){
+  ReceivePrivateMessageState({required PrivateRoomMessageData message, required RoomViewModel roomViewModel}){
     roomViewModel.addMessages(message);
   }
 }

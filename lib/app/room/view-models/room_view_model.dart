@@ -75,10 +75,11 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
 
   sendMessage({required bool isPublic}) {
     String textMessage = textController.text;
-    var mes;
+      //messages.add(mes);
+      //participant.messages.add(mes);
       if (textMessage.isNotEmpty) {
         if (isPublic) {
-        mes = MessagePublicRoomData(
+          PublicRoomMessageData publicMessage = PublicRoomMessageData(
             id: '',
             idRoom: this.room.id,
             createdAt: DateTime.now().toString(),
@@ -87,17 +88,16 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
             user: this.user,
             code: 0,
             type: BlocEventType.send_public_message);
+          bloc.add(SendMessageEvent(room: room, message: publicMessage.toMap()));
       } else {
-          mes = MessagePrivateRoomData(
+          PrivateRoomMessageData privateMessage = PrivateRoomMessageData(
             id: '',
             createdAt: DateTime.now().toString(),
             textMessage: textMessage,
             user: this.participant,
             type: BlocEventType.send_private_message);
+          bloc.add(SendMessageEvent(room: room, message: privateMessage.toMap()));
       }
-        //messages.add(mes);
-        //participant.messages.add(mes);
-        bloc.add(SendMessageEvent(mes.toMap()));
         focusNode.requestFocus();
         textController.clear();
     }

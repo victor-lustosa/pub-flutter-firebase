@@ -6,9 +6,6 @@ abstract class RoomEvent {}
 class InitialEvent extends RoomEvent{
   InitialEvent();
 }
-class GetRoomsEvent extends RoomEvent {
-  GetRoomsEvent();
-}
 class EnterRoomEvent extends RoomEvent{
   final RoomModel room;
   final UserModel user;
@@ -21,8 +18,9 @@ class LeaveRoomEvent extends RoomEvent{
 }
 
 class SendMessageEvent extends RoomEvent{
+  final RoomModel room;
   final dynamic message;
-  SendMessageEvent(this.message);
+  SendMessageEvent({required this.room, required this.message});
 }
 
 class DisconnectEvent extends RoomEvent{

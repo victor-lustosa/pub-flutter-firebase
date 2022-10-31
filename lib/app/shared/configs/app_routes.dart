@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../establishment/infra/models/dto/establishment_dto.dart';
 import '../../establishment/views/establishment_page.dart';
 import '../../home/views/home_page.dart';
 import '../../participant/infra/models/dto/participant_dto.dart';
