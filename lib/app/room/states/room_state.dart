@@ -14,14 +14,12 @@ class LeaveRoomState extends RoomState{
 
 class EnterPublicRoomMessageState extends  RoomState{
   EnterPublicRoomMessageState({required StateMessageData message, required RoomViewModel roomViewModel}){
-    roomViewModel.addParticipants(message);
     if(message.user.nickname != roomViewModel.user.nickname)
       roomViewModel.addMessages(message);
   }
 }
 class LeavePublicRoomMessageState extends RoomState{
   LeavePublicRoomMessageState({required StateMessageData message, required RoomViewModel roomViewModel}){
-    roomViewModel.removeParticipants(message);
     if(message.user.nickname != roomViewModel.user.nickname)
       roomViewModel.addMessages(message);
   }

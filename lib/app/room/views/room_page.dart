@@ -62,7 +62,10 @@ class _RoomPageState extends State<RoomPage>
                                     ),
                                     color: AppColors.darkBrown,
                                     onPressed: () {
-                                      context.read<RoomBloc>().add(LeaveRoomEvent(user: context.read<RoomViewModel>().user, room: context.read<RoomViewModel>().room));
+                                      context.read<RoomBloc>().add(
+                                          LeaveRoomEvent(user:
+                                          context.read<RoomViewModel>().user,
+                                              room: context.read<RoomViewModel>().room));
                                       Navigator.pop(context);
                                     }))
                           ],

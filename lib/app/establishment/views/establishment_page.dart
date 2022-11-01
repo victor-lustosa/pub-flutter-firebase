@@ -28,6 +28,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
     _tabController = TabController(vsync: this, length: 2);
+
     context.read<EstablishmentViewModel>().getUser();
     context.read<EstablishmentViewModel>().bloc.add(GetRoomsEvent());
     context.read<EstablishmentViewModel>().delayForForms(context);

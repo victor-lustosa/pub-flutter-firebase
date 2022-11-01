@@ -26,7 +26,6 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   String error = '';
   List<dynamic> participants = [];
   List<dynamic> messages = [];
-  List<RoomModel> rooms = [];
   late RoomModel room;
   late UserModel user;
   bool isParticipantExist = false;
@@ -94,7 +93,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
             id: '',
             createdAt: DateTime.now().toString(),
             textMessage: textMessage,
-            user: this.participant,
+            user: this.user,
             type: BlocEventType.send_private_message);
           bloc.add(SendMessageEvent(room: room, message: privateMessage.toMap()));
       }
@@ -102,57 +101,6 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
         textController.clear();
     }
   }
-
-  verifyParticipants(room, data) {
-    for (dynamic participant in room.getParticipants) {
-      if (data.getUser.getNickname == participant.getNickname) {
-        isParticipantExist = true;
-      }
-    }
-  }
-
-  void addParticipants(StateMessageData data) {
-    if (data.user.nickname == user.nickname) {
-      user = user.copyWith(
-          idUser: data.user.idUser,
-          latitude: user.latitude,
-          longitude: user.longitude,
-          nickname: user.nickname,
-          genre: user.genre,
-          age: user.age,
-          messages: user.messages);
-      room = room.copyWith(
-          longitude: room.longitude,
-          latitude: room.latitude,
-          id: data.idRoom,
-          name: room.name,
-          distance: room.distance,
-          isAcceptedLocation: room.isAcceptedLocation,
-          participants: room.participants);
-    } else {
-      for (dynamic room in rooms) {
-        if (room.getIdRoom == data.idRoom) {
-          verifyParticipants(room, data);
-          if (!isParticipantExist) {
-            room.addParticipants(data.user);
-          }
-        }
-        isParticipantExist = false;
-      }
-    }
-    notifyListeners();
-  }
-
-  void removeParticipants(StateMessageData data) {
-    for (dynamic room in rooms) {
-      if (room.getIdRoom == data.idRoom) {
-        room.removeParticipants(data.user);
-      }
-    }
-    notifyListeners();
-  }
-
-  late UserModel participant;
 
   void dispose() {
     textController.dispose();

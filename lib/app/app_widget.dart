@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pub/app/user/view-models/user_view_model.dart';
 import 'establishment/external/establishment_firestore_datasource.dart';
 import 'establishment/blocs/establishment_bloc.dart';
 import 'establishment/domain/use-cases/establishment_use_cases.dart';
@@ -43,7 +44,7 @@ class AppWidget extends StatelessWidget {
                                                            RoomFirestoreDatasource(firestore: FirebaseFirestore.instance))))),
 
         ChangeNotifierProvider<EstablishmentViewModel>(create: (context) => EstablishmentViewModel(bloc: context.read())),
-
+        ChangeNotifierProvider<UserViewModel>(create: (context) => UserViewModel(bloc: context.read())),
         ChangeNotifierProvider<RoomViewModel>(create: (context) => RoomViewModel(bloc: context.read()))
       ],
       child: MaterialApp(

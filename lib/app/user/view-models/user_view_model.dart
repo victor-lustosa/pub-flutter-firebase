@@ -8,7 +8,7 @@ abstract class IUserViewModel {
   // currentPosition();
 }
 
-class UserViewModel implements IUserViewModel {
+class UserViewModel extends ChangeNotifier implements IUserViewModel {
   UserViewModel({required this.bloc});
 
   final UserBloc bloc;
@@ -22,13 +22,14 @@ class UserViewModel implements IUserViewModel {
   int age = 0;
   final List<String> genres = ['não informado', 'masculino', 'feminino'];
 
-  void saveUser() {
+  UserModel saveUser() {
     if (ageController.text.isNotEmpty && nickNameController.text.isNotEmpty) {
       age = int.tryParse(ageController.text)!;
       if (age >= 18) {
         if (selectedGenre == '') selectedGenre = genres[0];
-        user = UserModel.empty();
-        user = user.copyWith(
+
+          this.user = UserModel.empty();
+          user = user.copyWith(
             idUser: IdUtil.generateRandomString(),
             age: age,
             genre: selectedGenre,
@@ -36,6 +37,7 @@ class UserViewModel implements IUserViewModel {
       }
     }
     bloc.add(SaveUserEvent(user));
+    return user;
   }
 
   checkAccessToLocation(BuildContext context) async {

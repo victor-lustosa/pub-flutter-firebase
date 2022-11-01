@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../establishment/view-models/establishment_view_model.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_fonts.dart';
 import '../../user/view-models/user_view_model.dart';
@@ -15,14 +16,14 @@ class UserRegisterPage extends StatefulWidget {
 }
 
 class _UserRegisterPageState extends State<UserRegisterPage> {
-  late final UserViewModel _userViewModel;
+
 
   @override
   void initState() {
     super.initState();
-    _userViewModel = UserViewModel(bloc: context.read<UserBloc>());
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _userViewModel.checkAccessToLocation(context);
+      context.read<UserViewModel>().checkAccessToLocation(context);
     });
   }
 
@@ -57,14 +58,16 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                               width: 350.0,
                               height: 100,
                               child: Form(
-                                  key: _userViewModel.formNicknameKey,
-                                  child: NicknameFormFieldWidget(_userViewModel.nickNameController)))),
+                                  key:  context.read<UserViewModel>().formNicknameKey,
+                                  child: NicknameFormFieldWidget(
+                                      context.read<UserViewModel>().nickNameController)))),
                       Container(
                           width: 350.0,
                           height: 100,
                           child: Form(
-                              key: _userViewModel.formAgeKey,
-                              child: AgeFormFieldWidget(_userViewModel.ageController))),
+                              key:  context.read<UserViewModel>().formAgeKey,
+                              child: AgeFormFieldWidget(
+                                  context.read<UserViewModel>().ageController))),
                       Container(
                           width: 350,
                           height: 55,
@@ -79,10 +82,10 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           child: Form(
                               autovalidateMode: AutovalidateMode.always,
                               child: DropdownWidget(
-                                _userViewModel.genres,
+                                context.read<UserViewModel>().genres,
                                 (String value) {
                                   setState(() {
-                                    _userViewModel.selectedGenre = value;
+                                    context.read<UserViewModel>().selectedGenre = value;
                                   });
                                 },
                                 "gênero",
@@ -91,13 +94,15 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                         padding: EdgeInsets.only(top: 80),
                         child: ElevatedButton.icon(
                             onPressed: () {
-                              if (_userViewModel.formNicknameKey.currentState!.validate() &&
-                                  _userViewModel.formAgeKey.currentState!.validate()) {
-                                _userViewModel.saveUser();
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    AppRoutes.establishmentRoute,
-                                    ModalRoute.withName(AppRoutes.userRegisterRoute));
+                              if (context.read<UserViewModel>().formNicknameKey.currentState!.validate() &&
+                                  context.read<UserViewModel>().formAgeKey.currentState!.validate()) {
+
+                                  context.read<EstablishmentViewModel>().user = context.read<UserViewModel>().saveUser();
+
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      AppRoutes.establishmentRoute,
+                                      ModalRoute.withName(AppRoutes.userRegisterRoute));
                               }
                             },
                             icon: Icon(Icons.navigate_next_rounded, color: AppColors.white),

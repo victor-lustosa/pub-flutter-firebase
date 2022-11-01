@@ -9,3 +9,6 @@ class InitialEvent extends EstablishmentEvent{
 class GetRoomsEvent extends EstablishmentEvent {
   GetRoomsEvent();
 }
+class GetStreamEvent extends EstablishmentEvent {
+  GetStreamEvent();
+}

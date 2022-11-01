@@ -14,13 +14,13 @@ class UserModel extends UserEntity{
     List<dynamic>? messages
  }) {
    return UserModel(
-     idUser: idUser ?? super.idUser,
-     nickname: nickname ?? super.nickname,
-     age: age ?? super.age,
-     genre: genre ?? super.genre,
-     latitude: latitude ?? super.latitude,
-     longitude: longitude ?? super.longitude,
-     messages: messages ?? super.messages
+     idUser: idUser ?? this.idUser,
+     nickname: nickname ?? this.nickname,
+     age: age ?? this.age,
+     genre: genre ?? this.genre,
+     latitude: latitude ?? this.latitude,
+     longitude: longitude ?? this.longitude,
+     messages: messages ?? this.messages
    );
  }
 

@@ -4,6 +4,7 @@ import '../repositories/establishment_repository.dart';
 
 abstract class IEstablishmentUseCases {
   Stream<List<RoomEntity>> getRooms();
+ // Future<dynamic> getStream();
 }
 
 class EstablishmentUseCases implements IEstablishmentUseCases {
@@ -15,5 +16,8 @@ class EstablishmentUseCases implements IEstablishmentUseCases {
   Stream<List<RoomEntity>> getRooms() {
     return repository.get();
   }
-
+ /* @override
+  Future<dynamic> getStream(){
+    return repository.getStream();
+  }*/
 }

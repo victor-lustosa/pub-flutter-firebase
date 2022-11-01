@@ -4,9 +4,15 @@ import '../../domain/repositories/establishment_repository.dart';
 import '../datasources/establishment_datasource.dart';
 
 class EstablishmentRepository implements IEstablishmentRepository<RoomEntity> {
+
   final IEstablishmentDatasource datasource;
 
   EstablishmentRepository({required this.datasource});
+
+ /* @override
+  Future<dynamic> getStream(){
+    return datasource.entityStream();
+  }*/
 
   List<RoomEntity> _convert(List<Map> list) {
     return list.map(RoomModel.fromMap).toList();

@@ -17,4 +17,10 @@ class EstablishmentFunctionsDatasource implements IEstablishmentDatasource {
 
     return exemplo.stream;
   }
+
+  @override
+  entityStream() {
+    // TODO: implement entityStream
+    throw UnimplementedError();
+  }
 }

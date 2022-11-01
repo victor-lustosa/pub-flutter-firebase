@@ -1,24 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../../room/blocs/room_bloc.dart';
 import '../../room/infra/models/data/data.dart';
 import '../../room/infra/models/room_model.dart';
 import '../../shared/components/location_util.dart';
 import '../../user/infra/models/user_model.dart';
-
 import 'package:url_launcher/url_launcher.dart';
-
 import '../blocs/establishment_bloc.dart';
-
 
 abstract class IEstablishmentViewModel {}
 
 class EstablishmentViewModel extends ChangeNotifier implements IEstablishmentViewModel {
   EstablishmentViewModel({required this.bloc}) {
     room = RoomModel.empty();
-    mSub = bloc.stream.listen((state) {
-      if (state is LeavePublicRoomMessageState) this.mSub.cancel();
-    });
+    user = UserModel.empty();
   }
   late ScrollController scrollViewController;
   final EstablishmentBloc bloc;
@@ -69,7 +63,46 @@ class EstablishmentViewModel extends ChangeNotifier implements IEstablishmentVie
       }
     return isParticipantExist;
   }
+  void addParticipants(StateMessageData data) {
+    if (data.user.nickname == user.nickname) {
+      user = user.copyWith(
+          idUser: data.user.idUser,
+          latitude: user.latitude,
+          longitude: user.longitude,
+          nickname: user.nickname,
+          genre: user.genre,
+          age: user.age,
+          messages: user.messages);
+      room = room.copyWith(
+          longitude: room.longitude,
+          latitude: room.latitude,
+          id: data.idRoom,
+          name: room.name,
+          distance: room.distance,
+          isAcceptedLocation: room.isAcceptedLocation,
+          participants: room.participants);
+    } else {
+      for (dynamic room in rooms) {
+        if (room.getIdRoom == data.idRoom) {
+          verifyParticipants(room, data);
+          if (!isParticipantExist) {
+            room.addParticipants(data.user);
+          }
+        }
+        isParticipantExist = false;
+      }
+    }
+    notifyListeners();
+  }
 
+  void removeParticipants(StateMessageData data) {
+    for (dynamic room in rooms) {
+      if (room.getIdRoom == data.idRoom) {
+        room.removeParticipants(data.user);
+      }
+    }
+    notifyListeners();
+  }
   verifyParticipants(room, data) {
     for (dynamic participant in room.getParticipants) {
       if (data.getUser.getNickname == participant.getNickname) {
@@ -77,8 +110,6 @@ class EstablishmentViewModel extends ChangeNotifier implements IEstablishmentVie
       }
     }
   }
-
-  late UserModel participant;
 
   void dispose() {
     textController.dispose();
