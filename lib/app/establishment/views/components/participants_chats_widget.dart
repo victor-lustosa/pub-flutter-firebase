@@ -4,8 +4,8 @@ import '../../../shared/configs/app_colors.dart';
 // import '../../repositories/establishment_repository_dto.dart';
 // import '../../view-models/establishment_view_model.dart';
 
-class EstablishmentPageTwoWidget extends StatelessWidget {
-  EstablishmentPageTwoWidget();
+class ParticipantsChatsWidget extends StatelessWidget {
+  ParticipantsChatsWidget();
 
   // EstablishmentViewModel _establishmentViewModel = EstablishmentViewModel(DioEstablishmentRepository(Dio()));
   // late List<dynamic> _establishments;

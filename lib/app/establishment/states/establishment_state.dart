@@ -12,12 +12,12 @@ class SuccessfullyFetchedRoomsState extends EstablishmentState {
 }
 
 class EnterPublicRoomMessageState extends  EstablishmentState{
-  EnterPublicRoomMessageState({required StateMessageData message, required EstablishmentViewModel establishmentViewModel}){
+  EnterPublicRoomMessageState({required MessageModel message, required EstablishmentViewModel establishmentViewModel}){
     establishmentViewModel.addParticipants(message);
   }
 }
 class LeavePublicRoomMessageState extends EstablishmentState{
-  LeavePublicRoomMessageState({required StateMessageData message, required EstablishmentViewModel establishmentViewModel}){
+  LeavePublicRoomMessageState({required MessageModel message, required EstablishmentViewModel establishmentViewModel}){
     establishmentViewModel.removeParticipants(message);
   }
 }

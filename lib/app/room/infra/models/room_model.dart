@@ -1,6 +1,9 @@
 
+import 'package:pub/app/room/infra/models/message_model.dart';
+
 import '../../../user/domain/entities/user_entity.dart';
 import '../../../user/infra/models/user_model.dart';
+import '../../domain/entities/message_entity.dart';
 import '../../domain/entities/room_entity.dart';
 class RoomModel extends RoomEntity {
 
@@ -12,7 +15,7 @@ class RoomModel extends RoomEntity {
     required double distance,
     required bool isAcceptedLocation,
     required List<UserEntity> participants,
-
+    required List<MessageEntity> messages,
   }) : super(
     id: id,
     name: name,
@@ -20,7 +23,8 @@ class RoomModel extends RoomEntity {
     longitude: longitude,
     distance: distance,
     isAcceptedLocation: isAcceptedLocation,
-    participants: participants
+    participants: participants,
+    messages:messages
   );
 
   factory RoomModel.empty() => RoomModel(
@@ -31,7 +35,7 @@ class RoomModel extends RoomEntity {
       distance: 0.0,
       isAcceptedLocation: false,
       participants: [],
-
+      messages: [],
   );
 
   addParticipants(UserEntity data) {
@@ -41,30 +45,7 @@ class RoomModel extends RoomEntity {
   removeParticipants(UserEntity data) {
     participants.removeWhere((element) => data.idUser == element.idUser);
   }
-  static RoomModel fromMap(dynamic json) {
-    return RoomModel(
-      isAcceptedLocation: false,
-      id: json['id'],
-      name: json['name'],
-      latitude: double.parse(json['latitude']),
-      longitude: double.parse(json['longitude']),
-      participants: [
-        if (json.containsKey('participants'))
-          ...(json['participants'] as List).map(UserModel.fromMap).toList(),
-      ],
-      distance: 0.0,
-    );
-  }
-  static Map<String, dynamic> toMap(RoomEntity room) {
-    return{
-      'id': room.id,
-      'name': room.name,
-      'latitude': room.latitude,
-      'longitude': room.longitude,
-      'distance': room.distance,
-      'participants':  UserModel.toMaps(room.participants)
-    };
-  }
+
   RoomModel copyWith({
     String? id,
     String? name,
@@ -73,7 +54,7 @@ class RoomModel extends RoomEntity {
     double? distance,
     bool? isAcceptedLocation,
     List<UserEntity>? participants,
-
+    List<MessageEntity>? messages,
   }) {
     return RoomModel(
         id: id ?? this.id,
@@ -83,6 +64,7 @@ class RoomModel extends RoomEntity {
         distance: distance ?? this.distance,
         isAcceptedLocation: isAcceptedLocation ?? this.isAcceptedLocation,
         participants: participants ?? this.participants,
+        messages: messages ?? this.messages
     );
   }
 }

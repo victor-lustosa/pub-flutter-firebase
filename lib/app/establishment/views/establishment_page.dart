@@ -7,10 +7,11 @@ import '../../shared/configs/app_routes.dart';
 
 import '../blocs/establishment_bloc.dart';
 import '../view-models/establishment_view_model.dart';
-import 'components/establishment_page_one_widget.dart';
-import 'components/establishment_page_two_widget.dart';
-import 'components/establishment_tab_bar_sliver_widget.dart';
+import 'components/participants_chats_widget.dart';
+import 'components/tab_bar_sliver_widget.dart';
 import 'package:provider/provider.dart';
+
+import 'components/rooms_list_widget.dart';
 
 class EstablishmentPage extends StatefulWidget {
 
@@ -31,7 +32,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
 
     context.read<EstablishmentViewModel>().getUser();
     context.read<EstablishmentViewModel>().bloc.add(GetRoomsEvent());
-    context.read<EstablishmentViewModel>().delayForForms(context);
+    //context.read<EstablishmentViewModel>().delayForForms(context);
   }
 
   @override
@@ -59,11 +60,9 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                       children: [
                         Padding(
                             padding: EdgeInsets.only(top: 45, left: 60),
-                            child: Text("APP",
-                                style: AppFonts.appTitle)),
+                            child: Text("APP", style: AppFonts.appTitle)),
                       ],
                     ),
-
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -122,7 +121,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                     // )
                   ],
                 )),
-                bottom: EstablishmentTabBarSliverWidget(_tabController),
+                bottom: TabBarSliverWidget(_tabController),
                 automaticallyImplyLeading: false,
                 backgroundColor: AppColors.darkBrown,
                 pinned: true,
@@ -135,8 +134,8 @@ class _EstablishmentPageState extends State<EstablishmentPage>
             ];
           },
           body: TabBarView(controller: _tabController, children: <Widget>[
-            EstablishmentPageOneWidget(),
-            EstablishmentPageTwoWidget()
+            RoomsListWidget(),
+            ParticipantsChatsWidget()
           ])),
       // EstablishmentPageTwoWidget(this._roomViewModel, this._participantViewModel, this._bloc)])),
       floatingActionButton: SizedBox(
@@ -144,8 +143,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
           width: 160,
           child: FloatingActionButton.extended(
             onPressed: () {},
-            label: Text("visão em mapa",
-                style: AppFonts.mapsButton),
+            label: Text("visão em mapa", style: AppFonts.mapsButton),
             backgroundColor: AppColors.lightBrown,
             // icon: Icon(Icons.map, size: 15, color: Colors.white)
           )),

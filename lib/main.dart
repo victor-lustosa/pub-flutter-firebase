@@ -9,9 +9,11 @@ import 'dart:developer';
 import 'dart:async';
 import 'app/app_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   Bloc.observer = MessageBlocObserver();
 
   FlutterError.onError = (details) {
@@ -19,7 +21,7 @@ Future<void> main() async{
   };
   UserSharedDatasource<UserEntity> userSharedDatasource = UserSharedDatasource(shared: await SharedPreferences.getInstance());
   runZonedGuarded(
-        () => runApp(AppWidget(userSharedDatasource: userSharedDatasource)),
+        () => runApp(AppWidget(userDatasource: userSharedDatasource)),
         (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 

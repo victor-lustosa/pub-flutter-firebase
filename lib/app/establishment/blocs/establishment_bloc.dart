@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
+import '../../room/infra/models/message_model.dart';
 import '../../room/domain/entities/room_entity.dart';
 import 'package:bloc/bloc.dart';
-
-import '../../room/infra/models/data/data.dart';
 import '../domain/use-cases/establishment_use_cases.dart';
 import '../view-models/establishment_view_model.dart';
 
@@ -25,7 +23,6 @@ class EstablishmentBloc extends Bloc<EstablishmentEvent, EstablishmentState> {
           emit(SuccessfullyFetchedRoomsState(entities: rooms));
         });
   }
-
 }
 
 

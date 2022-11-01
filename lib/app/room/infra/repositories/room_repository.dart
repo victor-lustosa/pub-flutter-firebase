@@ -1,4 +1,6 @@
 
+import 'package:pub/app/room/infra/adapters/room_adapter.dart';
+
 import '../../domain/entities/room_entity.dart';
 import '../../domain/repositories/room_repository.dart';
 import '../datasources/room_datasource.dart';
@@ -30,6 +32,6 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
   }
 
   List<RoomEntity> _convert(List<Map> list) {
-    return list.map(RoomModel.fromMap).toList();
+    return list.map(RoomAdapter.fromMap).toList();
   }
 }

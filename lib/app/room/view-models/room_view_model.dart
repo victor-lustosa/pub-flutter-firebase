@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:pub/app/room/infra/adapters/message_adapter.dart';
 import '../../room/blocs/room_bloc.dart';
 import '../../shared/components/location_util.dart';
 import '../../user/infra/models/user_model.dart';
 import '../blocs/bloc_events.dart';
-import '../infra/models/data/data.dart';
+import '../infra/models/message_model.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import '../infra/models/room_model.dart';
@@ -77,26 +78,17 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
       //messages.add(mes);
       //participant.messages.add(mes);
       if (textMessage.isNotEmpty) {
-        if (isPublic) {
-          PublicRoomMessageData publicMessage = PublicRoomMessageData(
+
+          MessageModel message = MessageModel(
             id: '',
-            idRoom: this.room.id,
+            roomId: this.room.id,
             createdAt: DateTime.now().toString(),
             roomName: this.room.name,
             textMessage: textMessage.trimLeft().trimRight(),
             user: this.user,
-            code: 0,
             type: BlocEventType.send_public_message);
-          bloc.add(SendMessageEvent(room: room, message: publicMessage.toMap()));
-      } else {
-          PrivateRoomMessageData privateMessage = PrivateRoomMessageData(
-            id: '',
-            createdAt: DateTime.now().toString(),
-            textMessage: textMessage,
-            user: this.user,
-            type: BlocEventType.send_private_message);
-          bloc.add(SendMessageEvent(room: room, message: privateMessage.toMap()));
-      }
+          bloc.add(SendMessageEvent(room: room, message: message));
+
         focusNode.requestFocus();
         textController.clear();
     }

@@ -19,7 +19,7 @@ class LeaveRoomEvent extends RoomEvent{
 
 class SendMessageEvent extends RoomEvent{
   final RoomModel room;
-  final dynamic message;
+  final MessageModel message;
   SendMessageEvent({required this.room, required this.message});
 }
 

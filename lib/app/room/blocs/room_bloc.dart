@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:pub/app/room/domain/entities/message_entity.dart';
 import '../../user/infra/models/user_model.dart';
 import '../domain/entities/room_entity.dart';
 import '../domain/use-cases/room_use_cases.dart';
-import '../../room/infra/models/data/data.dart';
+import '../infra/models/message_model.dart';
 import '../infra/models/room_model.dart';
 import '../view-models/room_view_model.dart';
 
@@ -30,10 +31,7 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
   }
   Future<void> _sendMessageEvent(SendMessageEvent event, emit) async{
 
-    if(event.message is PublicRoomMessageData)
-       roomUseCases.sendMessage(event.room, (event.message as PublicRoomMessageData).toMap());
-    if(event.message is PrivateRoomMessageData)
-       roomUseCases.sendMessage(event.room, (event.message as PrivateRoomMessageData).toMap());
+    roomUseCases.sendMessage(event.room, event.message.toMap());
 
     emit(SendMessageState());
   }

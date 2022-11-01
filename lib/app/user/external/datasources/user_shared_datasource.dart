@@ -1,6 +1,7 @@
 import '../../../user/infra/datasources/user_datasource.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../infra/models/user_model.dart';
+import '../../infra/adapters/user_adapter.dart';
+
 
 class UserSharedDatasource<T> implements IUserDatasource<T>{
   final SharedPreferences _shared;
@@ -14,7 +15,7 @@ class UserSharedDatasource<T> implements IUserDatasource<T>{
   @override
   Future<void> add(user) async {
     try {
-      _shared.setString('user', UserModel.toJson(user));
+      _shared.setString('user', UserAdapter.toJson(user));
     } catch (e) {
       throw Exception("Erro ao salvar usuario: $e");
     }

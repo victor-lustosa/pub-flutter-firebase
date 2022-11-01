@@ -9,15 +9,15 @@ import '../../../shared/configs/app_routes.dart';
 import '../../blocs/establishment_bloc.dart';
 import '../../view-models/establishment_view_model.dart';
 
-class EstablishmentPageOneWidget extends StatefulWidget {
-  EstablishmentPageOneWidget();
+class RoomsListWidget extends StatefulWidget {
+  RoomsListWidget();
 
   @override
-  State<EstablishmentPageOneWidget> createState() => _EstablishmentPageOneWidgetState();
+  State<RoomsListWidget> createState() => _RoomsListWidgetState();
 }
 
-class _EstablishmentPageOneWidgetState
-    extends State<EstablishmentPageOneWidget> {
+class _RoomsListWidgetState
+    extends State<RoomsListWidget> {
   //late StreamSubscription mSub;
   @override
   initState() {
@@ -39,7 +39,7 @@ class _EstablishmentPageOneWidgetState
                   topRight: const Radius.circular(10.0))),
           child: BlocBuilder<EstablishmentBloc, EstablishmentState>(
               bloc: context.read<EstablishmentBloc>(),
-              buildWhen: (context, current) => context.runtimeType != current.runtimeType && (current is SuccessfullyFetchedRoomsState),
+              buildWhen: (context, current) => (current is SuccessfullyFetchedRoomsState),
               builder: (context, state) {
 
                 if (state is SuccessfullyFetchedRoomsState) {

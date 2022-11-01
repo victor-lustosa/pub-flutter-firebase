@@ -6,7 +6,7 @@ import '../configs/app_colors.dart';
 mixin ChatMixin {
   Alignment alignment(state, index, user) {
     if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (user.messages[index].user.nickname != user.nickname) {
+      if (user.messages[index].userFlow.nickname != user.nickname) {
         return Alignment.centerLeft;
       } else {
         return Alignment.centerRight;
@@ -17,7 +17,7 @@ mixin ChatMixin {
   }
   Color color(state, index, user) {
     if (state is SendMessageState || state is ReceivePublicMessageState) {
-      if (user.messages[index].user.nickname != user.nickname) {
+      if (user.messages[index].userFlow.nickname != user.nickname) {
         return Colors.white;
       } else {
         return Color(0xffdcd9d9);

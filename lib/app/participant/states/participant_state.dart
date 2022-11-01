@@ -7,7 +7,7 @@ class InitialState extends ParticipantState{
 }
 
 class ReceivePrivateMessageState extends ParticipantState {
-  ReceivePrivateMessageState({required MessageData message, required RoomViewModel roomViewModel}){
+  ReceivePrivateMessageState({required MessageModel message, required RoomViewModel roomViewModel}){
     roomViewModel.addMessages(message);
   }
 }

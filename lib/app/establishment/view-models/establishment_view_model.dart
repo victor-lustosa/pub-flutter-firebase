@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../../room/infra/models/data/data.dart';
+import '../../room/domain/entities/message_entity.dart';
 import '../../room/infra/models/room_model.dart';
 import '../../shared/components/location_util.dart';
 import '../../user/infra/models/user_model.dart';
@@ -63,7 +63,7 @@ class EstablishmentViewModel extends ChangeNotifier implements IEstablishmentVie
       }
     return isParticipantExist;
   }
-  void addParticipants(StateMessageData data) {
+  void addParticipants(MessageEntity data) {
     if (data.user.nickname == user.nickname) {
       user = user.copyWith(
           idUser: data.user.idUser,
@@ -76,14 +76,14 @@ class EstablishmentViewModel extends ChangeNotifier implements IEstablishmentVie
       room = room.copyWith(
           longitude: room.longitude,
           latitude: room.latitude,
-          id: data.idRoom,
+          id: data.roomId,
           name: room.name,
           distance: room.distance,
           isAcceptedLocation: room.isAcceptedLocation,
           participants: room.participants);
     } else {
       for (dynamic room in rooms) {
-        if (room.getIdRoom == data.idRoom) {
+        if (room.getIdRoom == data.roomId) {
           verifyParticipants(room, data);
           if (!isParticipantExist) {
             room.addParticipants(data.user);
@@ -95,9 +95,9 @@ class EstablishmentViewModel extends ChangeNotifier implements IEstablishmentVie
     notifyListeners();
   }
 
-  void removeParticipants(StateMessageData data) {
+  void removeParticipants(MessageEntity data) {
     for (dynamic room in rooms) {
-      if (room.getIdRoom == data.idRoom) {
+      if (room.getIdRoom == data.roomId) {
         room.removeParticipants(data.user);
       }
     }

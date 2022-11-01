@@ -1,7 +1,7 @@
 enum BlocEventType {
   enter_public_room,
   receive_initial,
-  dont_build,
+  useless,
   leave_public_room,
   typing,
   stopped_typing,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../room/blocs/room_bloc.dart';
-import '../../room/views/components/room_page_one_widget.dart';
+import 'components/chat_page_widget.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_fonts.dart';
 import '../view-models/room_view_model.dart';
-import 'components/room_page_two_widget.dart';
-import 'components/room_tab_bar_sliver_widget.dart';
+import 'components/participants_list_widget.dart';
+import 'components/tab_bar_sliver_widget.dart';
 import 'package:provider/provider.dart';
 
 class RoomPage extends StatefulWidget {
@@ -96,13 +96,13 @@ class _RoomPageState extends State<RoomPage>
                   expandedHeight: 67.0,
                   collapsedHeight: 67,
                   toolbarHeight: 67,
-                  bottom: RoomTabBarSliverWidget(_tabController),
+                  bottom: TabBarSliverWidget(_tabController),
                 )
               ];
             },
             body: TabBarView(controller: _tabController, children: <Widget>[
-              RoomPageOneWidget(),
-              RoomPageTwoWidget(),
+              ChatPageWidget(),
+              ParticipantsListWidget(),
               // Visibility(visible: true,
               //     child: Container(
               //       decoration: BoxDecoration(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../room/blocs/bloc_events.dart';
 import '../../participant/blocs/participant_bloc.dart';
-import '../../room/infra/models/data/data.dart';
+import '../../room/infra/models/message_model.dart';
 import '../../user/infra/models/user_model.dart';
 
 abstract class IParticipantViewModel {
@@ -22,7 +22,7 @@ class ParticipantViewModel extends ChangeNotifier
     String textMessage = textController.text;
 
     if (textMessage.isNotEmpty) {
-      var mes = PrivateRoomMessageData(
+      /*var mes = MessageModel(
           id: '',
           createdAt: DateTime.now().toString(),
           textMessage: textMessage,
@@ -34,7 +34,7 @@ class ParticipantViewModel extends ChangeNotifier
       bloc.add(SendPrivateMessageEvent(mes.toMap()));
       focusNode.requestFocus();
       textController.clear();
-      focusNode.requestFocus();
+      focusNode.requestFocus();*/
     }
   }
 
@@ -59,7 +59,7 @@ class ParticipantViewModel extends ChangeNotifier
     }*/
   }
 
-  void addMessages(MessageData message) {
+  void addMessages(MessageModel message) {
     participant.messages.add(message);
   }
 

@@ -5,12 +5,12 @@ import '../../../shared/configs/app_colors.dart';
 import '../../../room/blocs/room_bloc.dart';
 import '../../../shared/configs/app_fonts.dart';
 
-class RoomPageOneWidget extends StatefulWidget {
+class ChatPageWidget extends StatefulWidget {
   @override
-  State<RoomPageOneWidget> createState() => _RoomPageOneWidgetState();
+  State<ChatPageWidget> createState() => _ChatPageWidgetState();
 }
 
-class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
+class _ChatPageWidgetState extends State<ChatPageWidget> {
   //String userSendMessage = '';
   //bool isAddPositionNameMessage = false;
   //int nameMessageCount = 0;
@@ -56,7 +56,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                         context.read<RoomViewModel>().scroll();
 
                         return Align(
-                            alignment: context.read<RoomViewModel>().messages[index].user.nickname !=
+                            alignment: context.read<RoomViewModel>().messages[index].userFlow.nickname !=
                                 context.read<RoomViewModel>().user.nickname
                                 ? Alignment.centerLeft
                                 : Alignment.centerRight,
@@ -67,7 +67,7 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                                   // width: MediaQuery.of(context).size.width * 0.8,
                                 children: [
                                   Column(
-                                      crossAxisAlignment: context.read<RoomViewModel>().messages[index].user.nickname !=
+                                      crossAxisAlignment: context.read<RoomViewModel>().messages[index].userFlow.nickname !=
                                           context.read<RoomViewModel>().user.nickname
                                           ? CrossAxisAlignment.start
                                           : CrossAxisAlignment.end,
@@ -77,13 +77,13 @@ class _RoomPageOneWidgetState extends State<RoomPageOneWidget> {
                                             padding: const EdgeInsets.only(bottom: 6, left: 6),
                                             child: Row(
                                                 children: [
-                                                  Text('${context.read<RoomViewModel>().messages[index].user.nickname}'),
+                                                  Text('${context.read<RoomViewModel>().messages[index].userFlow.nickname}'),
                                             ])),
                                         Container(
                                             // width: MediaQuery.of(context).size.width * 0.8,
                                             padding: const EdgeInsets.all(14),
                                             decoration: BoxDecoration(
-                                                color: context.read<RoomViewModel>().messages[index].user.nickname !=
+                                                color: context.read<RoomViewModel>().messages[index].userFlow.nickname !=
                                                     context.read<RoomViewModel>().user.nickname
                                                     ? Colors.white
                                                     : Color(0xffdcd9d9),

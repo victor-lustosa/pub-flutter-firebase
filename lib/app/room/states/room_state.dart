@@ -13,24 +13,24 @@ class LeaveRoomState extends RoomState{
 }
 
 class EnterPublicRoomMessageState extends  RoomState{
-  EnterPublicRoomMessageState({required StateMessageData message, required RoomViewModel roomViewModel}){
+  EnterPublicRoomMessageState({required MessageModel message, required RoomViewModel roomViewModel}){
     if(message.user.nickname != roomViewModel.user.nickname)
       roomViewModel.addMessages(message);
   }
 }
 class LeavePublicRoomMessageState extends RoomState{
-  LeavePublicRoomMessageState({required StateMessageData message, required RoomViewModel roomViewModel}){
+  LeavePublicRoomMessageState({required MessageModel message, required RoomViewModel roomViewModel}){
     if(message.user.nickname != roomViewModel.user.nickname)
       roomViewModel.addMessages(message);
   }
 }
 class ReceivePublicMessageState extends RoomState {
-  ReceivePublicMessageState({required PublicRoomMessageData message, required RoomViewModel roomViewModel}){
+  ReceivePublicMessageState({required MessageModel message, required RoomViewModel roomViewModel}){
     roomViewModel.addMessages(message);
   }
 }
 class ReceivePrivateMessageState extends RoomState {
-  ReceivePrivateMessageState({required PrivateRoomMessageData message, required RoomViewModel roomViewModel}){
+  ReceivePrivateMessageState({required MessageModel message, required RoomViewModel roomViewModel}){
     roomViewModel.addMessages(message);
   }
 }

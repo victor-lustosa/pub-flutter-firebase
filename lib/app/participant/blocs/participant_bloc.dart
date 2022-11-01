@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 import '../../participant/domain/use-cases/send_private_message.dart';
-import '../../room/infra/models/data/data.dart';
+import '../../room/infra/models/message_model.dart';
 import '../../room/view-models/room_view_model.dart';
 
 part '../events/participant_event.dart';

@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../../blocs/location_permission_enum.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/user_repository.dart';
+import '../adapters/user_adapter.dart';
 import '../datasources/user_datasource.dart';
 import '../models/user_model.dart';
 
@@ -14,7 +15,7 @@ class UserRepository implements IUserRepository<UserEntity> {
   Future<UserEntity?> get() async{
     var user;
     final data = await datasource.get();
-    return data != null ? Future.value(UserModel.fromMap(jsonDecode(data))) : Future.value(user);
+    return data != null ? Future.value(UserAdapter.fromMap(jsonDecode(data))) : Future.value(user);
   }
 
   @override
