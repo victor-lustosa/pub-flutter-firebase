@@ -15,11 +15,13 @@ class MessageAdapter{
         user: UserAdapter.fromMap(map['user']),
         type: BlocEventType.values.firstWhere((element) => element.name.toString() == map['type']));
   }
+
   static Map<String, dynamic> toMap(MessageEntity room) {
     return{
       'id': room.id,
       'roomId': room.roomId,
       'roomName': room.roomName,
+      'createdAt': room.createdAt,
       'textMessage': room.textMessage,
       'user': UserAdapter.toMap(room.user),
       'type': room.type.name.toString()

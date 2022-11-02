@@ -24,11 +24,17 @@ class UserAdapter{
       'longitude': user.longitude,
     };
   }
-  static Map<String, dynamic> toMaps(List<dynamic> user) {
+  static Map<String, dynamic> toMapList(UserEntity user) {
     return {
-
+      'idUser': user.idUser,
+      'nickname': user.nickname,
+      'age': user.age,
+      'genre': user.genre,
+      'latitude': user.latitude,
+      'longitude': user.longitude,
     };
   }
+
 
   static String toJson(UserEntity userEntity) => json.encode(UserAdapter.toMap(userEntity));
 

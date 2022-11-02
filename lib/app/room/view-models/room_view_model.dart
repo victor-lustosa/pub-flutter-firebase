@@ -73,7 +73,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     return isParticipantExist;
   }
 
-  sendMessage({required bool isPublic}) {
+  sendMessage() {
     String textMessage = textController.text;
       //messages.add(mes);
       //participant.messages.add(mes);
@@ -87,10 +87,10 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
             textMessage: textMessage.trimLeft().trimRight(),
             user: this.user,
             type: BlocEventType.send_public_message);
-          bloc.add(SendMessageEvent(room: room, message: message));
 
-        focusNode.requestFocus();
-        textController.clear();
+          bloc.add(SendMessageEvent(room: room, message: message));
+          focusNode.requestFocus();
+          textController.clear();
     }
   }
 

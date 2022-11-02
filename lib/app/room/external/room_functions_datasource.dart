@@ -3,6 +3,7 @@ import '../../room/domain/entities/room_entity.dart';
 import '../../user/domain/entities/user_entity.dart';
 import '../../user/infra/models/user_model.dart';
 import '../infra/datasources/room_datasource.dart';
+import '../infra/models/message_model.dart';
 import '../infra/models/room_model.dart';
 
 class RoomFunctionsDatasource implements IRoomDatasource {
@@ -28,13 +29,13 @@ class RoomFunctionsDatasource implements IRoomDatasource {
   }
 
   @override
-  Future<void> receiveMessage(RoomModel room, UserModel user) {
+  Future<void> receiveMessage(RoomModel room, MessageModel user) {
     // TODO: implement receiveMessage
     throw UnimplementedError();
   }
 
   @override
-  Future<void> sendMessage(RoomModel room, UserModel user) {
+  Future<void> sendMessage(RoomModel room, MessageModel user) {
     // TODO: implement sendMessage
     throw UnimplementedError();
   }

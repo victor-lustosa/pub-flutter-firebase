@@ -108,7 +108,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                       onEditingComplete: () {},
                       focusNode: context.read<RoomViewModel>().focusNode,
                       onSubmitted: (_) {
-                        context.read<RoomViewModel>().sendMessage(isPublic: true);
+                        context.read<RoomViewModel>().sendMessage();
                       },
                       controller: context.read<RoomViewModel>().textController,
                       autofocus: true,
@@ -138,7 +138,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                         ),
                         mini: true,
                         onPressed: () {
-                          context.read<RoomViewModel>().sendMessage(isPublic: true);
+                          context.read<RoomViewModel>().sendMessage();
                         }),
                   ),
                 ),

@@ -1,8 +1,4 @@
 import 'package:pub/app/user/infra/adapters/user_adapter.dart';
-
-import '../../../user/infra/models/user_model.dart';
-import '../../domain/entities/room_entity.dart';
-import '../models/message_model.dart';
 import '../models/room_model.dart';
 import 'message_adapter.dart';
 
@@ -24,15 +20,5 @@ class RoomAdapter{
           ...(json['messages'] as List).map(MessageAdapter.fromMap).toList(),
       ],
     );
-  }
-  static Map<String, dynamic> toMap(RoomEntity room) {
-    return{
-      'id': room.id,
-      'name': room.name,
-      'latitude': room.latitude,
-      'longitude': room.longitude,
-      'distance': room.distance,
-      'participants':  UserAdapter.toMaps(room.participants)
-    };
   }
 }

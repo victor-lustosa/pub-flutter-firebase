@@ -23,17 +23,7 @@ class MessageModel extends MessageEntity{
               roomId: roomId,
               roomName: roomName);
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': this.id,
-      'roomId': this.roomId,
-      'roomName': this.roomName,
-      'createdAt': this.createdAt,
-      'textMessage': this.textMessage,
-      'type': this.type.name.toString(),
-      'user': UserAdapter.toMap(this.user)
-    };
-  }
+
   factory MessageModel.empty() => MessageModel(
     id: '',
     roomId: '',

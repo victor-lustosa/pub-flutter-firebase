@@ -31,7 +31,7 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
   }
   Future<void> _sendMessageEvent(SendMessageEvent event, emit) async{
 
-    roomUseCases.sendMessage(event.room, event.message.toMap());
+    roomUseCases.sendMessage(event.room, event.message);
 
     emit(SendMessageState());
   }
