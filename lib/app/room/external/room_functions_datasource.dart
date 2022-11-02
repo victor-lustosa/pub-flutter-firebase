@@ -39,4 +39,10 @@ class RoomFunctionsDatasource implements IRoomDatasource {
     // TODO: implement sendMessage
     throw UnimplementedError();
   }
+
+  @override
+  Stream<List<Map>> get() {
+    // TODO: implement get
+    throw UnimplementedError();
+  }
 }

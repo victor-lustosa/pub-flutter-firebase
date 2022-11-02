@@ -44,9 +44,9 @@ class AppRoutes {
       case publicRoomRoute:
         return MaterialPageRoute(builder: (_) => RoomPage());
 
-      case privateRoomRoute:
+     /* case privateRoomRoute:
         return MaterialPageRoute(builder: (_) => ParticipantPage(user: (arguments as ParticipantDTO).getUser));
-
+      */
       default:
         return _unknownRoute();
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../room/view-models/room_view_model.dart';
+import '../../../shared/components/chat_mixin.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../room/blocs/room_bloc.dart';
 import '../../../shared/configs/app_fonts.dart';
@@ -10,7 +11,7 @@ class ChatPageWidget extends StatefulWidget {
   State<ChatPageWidget> createState() => _ChatPageWidgetState();
 }
 
-class _ChatPageWidgetState extends State<ChatPageWidget> {
+class _ChatPageWidgetState extends State<ChatPageWidget> with ChatMixin {
   //String userSendMessage = '';
   //bool isAddPositionNameMessage = false;
   //int nameMessageCount = 0;
@@ -46,55 +47,31 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                 } else if (state is LeaveRoomState) {
                   return Expanded(child: Container());
                 } else {
+                  if(state is SuccessfullyFetchedRoomsState)
+                    context.read<RoomViewModel>().fetchedMessagesList(state.rooms);
+
                   return Expanded(
                     child: ListView.builder(
                       key: PageStorageKey<String>('MessagesList'),
                       controller: context.read<RoomViewModel>().scrollViewController,
                       itemCount: context.read<RoomViewModel>().messages.length,
                       itemBuilder: (context, index) {
-
                         context.read<RoomViewModel>().scroll();
 
                         return Align(
-                            alignment: context.read<RoomViewModel>().messages[index].userFlow.nickname !=
-                                context.read<RoomViewModel>().user.nickname
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight,
+                            alignment:Alignment.centerLeft,
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 4),
-                              child: Stack(fit: StackFit.loose,
-                                  // alignment: AlignmentDirectional.centerStart,
-                                  // width: MediaQuery.of(context).size.width * 0.8,
-                                children: [
-                                  Column(
-                                      crossAxisAlignment: context.read<RoomViewModel>().messages[index].userFlow.nickname !=
-                                          context.read<RoomViewModel>().user.nickname
-                                          ? CrossAxisAlignment.start
-                                          : CrossAxisAlignment.end,
-                                      children: [
-                                        // context.read<RoomViewModel>().messages[index].namePosition < 2?
-                                        Padding(
-                                            padding: const EdgeInsets.only(bottom: 6, left: 6),
-                                            child: Row(
-                                                children: [
-                                                  Text('${context.read<RoomViewModel>().messages[index].userFlow.nickname}'),
-                                            ])),
-                                        Container(
-                                            // width: MediaQuery.of(context).size.width * 0.8,
-                                            padding: const EdgeInsets.all(14),
-                                            decoration: BoxDecoration(
-                                                color: context.read<RoomViewModel>().messages[index].userFlow.nickname !=
-                                                    context.read<RoomViewModel>().user.nickname
-                                                    ? Colors.white
-                                                    : Color(0xffdcd9d9),
-                                                border: Border.all(color: Color(0xffdcd9d9), width: 1),
-                                                borderRadius: BorderRadius.all(Radius.circular(8))),
-                                            child: Text('${context.read<RoomViewModel>().messages[index].textMessage}'))
-                                        //     : Padding(
-                                          //     padding: const EdgeInsets.only(bottom: 0)
-                                          // )
-                                        ]),
-                                ])));
+                              child: Row(
+                                  mainAxisAlignment: crossAlignment(
+                                      context.read<RoomViewModel>().messages[index],
+                                      context.read<RoomViewModel>().user),
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(bottom: 6),
+                                        child:messageComponent(context.read<RoomViewModel>().messages[index],
+                                            context.read<RoomViewModel>().user)),
+                                    ])));
                       }));
                 }
               }),

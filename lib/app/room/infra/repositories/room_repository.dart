@@ -10,6 +10,15 @@ class RoomRepository implements IRoomRepository<RoomEntity> {
 
   RoomRepository({required this.datasource});
 
+  List<RoomEntity> _convert(List<Map> list) {
+    return list.map(RoomAdapter.fromMap).toList();
+  }
+
+  @override
+  Stream<List<RoomEntity>> get() {
+    final stream = datasource.get();
+    return stream.map(_convert);
+  }
   @override
   Future<void> add(room, user) async {
     datasource.add(room, user);

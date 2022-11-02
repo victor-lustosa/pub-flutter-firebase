@@ -4,7 +4,7 @@ import '../../../user/infra/models/user_model.dart';
 import '../models/message_model.dart';
 import '../models/room_model.dart';
 
-abstract class IRoomDatasource {
+abstract class IRoomDatasource implements IGetDatasource {
  Future<void> add(RoomModel room, UserModel user);
  Future<void> delete(RoomModel room, UserModel user);
  Future<void> sendMessage(RoomModel room, MessageModel message);

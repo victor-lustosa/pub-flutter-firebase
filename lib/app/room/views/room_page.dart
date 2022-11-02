@@ -27,6 +27,7 @@ class _RoomPageState extends State<RoomPage>
         user: context.read<RoomViewModel>().user,
         room: context.read<RoomViewModel>().room));
     _tabController = TabController(vsync: this, length: 2);
+    context.read<RoomViewModel>().bloc.add(GetMessagesEvent());
   }
 
   @override

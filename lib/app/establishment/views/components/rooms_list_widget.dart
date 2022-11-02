@@ -43,7 +43,7 @@ class _RoomsListWidgetState
               builder: (context, state) {
 
                 if (state is SuccessfullyFetchedRoomsState) {
-                  //context.read<EstablishmentViewModel>().bloc.add(state.stream);
+
                   context.read<EstablishmentViewModel>().rooms = LocationUtil.calculateDistance(
                       state.entities,
                       context.read<EstablishmentViewModel>().user);

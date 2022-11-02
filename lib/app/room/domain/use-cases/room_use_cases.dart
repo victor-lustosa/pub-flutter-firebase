@@ -3,6 +3,7 @@ import '../entities/room_entity.dart';
 import '../repositories/room_repository.dart';
 
 abstract class IRoomUseCases {
+  Stream<List<RoomEntity>> getRooms();
   Future<void> enterRoom(room, user);
   Future<void> receiveMessage(room, message);
   Future<void> sendMessage(room, message);
@@ -13,6 +14,11 @@ class RoomUseCases implements IRoomUseCases {
   final IRoomRepository<RoomEntity> repository;
 
   RoomUseCases({required this.repository});
+
+  @override
+  Stream<List<RoomEntity>> getRooms() {
+    return repository.get();
+  }
 
   @override
   Future<void> enterRoom(room, user) {

@@ -23,6 +23,9 @@ class SendMessageEvent extends RoomEvent{
   SendMessageEvent({required this.room, required this.message});
 }
 
+class GetMessagesEvent extends RoomEvent{
+  GetMessagesEvent();
+}
 class DisconnectEvent extends RoomEvent{
   DisconnectEvent();
 }

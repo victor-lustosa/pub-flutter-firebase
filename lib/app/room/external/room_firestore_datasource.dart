@@ -11,6 +11,18 @@ class RoomFirestoreDatasource implements IRoomDatasource {
 
   RoomFirestoreDatasource({required this.firestore});
 
+  List<Map> _convert(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    return docs.map((document) => {
+      'id': document.id,
+      ...document.data(),
+    }).toList();
+  }
+  @override
+  Stream<List<Map>> get() {
+    final snapshot = firestore.collection('rooms').snapshots();
+    return snapshot.map((room) => room.docs).map(_convert);
+  }
+
   @override
   Future<void> add(RoomModel room, UserModel user) async {
     firestore.collection("rooms")

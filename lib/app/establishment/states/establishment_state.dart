@@ -6,7 +6,6 @@ class InitialState extends EstablishmentState{
 }
 
 class SuccessfullyFetchedRoomsState extends EstablishmentState {
-
   final List<RoomEntity> entities;
   SuccessfullyFetchedRoomsState({required this.entities});
 }

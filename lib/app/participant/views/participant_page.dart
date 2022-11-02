@@ -8,7 +8,7 @@ import '../blocs/participant_bloc.dart';
 import '../view-models/participant_view_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ParticipantPage extends StatefulWidget {
+/*class ParticipantPage extends StatefulWidget {
   final UserModel user;
   ParticipantPage({required this.user});
 
@@ -91,7 +91,7 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
                             itemCount: _participantViewModel.participant.messages.length,
                             itemBuilder: (context, index) {
                               return Align(
-                                alignment: alignment(state, index, widget.user),
+                                alignment: alignment(state, widget.user),
                                 child: Padding(
                                   padding: const EdgeInsets.all(6),
                                   child: Container(
@@ -169,3 +169,4 @@ class _ParticipantPageState extends State<ParticipantPage> with ChatMixin{
             ])));
   }
 }
+*/
