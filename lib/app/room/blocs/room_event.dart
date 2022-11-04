@@ -1,4 +1,4 @@
-part of '../blocs/room_bloc.dart';
+part of 'room_bloc.dart';
 
 @immutable
 abstract class RoomEvent {}

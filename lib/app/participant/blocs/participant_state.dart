@@ -1,4 +1,4 @@
-part of '../blocs/participant_bloc.dart';
+part of 'participant_bloc.dart';
 
 abstract class ParticipantState {}
 

@@ -7,8 +7,8 @@ import '../../participant/domain/use-cases/send_private_message.dart';
 import '../../room/infra/models/message_model.dart';
 import '../../room/view-models/room_view_model.dart';
 
-part '../events/participant_event.dart';
-part '../states/participant_state.dart';
+part 'participant_event.dart';
+part 'participant_state.dart';
 
 class ParticipantBloc extends Bloc<ParticipantEvent, ParticipantState> {
   final ISendPrivateMessage sendPrivateMessage;

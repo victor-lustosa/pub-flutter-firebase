@@ -1,4 +1,4 @@
-part of '../blocs/establishment_bloc.dart';
+part of 'establishment_bloc.dart';
 
 @immutable
 abstract class EstablishmentEvent {}

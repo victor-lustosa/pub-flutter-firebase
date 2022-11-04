@@ -28,6 +28,8 @@ class _RoomPageState extends State<RoomPage>
         room: context.read<RoomViewModel>().room));
     _tabController = TabController(vsync: this, length: 2);
     context.read<RoomViewModel>().bloc.add(GetMessagesEvent());
+    context.read<RoomViewModel>().scrollViewController =
+        ScrollController(initialScrollOffset: 0.0);
   }
 
   @override

@@ -70,6 +70,7 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                           padding: EdgeInsets.only(left: 50, top: 25),
                           child: IconButton(
                             onPressed: () {
+
                               Navigator.pushNamedAndRemoveUntil(
                                   context,
                                   AppRoutes.editUserRoute,

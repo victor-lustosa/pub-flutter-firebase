@@ -6,28 +6,20 @@ import '../../../shared/configs/app_colors.dart';
 import '../../../room/blocs/room_bloc.dart';
 import '../../../shared/configs/app_fonts.dart';
 
-class ChatPageWidget extends StatefulWidget {
-  @override
-  State<ChatPageWidget> createState() => _ChatPageWidgetState();
-}
+class ChatPageWidget extends StatelessWidget with ChatMixin{
 
-class _ChatPageWidgetState extends State<ChatPageWidget> with ChatMixin {
+
   //String userSendMessage = '';
   //bool isAddPositionNameMessage = false;
   //int nameMessageCount = 0;
-  double offset = 0.0;
+ final double offset = 0.0;
 
-  @override
-  initState() {
-    super.initState();
-    context.read<RoomViewModel>().scrollViewController =
-        ScrollController(initialScrollOffset: 0.0);
+
     /* LocationUtil.verifyLocation(context,
         widget.bloc,
         widget.mSub,
         widget.instance.getRoom,
         widget.instance.getUser);*/
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +50,32 @@ class _ChatPageWidgetState extends State<ChatPageWidget> with ChatMixin {
                       itemBuilder: (context, index) {
                         context.read<RoomViewModel>().scroll();
 
-                        return Align(
-                            alignment:Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 4),
-                              child: Row(
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Stack(
+                            children: [
+                              Row( mainAxisAlignment: crossAlignment(
+                                  context.read<RoomViewModel>().messages[index],
+                                  context.read<RoomViewModel>().user),
+                                children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left:0),
+                                  child: Text('${context.read<RoomViewModel>().messages[index].user.nickname}'),
+                                ),
+                              ],),
+                              Row(
                                   mainAxisAlignment: crossAlignment(
                                       context.read<RoomViewModel>().messages[index],
                                       context.read<RoomViewModel>().user),
                                   children: [
+
                                     Padding(
                                         padding: const EdgeInsets.only(bottom: 6),
                                         child:messageComponent(context.read<RoomViewModel>().messages[index],
-                                            context.read<RoomViewModel>().user)),
-                                    ])));
+                                            context.read<RoomViewModel>().user,context)),
+                                    ]),
+                            ],
+                          ));
                       }));
                 }
               }),

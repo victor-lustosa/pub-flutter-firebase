@@ -9,23 +9,15 @@ import '../../../shared/configs/app_routes.dart';
 import '../../blocs/establishment_bloc.dart';
 import '../../view-models/establishment_view_model.dart';
 
-class RoomsListWidget extends StatefulWidget {
-  RoomsListWidget();
+class RoomsListWidget extends StatelessWidget {
 
-  @override
-  State<RoomsListWidget> createState() => _RoomsListWidgetState();
-}
-
-class _RoomsListWidgetState
-    extends State<RoomsListWidget> {
   //late StreamSubscription mSub;
-  @override
-  initState() {
+
     /*mSub = bloc.stream.listen((state) {
       if (state is LeavePublicRoomMessageState) this.mSub.cancel();
     });*/
-    super.initState();
-  }
+
+ 
 
   @override
   Widget build(BuildContext context) {

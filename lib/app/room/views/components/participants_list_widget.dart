@@ -8,13 +8,8 @@ import '../../../shared/configs/app_images.dart';
 import '../../../shared/configs/app_routes.dart';
 import '../../view-models/room_view_model.dart';
 
-class ParticipantsListWidget extends StatefulWidget {
+class ParticipantsListWidget extends StatelessWidget {
 
-  @override
-  _ParticipantsListWidgetState createState() => _ParticipantsListWidgetState();
-}
-
-class _ParticipantsListWidgetState extends State<ParticipantsListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(

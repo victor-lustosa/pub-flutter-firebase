@@ -7,8 +7,8 @@ import 'package:bloc/bloc.dart';
 import '../domain/use-cases/establishment_use_cases.dart';
 import '../view-models/establishment_view_model.dart';
 
-part '../events/establishment_event.dart';
-part '../states/establishment_state.dart';
+part 'establishment_event.dart';
+part 'establishment_state.dart';
 
 class EstablishmentBloc extends Bloc<EstablishmentEvent, EstablishmentState> {
   final IEstablishmentUseCases roomUseCases;

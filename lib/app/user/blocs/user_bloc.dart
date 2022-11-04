@@ -7,8 +7,8 @@ import '../../user/blocs/location_permission_enum.dart';
 import '../../user/domain/entities/user_entity.dart';
 import '../../user/domain/use-cases/user_use_cases.dart';
 
-part '../events/user_event.dart';
-part '../states/user_state.dart';
+part 'user_event.dart';
+part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final IUserUseCases userUseCases;

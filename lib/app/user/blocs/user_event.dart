@@ -1,4 +1,4 @@
-part of '../blocs/user_bloc.dart';
+part of 'user_bloc.dart';
 
 @immutable
 abstract class UserEvent {}

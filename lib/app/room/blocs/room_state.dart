@@ -1,4 +1,4 @@
-part of '../blocs/room_bloc.dart';
+part of 'room_bloc.dart';
 
 abstract class RoomState {}
 class InitialState extends RoomState{

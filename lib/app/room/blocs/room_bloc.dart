@@ -12,8 +12,8 @@ import '../infra/models/message_model.dart';
 import '../infra/models/room_model.dart';
 
 
-part '../events/room_event.dart';
-part '../states/room_state.dart';
+part 'room_event.dart';
+part 'room_state.dart';
 
 class RoomBloc extends Bloc<RoomEvent, RoomState> {
   final IRoomUseCases roomUseCases;
