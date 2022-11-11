@@ -3,7 +3,6 @@ import '../../establishment/view-models/establishment_view_model.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_fonts.dart';
 import '../../user/view-models/user_view_model.dart';
-import '../blocs/user_bloc.dart';
 import 'components/age_form_field_widget.dart';
 import 'components/dropdown_widget.dart';
 import 'components/nickname_form_field_widget.dart';
@@ -74,7 +73,7 @@ class _UserRegisterPageState extends State<UserRegisterPage> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            border: new Border.all(
+                            border: Border.all(
                                 color: Colors.black12,
                                 width: 1.0,
                                 style: BorderStyle.solid),

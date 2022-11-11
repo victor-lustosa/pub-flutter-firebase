@@ -27,26 +27,20 @@ class RoomFirestoreDatasource implements IRoomDatasource {
   Future<void> add(RoomModel room, UserModel user) async {
     firestore.collection("rooms")
              .doc(room.id)
-             .update({
-                     'participants': FieldValue.arrayUnion([UserAdapter.toMap(user)])
-                     });
+             .update({'participants': FieldValue.arrayUnion([UserAdapter.toMap(user)])});
   }
 
   @override
   Future<void> sendMessage(RoomModel room, MessageModel message) async {
     firestore.collection("rooms")
              .doc(room.id)
-             .update({
-                     'messages': FieldValue.arrayUnion([MessageAdapter.toMap(message)])
-                     });
+             .update({'messages': FieldValue.arrayUnion([MessageAdapter.toMap(message)])});
   }
   @override
   Future<void> receiveMessage(RoomModel room, MessageModel message) async {
     firestore.collection("rooms")
              .doc(room.id)
-             .update({
-                     'messages': FieldValue.arrayUnion([MessageAdapter.toMap(message)])
-                    });
+             .update({'messages': FieldValue.arrayUnion([MessageAdapter.toMap(message)])});
   }
 
 //TODO:Alterar o model de Room pra colocar uma variavel que vai ter o numero de participantes,
@@ -55,9 +49,7 @@ class RoomFirestoreDatasource implements IRoomDatasource {
   Future<void> delete(RoomModel room, UserModel user) async {
    firestore.collection("rooms")
             .doc(room.id)
-       .update({
-               'participants': FieldValue.arrayRemove([UserAdapter.toMap(user)])
-              });
+       .update({'participants': FieldValue.arrayRemove([UserAdapter.toMap(user)])});
 
   }
 

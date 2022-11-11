@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 import '../../../room/view-models/room_view_model.dart';
 import '../../../shared/components/chat_mixin.dart';
 import '../../../shared/configs/app_colors.dart';
 import '../../../room/blocs/room_bloc.dart';
 import '../../../shared/configs/app_fonts.dart';
 
-class ChatPageWidget extends StatelessWidget with ChatMixin{
+class ChatPageWidget extends StatefulWidget {
 
+  @override
+  State<ChatPageWidget> createState() => _ChatPageWidgetState();
+}
 
+class _ChatPageWidgetState extends State<ChatPageWidget> with ChatMixin {
   //String userSendMessage = '';
-  //bool isAddPositionNameMessage = false;
-  //int nameMessageCount = 0;
  final double offset = 0.0;
-
-
-    /* LocationUtil.verifyLocation(context,
+ @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      const Duration(),
+          () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
+    );
+   /* LocationUtil.verifyLocation(context,
         widget.bloc,
         widget.mSub,
         widget.instance.getRoom,
         widget.instance.getUser);*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +57,7 @@ class ChatPageWidget extends StatelessWidget with ChatMixin{
                       controller: context.read<RoomViewModel>().scrollViewController,
                       itemCount: context.read<RoomViewModel>().messages.length,
                       itemBuilder: (context, index) {
-                        context.read<RoomViewModel>().scroll();
+                        //context.read<RoomViewModel>().scroll();
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 4),
@@ -59,8 +68,12 @@ class ChatPageWidget extends StatelessWidget with ChatMixin{
                                   context.read<RoomViewModel>().user),
                                 children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left:0),
-                                  child: Text('${context.read<RoomViewModel>().messages[index].user.nickname}'),
+                                  padding: const EdgeInsets.only(bottom: 6, left: 6),
+                                  child: Row(
+                                    children: [
+                                      Text('${context.read<RoomViewModel>().messages[index].user.nickname}'),
+                                    ],
+                                  ),
                                 ),
                               ],),
                               Row(

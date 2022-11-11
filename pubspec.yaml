@@ -33,16 +33,16 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  google_fonts: ^2.1.0
+  google_fonts: ^3.0.1
   shared_preferences: ^2.0.13
   flutter_lints: ^2.0.1
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
-  geolocator: ^8.2.0
+  geolocator: ^9.0.2
   url_launcher: ^6.1.0
-  firebase_core: ^1.24.0 #Recursos basicos
-  firebase_auth: ^3.11.0 #Autenticacao
-  cloud_firestore: ^3.5.0 #Banco de dados
+  firebase_core: ^2.2.0 #Recursos basicos
+  firebase_auth: ^4.1.2 #Autenticacao
+  cloud_firestore: ^4.0.5 #Banco de dados
   provider: ^6.0.4
 #  dartz: 0.9.1
 
