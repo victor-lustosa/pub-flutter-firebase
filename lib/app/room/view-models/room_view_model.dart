@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:pub/app/room/infra/adapters/message_adapter.dart';
 import '../../room/blocs/room_bloc.dart';
 import '../../shared/components/id_util.dart';
 import '../../shared/components/location_util.dart';

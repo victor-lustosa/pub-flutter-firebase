@@ -36,7 +36,8 @@ class RoomsListWidget extends StatelessWidget {
 
                 if (state is SuccessfullyFetchedRoomsState) {
 
-                  context.read<EstablishmentViewModel>().rooms = LocationUtil.calculateDistance(
+                  context.read<EstablishmentViewModel>().rooms =
+                      LocationUtil.calculateDistance(
                       state.entities,
                       context.read<EstablishmentViewModel>().user);
 

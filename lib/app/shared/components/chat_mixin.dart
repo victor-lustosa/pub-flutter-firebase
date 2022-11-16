@@ -15,37 +15,18 @@ mixin ChatMixin {
       return MainAxisAlignment.center;
     }
   }
-  messageComponent(MessageEntity message, UserModel user, context){
+  colorMessage(MessageEntity message, UserModel user){
+    var color;
     if (message.type.name != 'notification_message' &&
         message.user.nickname != user.nickname) {
-      return Container(
-         width: MediaQuery.of(context).size.width * 0.8,
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Color(0xffdcd9d9), width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          child: Text('${message.textMessage}'));
+      color = AppColors.white;
     } else if (message.type.name != 'notification_message' &&
         message.user.nickname == user.nickname) {
-      return Container(
-         width: MediaQuery.of(context).size.width * 0.8,
-          padding: const EdgeInsets.all(14),
-          decoration: BoxDecoration(
-              color: Color(0xffdcd9d9),
-              border: Border.all(color: Color(0xffdcd9d9), width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          child: Text('${message.textMessage}'));
+      color = AppColors.grey;
     } else{
-      return Container(
-         width: MediaQuery.of(context).size.width * 0.8,
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-              color: AppColors.lightBrown,
-              border: Border.all(color: Color(0xffdcd9d9), width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(8))),
-          child: Text('${message.textMessage}'));
+      color = AppColors.lightBrown;
     }
+    return color;
   }
   Alignment alignment(MessageEntity message, UserModel user) {
     if (message.type.name != 'notification_message' &&
