@@ -50,8 +50,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget> with ChatMixin {
                   return Expanded(
                       child: Container());
                 } else {
-                  if (state is SuccessfullyFetchedRoomsState)
-                    context.read<RoomViewModel>().fetchedMessagesList(state.rooms);
+                  if (state is SuccessfullyFetchedRoomsState) {
+                    context.read<RoomViewModel>().fetchLists(state.rooms);
+                  }
 
                   return Expanded(
                       child: ListView.builder(

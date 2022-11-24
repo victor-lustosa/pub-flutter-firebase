@@ -91,9 +91,9 @@ class RoomsListWidget extends StatelessWidget {
                                           subtitle: Row(
                                             children: [
                                               Text(
-                                                  context.read<EstablishmentViewModel>().participants.length == 1
-                                                      ? '${context.read<EstablishmentViewModel>().participants.length} pessoa'
-                                                      : '${context.read<EstablishmentViewModel>().participants.length} pessoas',
+                                                  context.read<EstablishmentViewModel>().rooms[index].participants.length == 1
+                                                      ? '${context.read<EstablishmentViewModel>().rooms[index].participants.length} pessoa'
+                                                      : '${context.read<EstablishmentViewModel>().rooms[index].participants.length} pessoas',
                                                   style: AppFonts
                                                       .numberParticipants),
                                               Padding(

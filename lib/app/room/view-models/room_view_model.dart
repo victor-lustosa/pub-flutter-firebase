@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../room/blocs/room_bloc.dart';
 import '../../shared/components/id_util.dart';
 import '../../shared/components/location_util.dart';
+import '../../user/domain/entities/user_entity.dart';
 import '../../user/infra/models/user_model.dart';
 import '../blocs/bloc_events.dart';
 import '../domain/entities/message_entity.dart';
@@ -24,7 +25,7 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
   final focusNode = FocusNode();
   final textController = TextEditingController(text: '');
   String error = '';
-  List<UserModel> participants = [];
+  List<UserEntity> participants = [];
   List<MessageEntity> messages = [];
   late RoomModel room;
   late UserModel user;
@@ -37,12 +38,14 @@ class RoomViewModel extends ChangeNotifier implements IRoomViewModel {
     await Future.delayed(const Duration(minutes: 30));
     openURL(context);
   }
-  fetchedMessagesList(List<RoomEntity> rooms){
+  fetchLists(List<RoomEntity> rooms){
     for(RoomEntity roomFetched in rooms){
-      if(roomFetched.id == this.room.id){
+      if(roomFetched.id == room.id){
         messages = roomFetched.messages;
+        participants = roomFetched.participants;
       }
     }
+    notifyListeners();
   }
   getUser() async {
     user = await LocationUtil.getPosition(user);
