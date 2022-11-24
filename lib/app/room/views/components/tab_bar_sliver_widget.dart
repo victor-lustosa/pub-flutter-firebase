@@ -6,41 +6,44 @@ import '../../../shared/configs/app_colors.dart';
 class TabBarSliverWidget extends PreferredSize {
   final TabController tabController;
 
-  TabBarSliverWidget(this.tabController)
+  TabBarSliverWidget(this.tabController, {super.key})
       : super(
-            preferredSize: Size.fromHeight(0),
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: TabBar(
-                controller: tabController,
-                // isScrollable: true,
-                indicator: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(6)), // Creates border
-                    color: AppColors.lightBrown),
-                indicatorWeight: 0,
-                indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: AppFonts.tabBarLabelStyle,
-                unselectedLabelStyle: AppFonts.tabBarLabelStyle,
-                indicatorColor: AppColors.darkBrown,
-                labelColor: AppColors.white,
-                unselectedLabelColor: Colors.grey,
-                tabs: <Widget>[
-                  SizedBox(
-                    height: 18.0,
-                    width: 120,
-                    child: Tab(
-                      text: "sala",
-                    ),
-                  ),
-                  SizedBox(
-                    height: 18.0,
-                    width: 120,
-                    child: Tab(
-                      text: "participantes",
-                    ),
-                  )
-                ],
+          preferredSize: const Size.fromHeight(0),
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: TabBar(
+              controller: tabController,
+              // isScrollable: true,
+              indicator: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(6),
+                ), // Creates border
+                color: AppColors.lightBrown,
               ),
-            ));
+              indicatorWeight: 0,
+              indicatorSize: TabBarIndicatorSize.label,
+              labelStyle: AppFonts.tabBarLabelStyle,
+              unselectedLabelStyle: AppFonts.tabBarLabelStyle,
+              indicatorColor: AppColors.darkBrown,
+              labelColor: AppColors.white,
+              unselectedLabelColor: Colors.grey,
+              tabs: const <Widget>[
+                SizedBox(
+                  height: 18.0,
+                  width: 120,
+                  child: Tab(
+                    text: "sala",
+                  ),
+                ),
+                SizedBox(
+                  height: 18.0,
+                  width: 120,
+                  child: Tab(
+                    text: "participantes",
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
 }

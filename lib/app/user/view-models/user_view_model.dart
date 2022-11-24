@@ -28,12 +28,13 @@ class UserViewModel extends ChangeNotifier implements IUserViewModel {
       if (age >= 18) {
         if (selectedGenre == '') selectedGenre = genres[0];
 
-          this.user = UserModel.empty();
-          user = user.copyWith(
-            idUser: IdUtil.generateRandomString(),
-            age: age,
-            genre: selectedGenre,
-            nickname: nickNameController.text.trimLeft().trimRight());
+        user = UserModel.empty();
+        user = user.copyWith(
+          idUser: IdUtil.generateRandomString(),
+          age: age,
+          genre: selectedGenre,
+          nickname: nickNameController.text.trimLeft().trimRight(),
+        );
       }
     }
     bloc.add(SaveUserEvent(user));
@@ -45,15 +46,21 @@ class UserViewModel extends ChangeNotifier implements IUserViewModel {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('erro na permissão da geolocalização')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('erro na permissão da geolocalização'),
+          ),
+        );
       }
     }
     if (permission == LocationPermission.deniedForever) {
       permission = await Geolocator.requestPermission();
       if (permission != LocationPermission.deniedForever) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('erro na permissão da geolocalização')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('erro na permissão da geolocalização'),
+          ),
+        );
       }
     }
   }

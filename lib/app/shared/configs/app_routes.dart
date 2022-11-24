@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../establishment/views/establishment_page.dart';
 import '../../home/views/home_page.dart';
-import '../../participant/infra/models/dto/participant_dto.dart';
-import '../../participant/views/participant_page.dart';
 import '../../room/views/room_page.dart';
 import '../../user/views/user_register_page.dart';
 
-const urlServer = 'https://powerful-bayou-46345.herokuapp.com';
-
-// const urlServer = 'http://localhost:4000';
 class AppRoutes {
   static const String initialRoute = "/";
   static const String homeRoute = "/home";
@@ -20,31 +15,31 @@ class AppRoutes {
   static const String privateRoomRoute = "/private-room";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings routeSettings) {
-    final arguments = routeSettings.arguments;
+    //final arguments = routeSettings.arguments;
 
     switch (routeSettings.name) {
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
 
       case initialRoute:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) => const HomePage());
 
       case establishmentRoute:
-        return MaterialPageRoute(builder: (_) => EstablishmentPage());
+        return MaterialPageRoute(builder: (_) => const EstablishmentPage());
 
       case userRegisterRoute:
-        return MaterialPageRoute(builder: (_) => UserRegisterPage());
+        return MaterialPageRoute(builder: (_) => const UserRegisterPage());
 
       // case ENTERPRISE_REGISTER_ROUTE:
       //   return MaterialPageRoute(builder: (_) =>  EnterpriseRegisterPage());
 
       case editUserRoute:
-        return MaterialPageRoute(builder: (_) => UserRegisterPage());
+        return MaterialPageRoute(builder: (_) => const UserRegisterPage());
 
       case publicRoomRoute:
-        return MaterialPageRoute(builder: (_) => RoomPage());
+        return MaterialPageRoute(builder: (_) => const RoomPage());
 
-     /* case privateRoomRoute:
+      /* case privateRoomRoute:
         return MaterialPageRoute(builder: (_) => ParticipantPage(user: (arguments as ParticipantDTO).getUser));
       */
       default:
@@ -53,15 +48,17 @@ class AppRoutes {
   }
 
   static Route<dynamic> _unknownRoute() {
-    return MaterialPageRoute(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text("Rota não encontrada"),
-        ),
-        body: const Center(
-          child: Text("tela não encontrada"),
-        ),
-      );
-    });
+    return MaterialPageRoute(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Rota não encontrada"),
+          ),
+          body: const Center(
+            child: Text("tela não encontrada"),
+          ),
+        );
+      },
+    );
   }
 }

@@ -20,31 +20,50 @@ class _SplashPageState extends State<SplashPage> {
   @override
   initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      userViewModel = UserViewModel(bloc: context.read<UserBloc>());
-      userViewModel.bloc.add(GetUserEvent());
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        userViewModel = UserViewModel(
+          bloc: context.read<UserBloc>(),
+        );
+        userViewModel.bloc.add(
+          GetUserEvent(),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocConsumer<UserBloc, UserState>(
-            listener: (context, state) {
-              if (state is FetchedUserState) {
-                if (state.user != null) {
-                  context.read<EstablishmentViewModel>().user = UserAdapter.user(state.user!);
-                  Navigator.pushReplacementNamed(context, AppRoutes.establishmentRoute);
-                } else {
-                  Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
-                }
-              }
-            },
-            bloc: context.read<UserBloc>(),
-            builder: (context, state) {
-              return Center(
-                  child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.darkBrown)));
-       }));
+      body: BlocConsumer<UserBloc, UserState>(
+        listener: (context, state) {
+          if (state is FetchedUserState) {
+            if (state.user != null) {
+              context.read<EstablishmentViewModel>().user =
+                  UserAdapter.user(state.user!);
+              Navigator.pushReplacementNamed(
+                context,
+                AppRoutes.establishmentRoute,
+              );
+            } else {
+              Navigator.pushReplacementNamed(
+                context,
+                AppRoutes.homeRoute,
+              );
+            }
+          }
+        },
+        bloc: context.read<UserBloc>(),
+        builder: (context, state) {
+          return const Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                AppColors.darkBrown,
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

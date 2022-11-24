@@ -14,9 +14,10 @@ import 'package:provider/provider.dart';
 import 'components/rooms_list_widget.dart';
 
 class EstablishmentPage extends StatefulWidget {
+  const EstablishmentPage({super.key});
 
   @override
-  _EstablishmentPageState createState() => _EstablishmentPageState();
+  State<EstablishmentPage> createState() => _EstablishmentPageState();
 }
 
 class _EstablishmentPageState extends State<EstablishmentPage>
@@ -28,7 +29,10 @@ class _EstablishmentPageState extends State<EstablishmentPage>
   void initState() {
     super.initState();
     _scrollViewController = ScrollController(initialScrollOffset: 0.0);
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(
+      vsync: this,
+      length: 2,
+    );
 
     context.read<EstablishmentViewModel>().getUser();
     context.read<EstablishmentViewModel>().bloc.add(GetRoomsEvent());
@@ -47,41 +51,56 @@ class _EstablishmentPageState extends State<EstablishmentPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
-          controller: _scrollViewController,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                flexibleSpace: FlexibleSpaceBar(
-                    background: Stack(
+        controller: _scrollViewController,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              flexibleSpace: FlexibleSpaceBar(
+                background: Stack(
                   alignment: Alignment.centerLeft,
                   fit: StackFit.loose,
                   children: [
                     Column(
                       children: [
                         Padding(
-                            padding: EdgeInsets.only(top: 45, left: 60),
-                            child: Text("APP", style: AppFonts.appTitle)),
+                          padding: const EdgeInsets.only(
+                            top: 45,
+                            left: 60,
+                          ),
+                          child: Text(
+                            "APP",
+                            style: AppFonts.appTitle,
+                          ),
+                        ),
                       ],
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 50, top: 25),
+                          padding: const EdgeInsets.only(
+                            left: 50,
+                            top: 25,
+                          ),
                           child: IconButton(
                             onPressed: () {
-
                               Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  AppRoutes.editUserRoute,
-                                  ModalRoute.withName(
-                                      AppRoutes.establishmentRoute),
-                                  arguments: context.read<EstablishmentViewModel>().user);
+                                context,
+                                AppRoutes.editUserRoute,
+                                ModalRoute.withName(
+                                  AppRoutes.establishmentRoute,
+                                ),
+                                arguments:
+                                    context.read<EstablishmentViewModel>().user,
+                              );
                             },
                             iconSize: 45,
                             icon: ClipOval(
-                              child: Image.asset(AppImages.userAvatar,
-                                  width: 45, height: 45),
+                              child: Image.asset(
+                                AppImages.userAvatar,
+                                width: 45,
+                                height: 45,
+                              ),
                             ),
                           ),
                         ),
@@ -91,9 +110,18 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                            padding: EdgeInsets.only(top: 10, left: 115),
-                            child: Text(context.read<EstablishmentViewModel>().user.nickname,
-                                style: AppFonts.nicknameDisabled)),
+                          padding: const EdgeInsets.only(
+                            top: 10,
+                            left: 115,
+                          ),
+                          child: Text(
+                            context
+                                .read<EstablishmentViewModel>()
+                                .user
+                                .nickname,
+                            style: AppFonts.nicknameDisabled,
+                          ),
+                        ),
                       ],
                     ),
 
@@ -121,33 +149,44 @@ class _EstablishmentPageState extends State<EstablishmentPage>
                     //   ],
                     // )
                   ],
-                )),
-                bottom: TabBarSliverWidget(_tabController),
-                automaticallyImplyLeading: false,
-                backgroundColor: AppColors.darkBrown,
-                pinned: true,
-                snap: false,
-                floating: false,
-                expandedHeight: 133.0,
-                collapsedHeight: 33,
-                toolbarHeight: 33,
-              )
-            ];
-          },
-          body: TabBarView(controller: _tabController, children: <Widget>[
+                ),
+              ),
+              bottom: TabBarSliverWidget(
+                _tabController,
+              ),
+              automaticallyImplyLeading: false,
+              backgroundColor: AppColors.darkBrown,
+              pinned: true,
+              snap: false,
+              floating: false,
+              expandedHeight: 133.0,
+              collapsedHeight: 33,
+              toolbarHeight: 33,
+            )
+          ];
+        },
+        body: TabBarView(
+          controller: _tabController,
+          children: const <Widget>[
             RoomsListWidget(),
-            ParticipantsChatsWidget()
-          ])),
+            ParticipantsChatsWidget(),
+          ],
+        ),
+      ),
       // EstablishmentPageTwoWidget(this._roomViewModel, this._participantViewModel, this._bloc)])),
       floatingActionButton: SizedBox(
-          height: 30,
-          width: 160,
-          child: FloatingActionButton.extended(
-            onPressed: () {},
-            label: Text("visão em mapa", style: AppFonts.mapsButton),
-            backgroundColor: AppColors.lightBrown,
-            // icon: Icon(Icons.map, size: 15, color: Colors.white)
-          )),
+        height: 30,
+        width: 160,
+        child: FloatingActionButton.extended(
+          onPressed: () {},
+          label: Text(
+            "visão em mapa",
+            style: AppFonts.mapsButton,
+          ),
+          backgroundColor: AppColors.lightBrown,
+          // icon: Icon(Icons.map, size: 15, color: Colors.white)
+        ),
+      ),
     );
   }
 }

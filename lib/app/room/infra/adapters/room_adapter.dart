@@ -8,8 +8,8 @@ class RoomAdapter{
       isAcceptedLocation: false,
       id: json['id'],
       name: json['name'],
-      latitude: double.parse(json['latitude']),
-      longitude: double.parse(json['longitude']),
+      latitude: double.parse(json['latitude'],),
+      longitude: double.parse(json['longitude'],),
       distance: 0.0,
       participants: [
         if (json.containsKey('participants'))

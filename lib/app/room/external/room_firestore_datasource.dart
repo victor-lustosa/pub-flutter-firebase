@@ -12,11 +12,14 @@ class RoomFirestoreDatasource implements IRoomDatasource {
   RoomFirestoreDatasource({required this.firestore});
 
   List<Map> _convert(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
-    return docs.map((document) => {
-      'id': document.id,
-      ...document.data(),
-    }).toList();
+    return docs
+        .map((document) => {
+              'id': document.id,
+              ...document.data(),
+            })
+        .toList();
   }
+
   @override
   Stream<List<Map>> get() {
     final snapshot = firestore.collection('rooms').snapshots();
@@ -25,32 +28,55 @@ class RoomFirestoreDatasource implements IRoomDatasource {
 
   @override
   Future<void> add(RoomModel room, UserModel user) async {
-    firestore.collection("rooms")
-             .doc(room.id)
-             .update({'participants': FieldValue.arrayUnion([UserAdapter.toMap(user)])});
+    firestore.collection("rooms").doc(room.id).update(
+      {
+        'participants': FieldValue.arrayUnion(
+          [
+            UserAdapter.toMap(user),
+          ],
+        ),
+      },
+    );
   }
 
   @override
   Future<void> sendMessage(RoomModel room, MessageModel message) async {
-    firestore.collection("rooms")
-             .doc(room.id)
-             .update({'messages': FieldValue.arrayUnion([MessageAdapter.toMap(message)])});
+    firestore.collection("rooms").doc(room.id).update(
+      {
+        'messages': FieldValue.arrayUnion(
+          [
+            MessageAdapter.toMap(message),
+          ],
+        ),
+      },
+    );
   }
+
   @override
   Future<void> receiveMessage(RoomModel room, MessageModel message) async {
-    firestore.collection("rooms")
-             .doc(room.id)
-             .update({'messages': FieldValue.arrayUnion([MessageAdapter.toMap(message)])});
+    firestore.collection("rooms").doc(room.id).update(
+      {
+        'messages': FieldValue.arrayUnion(
+          [
+            MessageAdapter.toMap(message),
+          ],
+        ),
+      },
+    );
   }
 
 //TODO:Alterar o model de Room pra colocar uma variavel que vai ter o numero de participantes,
 // alterar metodos add para incrementar o valor do numero de participantes, pegar esse valor na tela
   @override
   Future<void> delete(RoomModel room, UserModel user) async {
-   firestore.collection("rooms")
-            .doc(room.id)
-       .update({'participants': FieldValue.arrayRemove([UserAdapter.toMap(user)])});
-
+    firestore.collection("rooms").doc(room.id).update(
+      {
+        'participants': FieldValue.arrayRemove(
+          [
+            UserAdapter.toMap(user),
+          ],
+        ),
+      },
+    );
   }
-
 }

@@ -7,11 +7,19 @@ import 'domain/use-cases/establishment_use_cases.dart';
 import 'infra/repositories/establishment_repository.dart';
 
 final establishmentModule = [
-  Provider<EstablishmentBloc>(create: (context) => EstablishmentBloc(roomUseCases:
-                                                    EstablishmentUseCases(repository:
-                                                      EstablishmentRepository(datasource:
-                                                        EstablishmentFirestoreDatasource(firestore:
-                                                          FirebaseFirestore.instance))))),
-
-  ChangeNotifierProvider<EstablishmentViewModel>(create: (context) => EstablishmentViewModel(bloc: context.read())),
+  Provider<EstablishmentBloc>(
+    create: (context) => EstablishmentBloc(
+      roomUseCases: EstablishmentUseCases(
+        repository: EstablishmentRepository(
+          datasource: EstablishmentFirestoreDatasource(
+              firestore: FirebaseFirestore.instance),
+        ),
+      ),
+    ),
+  ),
+  ChangeNotifierProvider<EstablishmentViewModel>(
+    create: (context) => EstablishmentViewModel(
+      bloc: context.read(),
+    ),
+  ),
 ];

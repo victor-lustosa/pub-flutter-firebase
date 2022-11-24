@@ -16,7 +16,7 @@ mixin ChatMixin {
     }
   }
   colorMessage(MessageEntity message, UserModel user){
-    var color;
+    Color color;
     if (message.type.name != 'notification_message' &&
         message.user.nickname != user.nickname) {
       color = AppColors.white;

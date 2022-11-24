@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/configs/app_colors.dart';
+
 // import '../../repositories/establishment_repository_dto.dart';
 // import '../../view-models/establishment_view_model.dart';
 
 class ParticipantsChatsWidget extends StatelessWidget {
-  ParticipantsChatsWidget();
+  const ParticipantsChatsWidget({super.key});
 
   // EstablishmentViewModel _establishmentViewModel = EstablishmentViewModel(DioEstablishmentRepository(Dio()));
   // late List<dynamic> _establishments;
@@ -14,16 +15,16 @@ class ParticipantsChatsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 0,
-      decoration: BoxDecoration(color: AppColors.darkBrown),
+      decoration: const BoxDecoration(color: AppColors.darkBrown),
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         alignment: Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.only(
-            topLeft: const Radius.circular(10.0),
-            topRight: const Radius.circular(10.0),
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
           ),
         ),
       ),

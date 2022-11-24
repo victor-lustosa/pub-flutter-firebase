@@ -7,11 +7,19 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final roomModule = [
-  Provider<RoomBloc>(create: (context) => RoomBloc(roomUseCases:
-                                                  RoomUseCases(repository:
-                                                    RoomRepository(datasource:
-                                                      RoomFirestoreDatasource(firestore:
-                                                        FirebaseFirestore.instance))))),
-
-  ChangeNotifierProvider<RoomViewModel>(create: (context) => RoomViewModel(bloc: context.read()))
+  Provider<RoomBloc>(
+    create: (context) => RoomBloc(
+      roomUseCases: RoomUseCases(
+        repository: RoomRepository(
+          datasource:
+              RoomFirestoreDatasource(firestore: FirebaseFirestore.instance),
+        ),
+      ),
+    ),
+  ),
+  ChangeNotifierProvider<RoomViewModel>(
+    create: (context) => RoomViewModel(
+      bloc: context.read(),
+    ),
+  ),
 ];

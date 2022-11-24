@@ -10,19 +10,32 @@ import 'dart:async';
 import 'app/app_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   Bloc.observer = MessageBlocObserver();
 
   FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
+    log(
+      details.exceptionAsString(),
+      stackTrace: details.stack,
+    );
   };
-  UserSharedDatasource<UserEntity> userSharedDatasource = UserSharedDatasource(shared: await SharedPreferences.getInstance());
-  runZonedGuarded(
-        () => runApp(AppWidget(userDatasource: userSharedDatasource)),
-        (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+  UserSharedDatasource<UserEntity> userSharedDatasource = UserSharedDatasource(
+    shared: await SharedPreferences.getInstance(),
   );
-
+  runZonedGuarded(
+    () => runApp(
+      AppWidget(
+        userDatasource: userSharedDatasource,
+      ),
+    ),
+    (error, stackTrace) => log(
+      error.toString(),
+      stackTrace: stackTrace,
+    ),
+  );
 }

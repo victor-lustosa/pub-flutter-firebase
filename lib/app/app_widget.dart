@@ -10,16 +10,19 @@ import 'package:provider/provider.dart';
 import 'user/user_module.dart';
 
 class AppWidget extends StatelessWidget {
-
-  const AppWidget({Key? key, required this.userDatasource}) : super(key: key);
+  const AppWidget({
+    Key? key,
+    required this.userDatasource,
+  }) : super(key: key);
   final UserSharedDatasource<UserEntity> userDatasource;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ...establishmentModule,
         ...roomModule,
-        ...Instance.userFlow(userDatasource)
+        ...Instance.userFlow(userDatasource),
       ],
       child: MaterialApp(
         builder: (context, Widget? child) {
@@ -32,7 +35,7 @@ class AppWidget extends StatelessWidget {
         onGenerateRoute: AppRoutes.onGenerateRoute,
         debugShowCheckedModeBanner: false,
         title: 'Pub',
-        home: SplashPage(),
+        home: const SplashPage(),
       ),
     );
   }

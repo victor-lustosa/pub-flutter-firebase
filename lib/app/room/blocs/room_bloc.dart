@@ -11,8 +11,8 @@ import '../domain/use-cases/room_use_cases.dart';
 import '../infra/models/message_model.dart';
 import '../infra/models/room_model.dart';
 
-
 part 'room_event.dart';
+
 part 'room_state.dart';
 
 class RoomBloc extends Bloc<RoomEvent, RoomState> {
@@ -26,30 +26,44 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     on<DisconnectEvent>(_disconnectEvent);
     on<ReceiveMessageEvent>(_receiveMessageEvent);
   }
+
   Future<void> _getRooms(_, emit) async {
     await emit.onEach<List<RoomEntity>>(roomUseCases.getRooms(),
         onData: (rooms) {
-          emit(SuccessfullyFetchedRoomsState(rooms: rooms));
-        });
+      emit(
+        SuccessfullyFetchedRoomsState(rooms: rooms),
+      );
+    });
   }
-  Future<void> _enterRoomEvent(EnterRoomEvent event, emit) async{
-    roomUseCases.enterRoom(event.room, event.user);
+
+  Future<void> _enterRoomEvent(EnterRoomEvent event, emit) async {
+    roomUseCases.enterRoom(
+      event.room,
+      event.user,
+    );
     emit(EnterRoomState());
   }
-  Future<void> _sendMessageEvent(SendMessageEvent event, emit) async{
-    roomUseCases.sendMessage(event.room, event.message);
+
+  Future<void> _sendMessageEvent(SendMessageEvent event, emit) async {
+    roomUseCases.sendMessage(
+      event.room,
+      event.message,
+    );
     emit(SendMessageState());
   }
-  Future<void> _leaveRoomEvent(LeaveRoomEvent event, emit) async{
-    roomUseCases.leaveRoom(event.room, event.user);
+
+  Future<void> _leaveRoomEvent(LeaveRoomEvent event, emit) async {
+    roomUseCases.leaveRoom(
+      event.room,
+      event.user,
+    );
     emit(LeaveRoomState());
   }
 
-  Future<void> _receiveMessageEvent(ReceiveMessageEvent event, emit) async{
+  Future<void> _receiveMessageEvent(ReceiveMessageEvent event, emit) async {}
 
-  }
-  Future<void> _disconnectEvent(DisconnectEvent event, emit) async{
-   /* _socket.emit('disconnect_user', {
+  Future<void> _disconnectEvent(DisconnectEvent event, emit) async {
+    /* _socket.emit('disconnect_user', {
       'roomName': this.roomViewModel.getRoom.getRoomName,
       'idRoom': this.roomViewModel.getRoom.getIdRoom,
       'userNickName': this.roomViewModel.getUser.getNickname
@@ -57,5 +71,3 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     _socket.disconnect();*/
   }
 }
-
-

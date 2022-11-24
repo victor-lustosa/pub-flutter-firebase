@@ -4,16 +4,6 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -53,6 +43,7 @@ class DefaultFirebaseOptions {
     projectId: 'consorcio-d9a72',
     storageBucket: 'consorcio-d9a72.appspot.com',
   );
+
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: "AIzaSyADsJbkxRooP9rqebicU3NJKGs_EewMBMc",
     authDomain: "consorcio-d9a72.firebaseapp.com",
