@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../room/blocs/room_bloc.dart';
-import '../../shared/components/id_util.dart';
-import '../../shared/components/location_util.dart';
+import '../../shared/utils/id_util.dart';
+import '../../shared/utils/location_util.dart';
 import '../../user/domain/entities/user_entity.dart';
 import '../../user/infra/models/user_model.dart';
 import '../blocs/bloc_events.dart';

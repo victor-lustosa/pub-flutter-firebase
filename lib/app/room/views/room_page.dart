@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../room/blocs/room_bloc.dart';
-import 'components/chat_page_widget.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_fonts.dart';
 import '../view-models/room_view_model.dart';
-import 'components/participants_list_widget.dart';
-import 'components/tab_bar_sliver_widget.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
+import '../../shared/mixins/chat_mixin.dart';
+import '../../participant/infra/models/dto/participant_dto.dart';
+import '../../shared/configs/app_images.dart';
+import '../../shared/configs/app_routes.dart';
 
 class RoomPage extends StatefulWidget {
   const RoomPage({super.key});
@@ -136,6 +138,316 @@ class _RoomPageState extends State<RoomPage>
             //     )),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TabBarSliverWidget extends PreferredSize {
+  final TabController tabController;
+
+  TabBarSliverWidget(this.tabController, {super.key})
+      : super(
+    preferredSize: const Size.fromHeight(0),
+    child: Padding(
+      padding: const EdgeInsets.all(5),
+      child: TabBar(
+        controller: tabController,
+        // isScrollable: true,
+        indicator: const BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(6),
+          ), // Creates border
+          color: AppColors.lightBrown,
+        ),
+        indicatorWeight: 0,
+        indicatorSize: TabBarIndicatorSize.label,
+        labelStyle: AppFonts.tabBarLabelStyle,
+        unselectedLabelStyle: AppFonts.tabBarLabelStyle,
+        indicatorColor: AppColors.darkBrown,
+        labelColor: AppColors.white,
+        unselectedLabelColor: Colors.grey,
+        tabs: const <Widget>[
+          SizedBox(
+            height: 18.0,
+            width: 120,
+            child: Tab(
+              text: "sala",
+            ),
+          ),
+          SizedBox(
+            height: 18.0,
+            width: 120,
+            child: Tab(
+              text: "participantes",
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+class ChatPageWidget extends StatefulWidget {
+  const ChatPageWidget({super.key});
+
+  @override
+  State<ChatPageWidget> createState() => _ChatPageWidgetState();
+}
+
+class _ChatPageWidgetState extends State<ChatPageWidget> with ChatMixin {
+  //String userSendMessage = '';
+  final double offset = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      const Duration(),
+          () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
+    );
+    /* LocationUtil.verifyLocation(context,
+        widget.bloc,
+        widget.mSub,
+        widget.instance.getRoom,
+        widget.instance.getUser);*/
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: const BoxDecoration(color: Colors.white),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        children: <Widget>[
+          BlocBuilder<RoomBloc, RoomState>(
+            bloc: context.read<RoomBloc>(),
+            builder: (context, state) {
+              if (state is InitialState) {
+                return Expanded(child: Container());
+              } else if (state is EnterRoomState) {
+                return Expanded(child: Container());
+              } else if (state is LeaveRoomState) {
+                return Expanded(child: Container());
+              } else {
+                if (state is SuccessfullyFetchedRoomsState) {
+                  context.read<RoomViewModel>().fetchLists(state.rooms);
+                }
+
+                return Expanded(
+                  child: ListView.builder(
+                    key: const PageStorageKey<String>('MessagesList'),
+                    controller:
+                    context.read<RoomViewModel>().scrollViewController,
+                    itemCount: context.read<RoomViewModel>().messages.length,
+                    itemBuilder: (context, index) {
+                      bool x = false;
+                      return Row(
+                        mainAxisAlignment: crossAlignment(
+                          context.read<RoomViewModel>().messages[index],
+                          context.read<RoomViewModel>().user,
+                        ),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Column(
+                              //TODO: essa linha posiciona o nome, entao precisa colocar CrossAxisAlignment.start pro
+                              //TODO: usuario esquerdo e CrossAxisAlignment.end pro direito
+                              //TODO: proximo passo: nao repetir o nome nas mensagens de mesmo usuario
+                              //TODO: deixar o tamanho do box dinamico com tanto de mensagem ate o limite de media * 0.8
+                              //TODO: talvez um boolean dentro da mensagem dizendo que o titulo é visivel ou nao seja uma alternativa
+                              //TODO: ou uma condicional na tela que verifica qual usuario ta sendo imprimido
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // if(x == true) ...[] condiciona somente um widget em particular
+                                Visibility(
+                                  visible: true,
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text(
+                                      context
+                                          .read<RoomViewModel>()
+                                          .messages[index]
+                                          .user
+                                          .nickname,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(14),
+                                  decoration: BoxDecoration(
+                                    color: colorMessage(
+                                      context
+                                          .read<RoomViewModel>()
+                                          .messages[index],
+                                      context.read<RoomViewModel>().user,
+                                    ),
+                                    border: Border.all(
+                                        color: const Color(0xffdcd9d9),
+                                        width: 1),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    context
+                                        .read<RoomViewModel>()
+                                        .messages[index]
+                                        .textMessage,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+          SafeArea(
+            top: false,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 4,
+                      right: 8,
+                    ),
+                    child: TextField(
+                      onEditingComplete: () {},
+                      focusNode: context.read<RoomViewModel>().focusNode,
+                      onSubmitted: (_) {
+                        context.read<RoomViewModel>().sendMessage();
+                      },
+                      controller: context.read<RoomViewModel>().textController,
+                      autofocus: true,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: context.read<RoomViewModel>().lineNumbers,
+                      style: AppFonts.boxMessage,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20, 6, 20, 6),
+                        hintText: "Digite uma mensagem...",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: SizedBox(
+                    height: 48.0,
+                    width: 48.0,
+                    child: FloatingActionButton(
+                      backgroundColor: AppColors.brown,
+                      mini: true,
+                      onPressed: () {
+                        context.read<RoomViewModel>().sendMessage();
+                        context.read<RoomViewModel>().scroll();
+                      },
+                      child: const Icon(
+                        Icons.near_me_outlined,
+                        size: 29,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ParticipantsListWidget extends StatelessWidget {
+  const ParticipantsListWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+      ),
+      child: AnimatedBuilder(
+        animation: context.read<RoomViewModel>(),
+        builder: (context, child) {
+          return ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: context.read<RoomViewModel>().participants.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 25,
+                    bottom: 10,
+                  ),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5.0),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.15),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                          offset:
+                          const Offset(1, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(
+                      AppImages.userAvatar,
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 10,
+                  ),
+                  child: Text(
+                    context
+                        .read<RoomViewModel>()
+                        .room
+                        .participants[index]
+                        .nickname,
+                    style: AppFonts.roomNickname,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.privateRoomRoute,
+                    arguments: ParticipantDTO(
+                      user: context
+                          .read<RoomViewModel>()
+                          .room
+                          .participants[index],
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }

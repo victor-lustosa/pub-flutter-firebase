@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shared/components/id_util.dart';
+import '../../shared/utils/id_util.dart';
 import '../../user/infra/models/user_model.dart';
 import 'package:geolocator/geolocator.dart';
 import '../blocs/user_bloc.dart';

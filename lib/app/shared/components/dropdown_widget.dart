@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../shared/configs/app_fonts.dart';
+import '../configs/app_fonts.dart';
 
 class DropdownWidget extends StatefulWidget {
   const DropdownWidget(this.list, this.callback, this.name, {super.key});

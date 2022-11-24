@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../room/domain/entities/message_entity.dart';
 import '../../room/infra/models/room_model.dart';
-import '../../shared/components/location_util.dart';
+import '../../shared/utils/location_util.dart';
 import '../../user/infra/models/user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../blocs/establishment_bloc.dart';

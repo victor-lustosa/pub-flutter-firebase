@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../shared/components/chat_mixin.dart';
+import '../../shared/mixins/chat_mixin.dart';
 import '../../shared/configs/app_colors.dart';
 import '../../shared/configs/app_fonts.dart';
 import '../../user/infra/models/user_model.dart';
