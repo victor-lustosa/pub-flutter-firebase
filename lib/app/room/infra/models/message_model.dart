@@ -1,9 +1,8 @@
 
-import 'package:pub/app/room/domain/entities/message_entity.dart';
-import 'package:pub/app/user/infra/adapters/user_adapter.dart';
+import '../../../room/domain/entities/message_entity.dart';
 
 import '../../../user/infra/models/user_model.dart';
-import '../../blocs/bloc_events.dart';
+import '../../presentation/blocs/bloc_events.dart';
 
 class MessageModel extends MessageEntity{
 

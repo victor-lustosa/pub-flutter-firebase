@@ -29,20 +29,26 @@ class RoomFunctionsDatasource implements IRoomDatasource {
   }
 
   @override
-  Future<void> receiveMessage(RoomModel room, MessageModel user) {
-    // TODO: implement receiveMessage
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> sendMessage(RoomModel room, MessageModel user) {
     // TODO: implement sendMessage
     throw UnimplementedError();
   }
 
   @override
-  Stream<List<Map>> get() {
+  Stream<List<Map>> getRooms() {
     // TODO: implement get
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<List<Map>> getMessages(RoomModel room) {
+    // TODO: implement getMessages
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<List<Map>> getParticipants(RoomModel room) {
+    // TODO: implement getParticipants
     throw UnimplementedError();
   }
 }

@@ -21,48 +21,45 @@ class RoomFirestoreDatasource implements IRoomDatasource {
   }
 
   @override
-  Stream<List<Map>> get() {
+  Stream<List<Map>> getRooms() {
     final snapshot = firestore.collection('rooms').snapshots();
     return snapshot.map((room) => room.docs).map(_convert);
   }
 
   @override
   Future<void> add(RoomModel room, UserModel user) async {
-    firestore.collection("rooms").doc(room.id).update(
-      {
-        'participants': FieldValue.arrayUnion(
-          [
-            UserAdapter.toMap(user),
-          ],
-        ),
-      },
-    );
+    firestore
+        .collection("rooms")
+        .doc(room.id)
+        .collection("participants")
+        .doc(user.idUser)
+        .set(
+          UserAdapter.toMap(user),
+        );
   }
 
   @override
   Future<void> sendMessage(RoomModel room, MessageModel message) async {
-    firestore.collection("rooms").doc(room.id).update(
-      {
-        'messages': FieldValue.arrayUnion(
-          [
-            MessageAdapter.toMap(message),
-          ],
-        ),
-      },
-    );
+    firestore
+        .collection("rooms")
+        .doc(room.id)
+        .collection("messages")
+        .doc(message.id)
+        .set(
+          MessageAdapter.toMap(message),
+        );
   }
 
   @override
-  Future<void> receiveMessage(RoomModel room, MessageModel message) async {
-    firestore.collection("rooms").doc(room.id).update(
-      {
-        'messages': FieldValue.arrayUnion(
-          [
-            MessageAdapter.toMap(message),
-          ],
-        ),
-      },
-    );
+  Stream<List<Map>> getMessages(RoomModel room) {
+    final snapshot = firestore.collection('rooms').doc(room.id).collection('messages').snapshots();
+    return snapshot.map((message) => message.docs).map(_convert);
+  }
+
+  @override
+  Stream<List<Map>> getParticipants(RoomModel room) {
+    final snapshot = firestore.collection('rooms').doc(room.id).collection('participants').snapshots();
+    return snapshot.map((message) => message.docs).map(_convert);
   }
 
 //TODO:Alterar o model de Room pra colocar uma variavel que vai ter o numero de participantes,

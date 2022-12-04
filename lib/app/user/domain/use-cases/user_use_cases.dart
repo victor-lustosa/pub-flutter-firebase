@@ -1,5 +1,5 @@
 
-import '../../../user/blocs/location_permission_enum.dart';
+import '../../../shared/utils/location_permission_enum.dart';
 import '../../../user/domain/repositories/user_repository.dart';
 import '../entities/user_entity.dart';
 

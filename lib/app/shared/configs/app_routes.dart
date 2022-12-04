@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../establishment/views/establishment_page.dart';
-import '../../home/views/home_page.dart';
-import '../../room/views/room_page.dart';
-import '../../user/views/user_register_page.dart';
+import '../../establishment/presentation/views/establishment_view.dart';
+import '../../home/views/home_view.dart';
+import '../../room/presentation/views/room_view.dart';
+import '../../user/presentation/views/user_register_view.dart';
 
 class AppRoutes {
   static const String initialRoute = "/";
@@ -19,25 +19,25 @@ class AppRoutes {
 
     switch (routeSettings.name) {
       case homeRoute:
-        return MaterialPageRoute(builder: (_) => const HomePage());
+        return MaterialPageRoute(builder: (_) => const HomeView());
 
       case initialRoute:
-        return MaterialPageRoute(builder: (_) => const HomePage());
+        return MaterialPageRoute(builder: (_) => const HomeView());
 
       case establishmentRoute:
-        return MaterialPageRoute(builder: (_) => const EstablishmentPage());
+        return MaterialPageRoute(builder: (_) => const EstablishmentView());
 
       case userRegisterRoute:
-        return MaterialPageRoute(builder: (_) => const UserRegisterPage());
+        return MaterialPageRoute(builder: (_) => const UserRegisterView());
 
       // case ENTERPRISE_REGISTER_ROUTE:
       //   return MaterialPageRoute(builder: (_) =>  EnterpriseRegisterPage());
 
       case editUserRoute:
-        return MaterialPageRoute(builder: (_) => const UserRegisterPage());
+        return MaterialPageRoute(builder: (_) => const UserRegisterView());
 
       case publicRoomRoute:
-        return MaterialPageRoute(builder: (_) => const RoomPage());
+        return MaterialPageRoute(builder: (_) => const RoomView());
 
       /* case privateRoomRoute:
         return MaterialPageRoute(builder: (_) => ParticipantPage(user: (arguments as ParticipantDTO).getUser));

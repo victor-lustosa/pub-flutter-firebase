@@ -1,5 +1,6 @@
-import 'view-models/establishment_view_model.dart';
-import 'blocs/establishment_bloc.dart';
+
+import '../establishment/presentation/view-models/establishment_view_model.dart';
+import '../establishment/presentation/blocs/establishment_bloc.dart';
 import 'external/establishment_firestore_datasource.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +13,8 @@ final establishmentModule = [
       roomUseCases: EstablishmentUseCases(
         repository: EstablishmentRepository(
           datasource: EstablishmentFirestoreDatasource(
-              firestore: FirebaseFirestore.instance),
+            firestore: FirebaseFirestore.instance,
+          ),
         ),
       ),
     ),

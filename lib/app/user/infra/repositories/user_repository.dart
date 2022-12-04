@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../../blocs/location_permission_enum.dart';
+import '../../../shared/utils/location_permission_enum.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/user_repository.dart';
 import '../adapters/user_adapter.dart';

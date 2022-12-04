@@ -1,5 +1,5 @@
 import '../../../user/infra/models/user_model.dart';
-import '../../blocs/bloc_events.dart';
+import '../../presentation/blocs/bloc_events.dart';
 
 class MessageEntity {
   final String id;

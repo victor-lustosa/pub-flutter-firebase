@@ -1,5 +1,5 @@
 import 'package:pub/app/user/infra/adapters/user_adapter.dart';
-import '../../blocs/bloc_events.dart';
+import '../../presentation/blocs/bloc_events.dart';
 import '../../domain/entities/message_entity.dart';
 import '../models/message_model.dart';
 

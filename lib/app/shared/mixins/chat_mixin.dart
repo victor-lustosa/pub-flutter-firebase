@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../room/domain/entities/message_entity.dart';
 import '../../user/infra/models/user_model.dart';
-import '../configs/app_colors.dart';
+import '../configs/app_configs.dart';
 
 mixin ChatMixin {
   MainAxisAlignment crossAlignment(MessageEntity message, UserModel user) {

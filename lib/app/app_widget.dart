@@ -5,7 +5,7 @@ import 'user/domain/entities/user_entity.dart';
 import 'user/external/datasources/user_shared_datasource.dart';
 import 'shared/configs/app_routes.dart';
 import 'shared/configs/no_glow_behavior.dart';
-import 'splash/views/splash_page.dart';
+import 'splash/views/splash_view.dart';
 import 'package:provider/provider.dart';
 import 'user/user_module.dart';
 
@@ -35,7 +35,7 @@ class AppWidget extends StatelessWidget {
         onGenerateRoute: AppRoutes.onGenerateRoute,
         debugShowCheckedModeBanner: false,
         title: 'Pub',
-        home: const SplashPage(),
+        home: const SplashView(),
       ),
     );
   }
