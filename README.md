@@ -12,8 +12,8 @@ Projeto utilizado para validação do caso de uso apresentado no meu TCC (Trabal
 
 ### Google Drive
 
-- [Documentação - Google Drive]([https://drive.google.com/drive/folders/14hMQTKQDkKlj2iBuQUMvcYcF_1K0i79o?usp=sharing](https://drive.google.com/drive/folders/1gmz3AnLhUG1_PIi13FssdWscBPrUZVgL?usp=sharing)
+- [Documentação - Google Drive](https://drive.google.com/drive/folders/1gmz3AnLhUG1_PIi13FssdWscBPrUZVgL?usp=sharing)
 
 ### Prototipação
 
-- [Prototipação do Projeto - Figma]([https://www.figma.com/file/ynwf4IxDmaymB1RfynJdow/IPB-app-0.0.4?t=fiow2g3IIoUpaiY1-0](https://www.figma.com/file/rPkutIqD1z7Q24i4FwAyav/pub-0.0.6?type=design&node-id=61194-135&t=3AqfUB7HipM1kn2C-0)
+- [Prototipação do Projeto - Figma](https://www.figma.com/file/rPkutIqD1z7Q24i4FwAyav/pub-0.0.6?type=design&node-id=61194-135&t=3AqfUB7HipM1kn2C-0)
